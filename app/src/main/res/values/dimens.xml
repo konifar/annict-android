@@ -1,0 +1,36 @@
+<resources>
+    <!-- space -->
+    <dimen name="spacing_xsmall">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+
+    <dimen name="spacing_xsmall_negative">-4dp</dimen>
+    <dimen name="spacing_small_negative">-8dp</dimen>
+    <dimen name="spacing_negative">-16dp</dimen>
+
+    <dimen name="icon_spacing">4dp</dimen>
+    <dimen name="line_spacing">2dp</dimen>
+
+
+    <!-- Text -->
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text">14sp</dimen>
+    <dimen name="text_large">16sp</dimen>
+    <dimen name="text_xlarge">20sp</dimen>
+    <dimen name="text_xxlarge">24sp</dimen>
+
+
+    <!-- Line -->
+    <dimen name="line_small">1dp</dimen>
+    <dimen name="line">2dp</dimen>
+
+
+    <!-- Elevation -->
+    <dimen name="elevation">4dp</dimen>
+
+    <!-- Component -->
+    <dimen name="image_thumb">80dp</dimen>
+
+</resources>
+
