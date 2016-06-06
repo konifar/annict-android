@@ -33,3 +33,6 @@ captures/
 
 # IntelliJ
 .idea/**
+
+# App
+api_keys.gradle

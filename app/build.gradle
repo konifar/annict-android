@@ -15,6 +15,22 @@ def versionPatch = 0
 def isCi = "true".equals(System.getenv("CI"))
 def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 
+// Api keys
+def annictApplicationId = System.getenv("ANNICT_APPLICATION_ID")
+def annictSecretKey = System.getenv("ANNICT_SECRET_KEY")
+def api_keys_gradle = './../api_keys.gradle'
+
+if (annictApplicationId == null || annictSecretKey == null) {
+    println "Env [ANNICT_APPLICATION_ID] & [ANNICT_SECRET_KEY] are not set to env variables."
+    if (file(api_keys_gradle).exists()) {
+        apply from: api_keys_gradle
+        annictApplicationId = annict_application_id
+        annictSecretKey = annict_secret_key
+    } else {
+        throw new GradleException("${api_keys_gradle} does not exist. Please run ./script/prepare.sh.")
+    }
+}
+
 def packageName = "com.konifar.annict"
 
 android {
@@ -41,6 +57,9 @@ android {
         DdmPreferences.setTimeOut(60000)
 
         vectorDrawables.useSupportLibrary = true
+
+        buildConfigField("String", "ANNICT_APPLICATION_ID", "\"${annictApplicationId}\"")
+        buildConfigField("String", "ANNICT_SECRET_KEY", "\"${annictSecretKey}\"")
     }
 
     packagingOptions {
