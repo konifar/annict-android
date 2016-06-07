@@ -5,6 +5,9 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="share">Share</string>
-
     <string name="photo">Photo</string>
+
+    <!-- Login -->
+    <string name="login">Login</string>
+
 </resources>

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name" translatable="false">Annict</string>
+    <string name="about_version_prefix" translatable="false">v</string>
 </resources>
