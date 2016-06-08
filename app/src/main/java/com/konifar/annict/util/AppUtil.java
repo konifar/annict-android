@@ -22,7 +22,7 @@ import com.konifar.annict.R;
 public class AppUtil {
 
     public static String getVersionName(Context context) {
-        return context.getString(R.string.about_version_prefix, BuildConfig.VERSION_NAME);
+        return "v" + BuildConfig.VERSION_NAME;
     }
 
     public static void linkify(Activity activity, TextView textView, String linkText, String url) {
