@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.konifar.annict.R;
 import com.konifar.annict.databinding.ActivityMainBinding;
-import com.konifar.annict.fragment.WorksFragment;
+import com.konifar.annict.fragment.LoginFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -22,7 +22,7 @@ public class MainActivity extends BaseActivity {
 
     private void initView() {
         setSupportActionBar(binding.toolbar);
-        replaceFragment(WorksFragment.newInstance(), R.id.content_view);
+        replaceFragment(LoginFragment.newInstance(), R.id.content_view);
     }
 
 }
