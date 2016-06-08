@@ -10,4 +10,12 @@
     <!-- Login -->
     <string name="login">Login</string>
 
+    <!-- Status -->
+    <string name="status_wanna_watch">見たい</string>
+    <string name="status_watching">見てる</string>
+    <string name="status_watched">見た</string>
+    <string name="status_on_hold">中断</string>
+    <string name="status_stop_watching">中止</string>
+    <string name="status_no_select">未選択</string>
+
 </resources>
