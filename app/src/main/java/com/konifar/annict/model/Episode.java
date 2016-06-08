@@ -1,0 +1,60 @@
+package com.konifar.annict.model;
+
+import com.github.gfx.android.orma.annotation.Column;
+import com.github.gfx.android.orma.annotation.PrimaryKey;
+import com.github.gfx.android.orma.annotation.Table;
+import com.google.gson.annotations.SerializedName;
+import com.google.repacked.antlr.v4.runtime.misc.Nullable;
+
+import org.parceler.Parcel;
+
+/**
+ * https://annict.wikihub.io/wiki/api/episodes
+ */
+@Parcel
+@Table
+public class Episode {
+
+    @PrimaryKey(auto = false)
+    @Column(indexed = true)
+    @SerializedName("id")
+    public long id;
+
+    @Nullable
+    @SerializedName("number")
+    public String number;
+
+    @SerializedName("number_text")
+    public String numberText;
+
+    @SerializedName("sort_number")
+    public int sortNumber;
+
+    @Column(indexed = true)
+    @SerializedName("title")
+    public String title;
+
+    @Column
+    @SerializedName("records_count")
+    public int recordsCount;
+
+    @Nullable
+    @Column(indexed = true)
+    @SerializedName("work")
+    public Work work;
+
+    @Nullable
+    @Column
+    @SerializedName("prev_episode")
+    public Episode prevEpisode;
+
+    @Nullable
+    @Column
+    @SerializedName("next_episode")
+    public Episode nextEpisode;
+
+    public Episode() {
+        //
+    }
+
+}
