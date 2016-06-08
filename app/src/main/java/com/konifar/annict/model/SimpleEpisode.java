@@ -13,7 +13,7 @@ import org.parceler.Parcel;
  */
 @Parcel
 @Table
-public class Episode {
+public class SimpleEpisode {
 
     @PrimaryKey(auto = false)
     @Column(indexed = true)
@@ -41,22 +41,7 @@ public class Episode {
     @SerializedName("records_count")
     public int recordsCount;
 
-    @Nullable
-    @Column(indexed = true)
-    @SerializedName("work")
-    public Work work;
-
-    @Nullable
-    @Column
-    @SerializedName("prev_episode")
-    public SimpleEpisode prevEpisode;
-
-    @Nullable
-    @Column
-    @SerializedName("next_episode")
-    public SimpleEpisode nextEpisode;
-
-    public Episode() {
+    public SimpleEpisode() {
         //
     }
 

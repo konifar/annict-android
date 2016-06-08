@@ -48,7 +48,7 @@ public class Record {
     @SerializedName("created_at")
     public Date createdAt;
 
-    @Column
+    @Column(indexed = true)
     @SerializedName("user")
     public User user;
 
