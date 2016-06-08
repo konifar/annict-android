@@ -21,12 +21,15 @@ public class Episode {
     public long id;
 
     @Nullable
+    @Column
     @SerializedName("number")
     public String number;
 
+    @Column
     @SerializedName("number_text")
     public String numberText;
 
+    @Column
     @SerializedName("sort_number")
     public int sortNumber;
 

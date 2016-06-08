@@ -9,6 +9,9 @@ import org.parceler.Parcel;
 
 import java.util.Date;
 
+/**
+ * https://annict.wikihub.io/wiki/api/records
+ */
 @Parcel
 @Table
 public class User {
