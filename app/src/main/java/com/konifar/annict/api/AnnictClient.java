@@ -1,10 +1,14 @@
 package com.konifar.annict.api;
 
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.konifar.annict.BuildConfig;
+import com.konifar.annict.model.Programs;
+import com.konifar.annict.model.Token;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,6 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -50,25 +55,66 @@ public class AnnictClient {
         return uri.toString();
     }
 
+    public Observable<Token> postOauthToken(@NonNull String authCode) {
+        return service.postOauthToken(BuildConfig.ANNICT_APPLICATION_ID,
+                BuildConfig.ANNICT_SECRET_KEY,
+                "authorization_code",
+                OAUTH_REDIRECT_URI,
+                authCode);
+    }
+
+    public Observable<Programs> getMePrograms(int page) {
+        return service.getMeProgarms(null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                page,
+                50,
+                null,
+                Sort.DESC.toString());
+    }
+
+    private enum Sort {
+        ASC, DESC;
+
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
+    }
+
     public interface AnnictService {
 
-        @GET("/oauth/authorize")
-        Observable<Object> getOauthAuthorize(@Query("client_id") String clientId,
-                                             @Query("response_type") String responseType,
-                                             @Query("redirect_uri") String redirectUri,
-                                             @Query("scope") String scope);
+        /**
+         * https://annict.wikihub.io/wiki/api/authentication
+         */
+        @POST("/oauth/token")
+        Observable<Token> postOauthToken(@Query("client_id") String clientId,
+                                         @Query("client_secret") String clientSecret,
+                                         @Query("grant_type") String grantType,
+                                         @Query("redirect_uri") String scope,
+                                         @Query("code") String code);
 
-//        @GET(SESSIONS_API_ROUTES + "sessions_ja.json")
-//        Observable<List<Session>> getSessionsJa();
-//
-//        @GET(SESSIONS_API_ROUTES + "sessions_en.json")
-//        Observable<List<Session>> getSessionsEn();
-//
-//        @GET(SESSIONS_API_ROUTES + "sessions_ko.json")
-//        Observable<List<Session>> getSessionsKo();
-//
-//        @GET(SESSIONS_API_ROUTES + "sessions_ar.json")
-//        Observable<List<Session>> getSessionsAr();
+        /**
+         * https://annict.wikihub.io/wiki/api/me-programs
+         */
+        @GET("/v1/me/programs")
+        Observable<Programs> getMeProgarms(@Query("fields") @Nullable String fields,
+                                           @Query("filter_ids") @Nullable String filterIds,
+                                           @Query("filter_channel_ids") @Nullable String filterChannelIds,
+                                           @Query("filter_work_ids") @Nullable String filterWorkIds,
+                                           @Query("filter_started_at_gt") @Nullable String filterStartedAtGt,
+                                           @Query("filter_started_at_lt") @Nullable String filterStartedAtLt,
+                                           @Query("filter_unwatched") @Nullable Boolean filterUnwatched,
+                                           @Query("filter_rebroadcast") @Nullable Boolean filterRebroadcast,
+                                           @Query("page") int page,
+                                           @Query("per_page") int perPage,
+                                           @Query("sort_id") @Nullable String sortId,
+                                           @Query("sort_started_at") @Nullable String sortStartedAt);
 
     }
 

@@ -3,7 +3,6 @@ package com.konifar.annict.di;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
 
 import com.konifar.annict.api.RequestInterceptor;
 
@@ -36,11 +35,6 @@ public class AppModule {
         return context;
     }
 
-    @Provides
-    public ConnectivityManager provideConnectivityManager(Context context) {
-        return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-    }
-
     @Singleton
     @Provides
     public OkHttpClient provideHttpClient(Context context, Interceptor interceptor) {
@@ -55,8 +49,8 @@ public class AppModule {
     }
 
     @Provides
-    public Interceptor provideRequestInterceptor(ConnectivityManager connectivityManager) {
-        return new RequestInterceptor(connectivityManager);
+    public Interceptor provideRequestInterceptor(Context context) {
+        return new RequestInterceptor(context);
     }
 
     @Provides

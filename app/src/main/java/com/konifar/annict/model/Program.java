@@ -31,15 +31,15 @@ public class Program {
 
     @Column(indexed = true)
     @SerializedName("channel")
-    public boolean channel;
+    public Channel channel;
 
     @Column(indexed = true)
     @SerializedName("work")
-    public boolean work;
+    public Work work;
 
     @Column(indexed = true)
     @SerializedName("episode")
-    public boolean episode;
+    public Episode episode;
 
     public Program() {
         //
