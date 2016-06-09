@@ -31,6 +31,7 @@
 
     <!-- Component -->
     <dimen name="image_thumb">80dp</dimen>
+    <dimen name="image_logo_large">100dp</dimen>
 
 </resources>
 
