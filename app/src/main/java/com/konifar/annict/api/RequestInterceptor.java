@@ -1,7 +1,11 @@
 package com.konifar.annict.api;
 
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.TextUtils;
+
+import com.konifar.annict.prefs.DefaultPrefs;
 
 import java.io.IOException;
 
@@ -16,15 +20,25 @@ import okhttp3.Response;
 public class RequestInterceptor implements Interceptor {
 
     final ConnectivityManager connectivityManager;
+    final Context context;
 
     @Inject
-    public RequestInterceptor(ConnectivityManager connectivityManager) {
-        this.connectivityManager = connectivityManager;
+    public RequestInterceptor(Context context) {
+        this.context = context;
+        this.connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request.Builder r = chain.request().newBuilder();
+
+        // https://annict.wikihub.io/wiki/api/overview
+        String authToken = DefaultPrefs.get(context).getAccessToken();
+        if (!TextUtils.isEmpty(authToken)) {
+            r.addHeader("Authorization", "Bearer " + authToken);
+        }
+
         if (isConnected()) {
             int maxAge = 2 * 60;
             r.addHeader("cache-control", "public, max-age=" + maxAge);

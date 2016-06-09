@@ -1,14 +1,16 @@
 <resources>
     <!-- Commons -->
-    <string name="open">Open</string>
-    <string name="close">Close</string>
+    <string name="open">ひらく</string>
+    <string name="close">とじる</string>
     <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="share">Share</string>
-    <string name="photo">Photo</string>
+    <string name="cancel">キャンセル</string>
+    <string name="share">シェア</string>
+    <string name="photo">画像</string>
+    <string name="logo">ロゴ</string>
 
     <!-- Login -->
-    <string name="login">Login</string>
+    <string name="login">ログイン</string>
+    <string name="login_welcome">Annictへようこそ。</string>
 
     <!-- Status -->
     <string name="status_wanna_watch">見たい</string>

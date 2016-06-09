@@ -1,21 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.konifar.fragment.WorksFragment">
+    tools:context="com.konifar.fragment.LoginFragment">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/theme500"
         android:padding="@dimen/spacing">
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:padding="@dimen/spacing"
-            android:text="@string/login" />
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="@dimen/image_logo_large"
+                android:layout_height="@dimen/image_logo_large"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/logo"
+                app:srcCompat="@drawable/avd_logo" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_large" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/login_welcome"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_xxlarge" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_large" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing"
+                android:text="@string/login"
+                android:textColor="@color/grey600"
+                android:textSize="@dimen/text_xlarge"
+                app:backgroundTint="@color/white" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </layout>
