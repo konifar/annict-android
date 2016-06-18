@@ -1,10 +1,11 @@
 package com.konifar.annict.model;
 
+import android.support.annotation.Nullable;
+
 import com.github.gfx.android.orma.annotation.Column;
 import com.github.gfx.android.orma.annotation.PrimaryKey;
 import com.github.gfx.android.orma.annotation.Table;
 import com.google.gson.annotations.SerializedName;
-import com.google.repacked.antlr.v4.runtime.misc.Nullable;
 
 import org.parceler.Parcel;
 
