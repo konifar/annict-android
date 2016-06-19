@@ -10,6 +10,7 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.TypedValue;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.konifar.annict.BuildConfig;
 import com.konifar.annict.R;
+import com.konifar.annict.prefs.DefaultPrefs;
 
 public class AppUtil {
 
@@ -65,6 +67,10 @@ public class AppUtil {
         TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorPrimary, value, true);
         return value.data;
+    }
+
+    public static boolean hasAccessToken(Context context) {
+        return !TextUtils.isEmpty(DefaultPrefs.get(context).getAccessToken());
     }
 
 }

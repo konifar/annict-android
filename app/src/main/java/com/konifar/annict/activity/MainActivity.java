@@ -9,6 +9,7 @@ import com.konifar.annict.R;
 import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.databinding.ActivityMainBinding;
 import com.konifar.annict.fragment.MyProgramsFragment;
+import com.konifar.annict.util.AppUtil;
 
 import javax.inject.Inject;
 
@@ -29,13 +30,21 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(binding.toolbar);
         getComponent().inject(this);
 
-        // After authentication, intent has uri data including auth code.
-        String authCode = extractAuthCode();
-        if (TextUtils.isEmpty(authCode)) {
-            startActivity(LoginActivity.createIntent(this));
-            finish();
+        showData();
+    }
+
+    private void showData() {
+        if (AppUtil.hasAccessToken(this)) {
+            replaceFragment(MyProgramsFragment.newInstance(), R.id.content_view);
         } else {
-            replaceFragment(MyProgramsFragment.newInstance(authCode), R.id.content_view);
+            // After authentication, intent has uri data including auth code.
+            String authCode = extractAuthCode();
+            if (TextUtils.isEmpty(authCode)) {
+                startActivity(LoginActivity.createIntent(this));
+                finish();
+            } else {
+                replaceFragment(MyProgramsFragment.newInstance(authCode), R.id.content_view);
+            }
         }
     }
 
