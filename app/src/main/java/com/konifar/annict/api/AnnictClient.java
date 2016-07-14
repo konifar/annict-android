@@ -45,7 +45,7 @@ public class AnnictClient {
         return new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
     }
 
-    public String getOAuthUrl() {
+    public static String getOAuthUrl() {
         Uri uri = Uri.parse(BASE_URI + "/oauth/authorize")
                 .buildUpon()
                 .appendQueryParameter("client_id", BuildConfig.ANNICT_APPLICATION_ID)

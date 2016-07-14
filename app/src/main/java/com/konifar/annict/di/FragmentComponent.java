@@ -1,8 +1,8 @@
 package com.konifar.annict.di;
 
 import com.konifar.annict.di.scope.FragmentScope;
-import com.konifar.annict.fragment.LoginFragment;
-import com.konifar.annict.fragment.MyProgramsFragment;
+import com.konifar.annict.view.fragment.LoginFragment;
+import com.konifar.annict.view.fragment.MyProgramsFragment;
 
 import dagger.Subcomponent;
 

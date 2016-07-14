@@ -171,6 +171,7 @@ dependencies {
 
     // Test
     testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:robolectric:3.1.1"
     testCompile('com.squareup.assertj:assertj-android:1.1.1') {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
@@ -190,4 +191,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.1') {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
+    testCompile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.12'
 }

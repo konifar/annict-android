@@ -1,4 +1,4 @@
-package com.konifar.annict.prefs;
+package com.konifar.annict.pref;
 
 import com.rejasupotaro.android.kvs.annotations.Key;
 import com.rejasupotaro.android.kvs.annotations.Table;

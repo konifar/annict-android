@@ -26,5 +26,4 @@ public class MainApplication extends Application {
 
         new StethoWrapper(this).setup();
     }
-
 }

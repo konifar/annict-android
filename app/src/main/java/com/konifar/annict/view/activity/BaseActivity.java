@@ -1,4 +1,4 @@
-package com.konifar.annict.activity;
+package com.konifar.annict.view.activity;
 
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;

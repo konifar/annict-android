@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.konifar.annict.R;
 import com.squareup.picasso.Picasso;
 
-public class DataBindingAttributeUtil {
+public class DataBindingHelper {
 
     public static void setImageUrlWithSize(ImageView imageView, @Nullable String imageUrl,
                                            float sizeInDimen, @DrawableRes int placeholderResId) {
