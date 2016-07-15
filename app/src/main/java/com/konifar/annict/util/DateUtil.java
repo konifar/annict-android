@@ -3,6 +3,7 @@ package com.konifar.annict.util;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
@@ -40,7 +41,9 @@ public class DateUtil {
     }
 
     @NonNull
-    public static String getLongFormatDate(Date date) {
+    public static String getLongFormatDate(@Nullable Date date) {
+        if (date == null) return "";
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_YYYYMMDDKKMM);
             return new SimpleDateFormat(pattern, Locale.getDefault()).format(date);

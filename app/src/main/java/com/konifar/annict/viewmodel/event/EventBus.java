@@ -5,7 +5,7 @@ import rx.subjects.PublishSubject;
 import rx.subjects.SerializedSubject;
 import rx.subjects.Subject;
 
-public final class EventBus {
+public class EventBus {
 
     private final Subject<Object, Object> bus = new SerializedSubject<>(PublishSubject.create());
 

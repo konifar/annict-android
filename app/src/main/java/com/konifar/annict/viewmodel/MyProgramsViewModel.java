@@ -33,8 +33,8 @@ public class MyProgramsViewModel implements ViewModel {
     private final EventBus eventBus;
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
 
-    public ObservableInt progressBarVisibility;
-    public ObservableInt recyclerViewVisibility;
+    public ObservableInt progressBarVisibility = new ObservableInt(View.GONE);
+    public ObservableInt recyclerViewVisibility = new ObservableInt(View.GONE);
 
     @Inject
     public MyProgramsViewModel(Context context,
@@ -43,9 +43,6 @@ public class MyProgramsViewModel implements ViewModel {
         this.context = context;
         this.client = client;
         this.eventBus = eventBus;
-
-        progressBarVisibility = new ObservableInt(View.GONE);
-        recyclerViewVisibility = new ObservableInt(View.GONE);
     }
 
     public void showPrograms(@Nullable String accessToken, @NonNull String authCode) {
@@ -65,7 +62,10 @@ public class MyProgramsViewModel implements ViewModel {
                             recyclerViewVisibility.set(View.VISIBLE);
                             eventBus.post(new MyProgramsLoadedEvent(programViewModels));
                         },
-                        throwable -> Log.e(TAG, "load auth token error occurred.", throwable)
+                        throwable -> {
+                            progressBarVisibility.set(View.GONE);
+                            Log.e(TAG, "load auth token error occurred.", throwable);
+                        }
                 );
 
         compositeSubscription.add(sub);

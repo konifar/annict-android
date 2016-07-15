@@ -1,5 +1,7 @@
 package com.konifar.annict.viewmodel;
 
+import android.support.annotation.NonNull;
+
 import com.konifar.annict.model.Program;
 import com.konifar.annict.util.DateUtil;
 
@@ -15,11 +17,11 @@ public class MyProgramItemViewModel implements ViewModel {
 
     public String channel;
 
-    public MyProgramItemViewModel(Program program) {
-        this.workTitle = program.work.title;
-        this.episodeTitle = program.episode.title;
-        this.displayDate = DateUtil.getLongFormatDate(program.startedAt);
-        this.channel = program.channel.name;
+    public MyProgramItemViewModel(@NonNull Program program) {
+        if (program.work != null) workTitle = program.work.title;
+        if (program.episode != null) episodeTitle = program.episode.title;
+        if (program.channel != null) channel = program.channel.name;
+        displayDate = DateUtil.getLongFormatDate(program.startedAt);
     }
 
     @Override
