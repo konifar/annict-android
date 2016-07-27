@@ -5,6 +5,7 @@ import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.util.PageNavigator;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -28,6 +29,7 @@ public class LoginViewModelTest {
         loginViewModel = new LoginViewModel(navigator);
     }
 
+    @Test
     public void testOnClickLoginButton() {
         loginViewModel.onClickLoginButton(null);
         verify(navigator, times(1)).startCustomTab(AnnictClient.getOAuthUrl());
