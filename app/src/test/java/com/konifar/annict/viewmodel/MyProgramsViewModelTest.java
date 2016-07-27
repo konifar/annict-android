@@ -83,7 +83,7 @@ public class MyProgramsViewModelTest {
         when(annictClient.getMePrograms(1)).thenReturn(Observable.just(programs));
 
         viewModel.showPrograms("abcdefghij", "abcdefghij");
-        verify(eventBus, never()).post(any(MyProgramsLoadedEvent.class));
+        verify(eventBus, times(1)).post(any(MyProgramsLoadedEvent.class));
         assertEquals(View.GONE, viewModel.progressBarVisibility.get());
     }
 
