@@ -1,4 +1,4 @@
-package com.konifar.annict.widget;
+package com.konifar.annict.view.widget;
 
 import android.support.annotation.NonNull;
 import android.view.View;

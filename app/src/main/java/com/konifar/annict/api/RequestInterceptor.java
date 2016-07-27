@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
-import com.konifar.annict.prefs.DefaultPrefs;
+import com.konifar.annict.pref.DefaultPrefs;
 
 import java.io.IOException;
 

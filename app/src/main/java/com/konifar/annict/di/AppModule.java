@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.konifar.annict.api.RequestInterceptor;
+import com.konifar.annict.viewmodel.event.EventBus;
 
 import java.io.File;
 
@@ -61,6 +62,12 @@ public class AppModule {
     @Provides
     public CompositeSubscription provideCompositeSubscription() {
         return new CompositeSubscription();
+    }
+
+    @Singleton
+    @Provides
+    public EventBus provideEventBus() {
+        return new EventBus();
     }
 
 }

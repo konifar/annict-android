@@ -19,15 +19,18 @@ import android.widget.TextView;
 
 import com.konifar.annict.BuildConfig;
 import com.konifar.annict.R;
-import com.konifar.annict.prefs.DefaultPrefs;
+import com.konifar.annict.pref.DefaultPrefs;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class AppUtil {
 
     public static String getVersionName(Context context) {
         return "v" + BuildConfig.VERSION_NAME;
     }
 
-    public static void linkify(Activity activity, TextView textView, String linkText, String url) {
+    public void linkify(Activity activity, TextView textView, String linkText, String url) {
         String text = textView.getText().toString();
 
         SpannableStringBuilder builder = new SpannableStringBuilder();
@@ -48,7 +51,7 @@ public class AppUtil {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    public static void showWebPage(Activity activity, @NonNull String url) {
+    public void showWebPage(Activity activity, @NonNull String url) {
         CustomTabsIntent intent = new CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.theme500))

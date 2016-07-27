@@ -1,8 +1,8 @@
 package com.konifar.annict.di;
 
-import com.konifar.annict.activity.LoginActivity;
-import com.konifar.annict.activity.MainActivity;
 import com.konifar.annict.di.scope.ActivityScope;
+import com.konifar.annict.view.activity.LoginActivity;
+import com.konifar.annict.view.activity.MainActivity;
 
 import dagger.Subcomponent;
 

@@ -1,4 +1,4 @@
-package com.konifar.annict.fragment;
+package com.konifar.annict.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,19 +9,17 @@ import android.view.ViewGroup;
 
 import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.databinding.FragmentLoginBinding;
-import com.konifar.annict.util.AppUtil;
+import com.konifar.annict.viewmodel.LoginViewModel;
 
 import javax.inject.Inject;
 
 
 public class LoginFragment extends BaseFragment {
 
-    private static final String TAG = LoginFragment.class.getSimpleName();
-
     @Inject
     AnnictClient client;
-
-    private FragmentLoginBinding binding;
+    @Inject
+    LoginViewModel viewModel;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -38,16 +36,14 @@ public class LoginFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentLoginBinding.inflate(inflater, container, false);
-
-        initView();
-
+        FragmentLoginBinding binding = FragmentLoginBinding.inflate(inflater, container, false);
+        binding.setViewModel(viewModel);
         return binding.getRoot();
     }
 
-    private void initView() {
-        binding.btnLogin.setOnClickListener(v ->
-                AppUtil.showWebPage(getActivity(), client.getOAuthUrl()));
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewModel.destroy();
     }
-
 }

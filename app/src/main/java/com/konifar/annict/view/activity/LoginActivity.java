@@ -1,4 +1,4 @@
-package com.konifar.annict.activity;
+package com.konifar.annict.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.konifar.annict.R;
 import com.konifar.annict.databinding.ActivityLoginBinding;
-import com.konifar.annict.fragment.LoginFragment;
+import com.konifar.annict.view.fragment.LoginFragment;
 
 public class LoginActivity extends BaseActivity {
 

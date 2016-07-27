@@ -1,4 +1,4 @@
-package com.konifar.annict.widget.itemdecoration;
+package com.konifar.annict.view.widget.itemdecoration;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
