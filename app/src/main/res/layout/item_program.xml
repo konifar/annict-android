@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -22,7 +23,9 @@
             android:layout_marginEnd="@dimen/spacing"
             android:layout_marginRight="@dimen/spacing"
             android:background="@color/grey200"
-            android:contentDescription="@string/photo" />
+            android:contentDescription="@string/photo"
+            app:photoImageSize="@{@dimen/image_thumb}"
+            app:photoImageUrl="@{viewModel.thumbUrl}" />
 
         <TextView
             android:id="@+id/txt_work"

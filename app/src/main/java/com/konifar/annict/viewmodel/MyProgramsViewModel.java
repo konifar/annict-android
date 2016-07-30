@@ -16,6 +16,8 @@ import com.konifar.annict.pref.DefaultPrefs;
 import com.konifar.annict.viewmodel.event.EventBus;
 import com.konifar.annict.viewmodel.event.MyProgramsLoadedEvent;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import rx.Observable;
@@ -33,6 +35,8 @@ public class MyProgramsViewModel implements ViewModel {
     private final EventBus eventBus;
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
 
+    private int currentPage = 1;
+
     public ObservableInt progressBarVisibility = new ObservableInt(View.GONE);
     public ObservableInt recyclerViewVisibility = new ObservableInt(View.GONE);
 
@@ -43,6 +47,17 @@ public class MyProgramsViewModel implements ViewModel {
         this.context = context;
         this.client = client;
         this.eventBus = eventBus;
+    }
+
+    public Observable<List<MyProgramItemViewModel>> getNextProgramsObservable() {
+        return client.getMePrograms(currentPage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(programs ->
+                        Stream.of(programs.list)
+                                .map(MyProgramItemViewModel::new)
+                                .collect(Collectors.toList())
+                );
     }
 
     public void showPrograms(@Nullable String accessToken, @NonNull String authCode) {

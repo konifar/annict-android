@@ -18,7 +18,13 @@ public class MyProgramItemViewModel implements ViewModel {
     public String channel;
 
     public MyProgramItemViewModel(@NonNull Program program) {
-        if (program.work != null) workTitle = program.work.title;
+        if (program.work != null) {
+            workTitle = program.work.title;
+            if (program.work.twitterUserName != null) {
+                // http://furyu.hatenablog.com/entry/20130730/1375178609
+                thumbUrl = "http://furyu.nazo.cc/twicon/" + program.work.twitterUserName + "/bigger";
+            }
+        }
         if (program.episode != null) episodeTitle = program.episode.title;
         if (program.channel != null) channel = program.channel.name;
         displayDate = DateUtil.getLongFormatDate(program.startedAt);

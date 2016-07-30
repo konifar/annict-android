@@ -14,8 +14,9 @@ import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.databinding.FragmentMyProgramsBinding;
 import com.konifar.annict.databinding.ItemProgramBinding;
 import com.konifar.annict.pref.DefaultPrefs;
-import com.konifar.annict.view.widget.ArrayRecyclerAdapter;
 import com.konifar.annict.view.widget.BindingHolder;
+import com.konifar.annict.view.widget.LoadingFooterArrayRecyclerAdapter;
+import com.konifar.annict.view.widget.RxRecyclerViewScrollSubject;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
 import com.konifar.annict.viewmodel.MyProgramItemViewModel;
 import com.konifar.annict.viewmodel.MyProgramsViewModel;
@@ -103,29 +104,49 @@ public class MyProgramsFragment extends BaseFragment {
     }
 
     private void initRecyclerView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         adapter = new MyProgramsAdapter(getContext());
 
         binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+
+        RxRecyclerViewScrollSubject subject = new RxRecyclerViewScrollSubject();
+        Subscription ScrollEventSub = subject.subscribeScrollEvent(binding.recyclerView, linearLayoutManager);
+        compositeSubscription.add(ScrollEventSub);
+
+//        subject.observable()
+//                .flatMap(recyclerViewScrollEvent -> viewModel.getNextProgramsObservable())
+//                .doOnSubscribe(() -> adapter.showFooterVisibility())
+//                .doOnCompleted(() -> adapter.hideFooterVisibility())
+//                .doOnError((throwable) -> adapter.hideFooterVisibility())
+//                .subscribe(
+//                        programViewModels -> adapter.addAll(programViewModels),
+//                        throwable -> {
+//                            adapter.hideFooterVisibility();
+//                        }
+//                );
+//
+//        .subscribe(eventBus -> {
+//            adapter.toggleFooterVisibility();
+//        });
     }
 
-    protected class MyProgramsAdapter extends ArrayRecyclerAdapter<MyProgramItemViewModel, BindingHolder<ItemProgramBinding>> {
+    public class MyProgramsAdapter extends LoadingFooterArrayRecyclerAdapter<MyProgramItemViewModel, BindingHolder<ItemProgramBinding>> {
 
         public MyProgramsAdapter(@NonNull Context context) {
             super(context);
         }
 
         @Override
-        public BindingHolder<ItemProgramBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
+        protected BindingHolder<ItemProgramBinding> onCreateContentItemViewHolder(ViewGroup parent, int contentViewType) {
             return new BindingHolder<>(getContext(), parent, R.layout.item_program);
         }
 
         @Override
-        public void onBindViewHolder(BindingHolder<ItemProgramBinding> holder, int position) {
+        protected void onBindContentItemViewHolder(BindingHolder<ItemProgramBinding> contentViewHolder, int position) {
             MyProgramItemViewModel viewModel = getItem(position);
-            ItemProgramBinding binding = holder.binding;
-            binding.setViewModel(viewModel);
+            contentViewHolder.binding.setViewModel(viewModel);
         }
     }
 
