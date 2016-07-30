@@ -72,7 +72,7 @@ public class MyProgramsViewModel implements ViewModel {
                 })
                 .map(programs ->
                         Stream.of(programs.list)
-                                .map(program -> new MyProgramItemViewModel(program, pageNavigator))
+                                .map(program -> new MyProgramItemViewModel(context, program, pageNavigator))
                                 .collect(Collectors.toList())
                 ).subscribe(
                         programViewModels -> {
@@ -106,7 +106,7 @@ public class MyProgramsViewModel implements ViewModel {
                 })
                 .map(programs ->
                         Stream.of(programs.list)
-                                .map(program -> new MyProgramItemViewModel(program, pageNavigator))
+                                .map(program -> new MyProgramItemViewModel(context, program, pageNavigator))
                                 .collect(Collectors.toList())
                 )
                 .subscribe(

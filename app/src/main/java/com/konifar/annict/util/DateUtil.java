@@ -19,6 +19,8 @@ public class DateUtil {
     private static final String FORMAT_KKMM = "kk:mm";
     private static final String FORMAT_YYYYMMDDKKMM = "yyyyMMMdkkmm";
 
+    private static final String FORMAT_PROGRAM_START_DATE = "MM/dd(E) kk:mm";
+
     @NonNull
     public static String getMonthDate(Date date, Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
@@ -56,6 +58,10 @@ public class DateUtil {
         }
     }
 
+    @NonNull
+    public static String getProgramStartDate(@Nullable Date date) {
+        return DateFormat.format(FORMAT_PROGRAM_START_DATE, date).toString();
+    }
 
     public static int getMinutes(Date stime, Date etime) {
         long range = etime.getTime() - stime.getTime();
