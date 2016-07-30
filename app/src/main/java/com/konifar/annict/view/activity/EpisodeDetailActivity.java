@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.konifar.annict.R;
-import com.konifar.annict.databinding.ActivityProgramDetailBinding;
+import com.konifar.annict.databinding.ActivityEpisodeDetailBinding;
 import com.konifar.annict.model.Program;
 import com.konifar.annict.viewmodel.EpisodeDetailViewModel;
 
@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 public class EpisodeDetailActivity extends BaseActivity {
 
-    private ActivityProgramDetailBinding binding;
+    private ActivityEpisodeDetailBinding binding;
 
     @Inject
     EpisodeDetailViewModel viewModel;

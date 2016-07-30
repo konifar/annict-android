@@ -14,6 +14,8 @@ import org.parceler.Parcel;
 @Table
 public class Work {
 
+    public static final String TAG = Work.class.getSimpleName();
+
     @PrimaryKey(auto = false)
     @Column(indexed = true)
     @SerializedName("id")

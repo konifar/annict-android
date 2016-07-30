@@ -56,6 +56,16 @@
             app:photoImageSize="@{@dimen/image_thumb}"
             app:photoImageUrl="@{viewModel.thumbUrl}" />
 
+        <View
+            style="@style/ClickCover"
+            android:layout_alignBottom="@+id/img_thumb"
+            android:layout_alignEnd="@+id/img_thumb"
+            android:layout_alignLeft="@+id/img_thumb"
+            android:layout_alignRight="@+id/img_thumb"
+            android:layout_alignStart="@+id/img_thumb"
+            android:layout_alignTop="@+id/img_thumb"
+            android:onClick="@{viewModel.onClickImage}" />
+
         <TextView
             android:id="@+id/txt_work"
             style="@style/TextTitle"

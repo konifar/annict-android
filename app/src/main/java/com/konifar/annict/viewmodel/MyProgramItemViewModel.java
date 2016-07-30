@@ -61,7 +61,11 @@ public class MyProgramItemViewModel implements ViewModel {
     }
 
     public void onClickRoot(@SuppressWarnings("unused") View view) {
-        pageNavigator.startProgramDetailActivity(program);
+        pageNavigator.startEpisodeDetailActivity(program);
+    }
+
+    public void onClickImage(@SuppressWarnings("unused") View view) {
+        pageNavigator.startWorkDetailActivity(program.work);
     }
 
 }
