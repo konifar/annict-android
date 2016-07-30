@@ -47,6 +47,12 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".view.activity.ProgramDetailActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

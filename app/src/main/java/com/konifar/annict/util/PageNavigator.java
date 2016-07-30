@@ -3,6 +3,7 @@ package com.konifar.annict.util;
 import android.net.Uri;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.konifar.annict.R;
 import com.konifar.annict.di.scope.ActivityScope;
+import com.konifar.annict.model.Program;
 import com.konifar.annict.view.activity.LoginActivity;
+import com.konifar.annict.view.activity.ProgramDetailActivity;
 import com.konifar.annict.view.fragment.MyProgramsFragment;
 
 import javax.inject.Inject;
@@ -55,6 +58,10 @@ public class PageNavigator {
         final FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
         ft.replace(layoutResId, fragment, fragment.getClass().getSimpleName());
         ft.commit();
+    }
+
+    public void startProgramDetailActivity(@Nullable Program program) {
+        activity.startActivity(ProgramDetailActivity.createIntent(activity, program));
     }
 
 }

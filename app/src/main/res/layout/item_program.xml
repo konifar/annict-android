@@ -13,7 +13,9 @@
         android:id="@+id/content_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/clickable_white"
+        android:clickable="true"
+        android:onClick="@{viewModel.onClickRoot}"
         android:padding="@dimen/spacing">
 
         <ImageView

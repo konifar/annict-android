@@ -8,6 +8,7 @@ import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.helper.MockHelper;
 import com.konifar.annict.helper.RxHelper;
 import com.konifar.annict.model.Programs;
+import com.konifar.annict.util.PageNavigator;
 import com.konifar.annict.viewmodel.event.EventBus;
 import com.konifar.annict.viewmodel.event.MyProgramsLoadedEvent;
 
@@ -42,13 +43,15 @@ public class MyProgramsViewModelTest {
     private AnnictClient annictClient;
     @Mock
     private EventBus eventBus;
+    @Mock
+    private PageNavigator pageNavigator;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         RxHelper.setUpRx();
 
-        viewModel = new MyProgramsViewModel(context, annictClient, eventBus);
+        viewModel = new MyProgramsViewModel(context, annictClient, eventBus, pageNavigator);
     }
 
     @After

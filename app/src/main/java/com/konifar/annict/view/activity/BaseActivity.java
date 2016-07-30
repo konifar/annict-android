@@ -5,7 +5,9 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.konifar.annict.MainApplication;
@@ -39,6 +41,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(layoutResId, fragment, fragment.getClass().getSimpleName());
         ft.commit();
+    }
+
+    final void initBackToolbar(Toolbar toolbar) {
+        setSupportActionBar(toolbar);
+
+        ActionBar bar = getSupportActionBar();
+        if (bar != null) {
+            bar.setDisplayHomeAsUpEnabled(true);
+            bar.setDisplayShowHomeEnabled(true);
+            bar.setDisplayShowTitleEnabled(false);
+            bar.setHomeButtonEnabled(true);
+        }
     }
 
 }
