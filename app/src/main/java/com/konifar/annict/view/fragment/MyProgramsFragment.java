@@ -14,9 +14,9 @@ import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.databinding.FragmentMyProgramsBinding;
 import com.konifar.annict.databinding.ItemProgramBinding;
 import com.konifar.annict.pref.DefaultPrefs;
+import com.konifar.annict.view.widget.ArrayRecyclerAdapter;
 import com.konifar.annict.view.widget.BindingHolder;
-import com.konifar.annict.view.widget.LoadingFooterArrayRecyclerAdapter;
-import com.konifar.annict.view.widget.RxRecyclerViewScrollSubject;
+import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
 import com.konifar.annict.viewmodel.MyProgramItemViewModel;
 import com.konifar.annict.viewmodel.MyProgramsViewModel;
@@ -78,7 +78,7 @@ public class MyProgramsFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         Subscription sub = eventBus.observe(MyProgramsLoadedEvent.class)
-                .subscribe(event -> adapter.addAll(event.myProgramItemViewModels));
+                .subscribe(event -> adapter.addAllWithNotify(event.myProgramItemViewModels));
         compositeSubscription.add(sub);
     }
 
@@ -111,42 +111,30 @@ public class MyProgramsFragment extends BaseFragment {
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
 
-        RxRecyclerViewScrollSubject subject = new RxRecyclerViewScrollSubject();
-        Subscription ScrollEventSub = subject.subscribeScrollEvent(binding.recyclerView, linearLayoutManager);
-        compositeSubscription.add(ScrollEventSub);
-
-//        subject.observable()
-//                .flatMap(recyclerViewScrollEvent -> viewModel.getNextProgramsObservable())
-//                .doOnSubscribe(() -> adapter.showFooterVisibility())
-//                .doOnCompleted(() -> adapter.hideFooterVisibility())
-//                .doOnError((throwable) -> adapter.hideFooterVisibility())
-//                .subscribe(
-//                        programViewModels -> adapter.addAll(programViewModels),
-//                        throwable -> {
-//                            adapter.hideFooterVisibility();
-//                        }
-//                );
-//
-//        .subscribe(eventBus -> {
-//            adapter.toggleFooterVisibility();
-//        });
+        binding.nestedScrollView.setOnScrollChangeListener(
+                new InfiniteOnScrollChangeListener(binding.recyclerView, linearLayoutManager) {
+                    @Override
+                    public void onLoadMore() {
+                        viewModel.showNextPrograms();
+                    }
+                });
     }
 
-    public class MyProgramsAdapter extends LoadingFooterArrayRecyclerAdapter<MyProgramItemViewModel, BindingHolder<ItemProgramBinding>> {
+    public class MyProgramsAdapter extends ArrayRecyclerAdapter<MyProgramItemViewModel, BindingHolder<ItemProgramBinding>> {
 
         public MyProgramsAdapter(@NonNull Context context) {
             super(context);
         }
 
         @Override
-        protected BindingHolder<ItemProgramBinding> onCreateContentItemViewHolder(ViewGroup parent, int contentViewType) {
+        public BindingHolder<ItemProgramBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
             return new BindingHolder<>(getContext(), parent, R.layout.item_program);
         }
 
         @Override
-        protected void onBindContentItemViewHolder(BindingHolder<ItemProgramBinding> contentViewHolder, int position) {
+        public void onBindViewHolder(BindingHolder<ItemProgramBinding> holder, int position) {
             MyProgramItemViewModel viewModel = getItem(position);
-            contentViewHolder.binding.setViewModel(viewModel);
+            holder.binding.setViewModel(viewModel);
         }
     }
 

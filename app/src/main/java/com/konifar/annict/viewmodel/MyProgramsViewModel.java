@@ -16,8 +16,6 @@ import com.konifar.annict.pref.DefaultPrefs;
 import com.konifar.annict.viewmodel.event.EventBus;
 import com.konifar.annict.viewmodel.event.MyProgramsLoadedEvent;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import rx.Observable;
@@ -36,9 +34,11 @@ public class MyProgramsViewModel implements ViewModel {
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     private int currentPage = 1;
+    private boolean isLoading;
 
     public ObservableInt progressBarVisibility = new ObservableInt(View.GONE);
     public ObservableInt recyclerViewVisibility = new ObservableInt(View.GONE);
+    public ObservableInt footerProgressBarVisibility = new ObservableInt(View.GONE);
 
     @Inject
     public MyProgramsViewModel(Context context,
@@ -49,24 +49,60 @@ public class MyProgramsViewModel implements ViewModel {
         this.eventBus = eventBus;
     }
 
-    public Observable<List<MyProgramItemViewModel>> getNextProgramsObservable() {
-        return client.getMePrograms(currentPage)
+    public void showNextPrograms() {
+        if (isLoading) return;
+
+        int nextPage = currentPage + 1;
+        Subscription sub = client.getMePrograms(nextPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(() -> {
+                    isLoading = true;
+                    footerProgressBarVisibility.set(View.VISIBLE);
+                })
+                .doOnCompleted(() -> {
+                    isLoading = false;
+                    footerProgressBarVisibility.set(View.GONE);
+                })
+                .doOnError((throwable) -> {
+                    isLoading = false;
+                    footerProgressBarVisibility.set(View.GONE);
+                })
                 .map(programs ->
                         Stream.of(programs.list)
                                 .map(MyProgramItemViewModel::new)
                                 .collect(Collectors.toList())
+                ).subscribe(
+                        programViewModels -> {
+                            currentPage++;
+                            eventBus.post(new MyProgramsLoadedEvent(programViewModels));
+                        },
+                        throwable -> {
+                            Log.e(TAG, "load programs error occurred.", throwable);
+                        }
                 );
+
+        compositeSubscription.add(sub);
     }
 
     public void showPrograms(@Nullable String accessToken, @NonNull String authCode) {
+        if (isLoading) return;
+
         Subscription sub = getLoadObservable(accessToken, authCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(() -> progressBarVisibility.set(View.VISIBLE))
-                .doOnCompleted(() -> progressBarVisibility.set(View.GONE))
-                .doOnError((throwable) -> progressBarVisibility.set(View.GONE))
+                .doOnSubscribe(() -> {
+                    isLoading = true;
+                    progressBarVisibility.set(View.VISIBLE);
+                })
+                .doOnCompleted(() -> {
+                    isLoading = false;
+                    progressBarVisibility.set(View.GONE);
+                })
+                .doOnError((throwable) -> {
+                    isLoading = false;
+                    progressBarVisibility.set(View.GONE);
+                })
                 .map(programs ->
                         Stream.of(programs.list)
                                 .map(MyProgramItemViewModel::new)
@@ -78,7 +114,6 @@ public class MyProgramsViewModel implements ViewModel {
                             eventBus.post(new MyProgramsLoadedEvent(programViewModels));
                         },
                         throwable -> {
-                            progressBarVisibility.set(View.GONE);
                             Log.e(TAG, "load auth token error occurred.", throwable);
                         }
                 );
