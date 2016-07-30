@@ -14,9 +14,9 @@ import javax.inject.Inject;
 
 import rx.subscriptions.CompositeSubscription;
 
-public class ProgramDetailViewModel extends BaseObservable implements ViewModel {
+public class EpisodeDetailViewModel extends BaseObservable implements ViewModel {
 
-    private static final String TAG = ProgramDetailViewModel.class.getSimpleName();
+    private static final String TAG = EpisodeDetailViewModel.class.getSimpleName();
 
     private final Context context;
     private final AnnictClient client;
@@ -28,7 +28,7 @@ public class ProgramDetailViewModel extends BaseObservable implements ViewModel 
     public Program program;
 
     @Inject
-    public ProgramDetailViewModel(Context context,
+    public EpisodeDetailViewModel(Context context,
                                   AnnictClient client,
                                   EventBus eventBus,
                                   PageNavigator pageNavigator) {

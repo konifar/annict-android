@@ -14,7 +14,7 @@ import com.konifar.annict.R;
 import com.konifar.annict.di.scope.ActivityScope;
 import com.konifar.annict.model.Program;
 import com.konifar.annict.view.activity.LoginActivity;
-import com.konifar.annict.view.activity.ProgramDetailActivity;
+import com.konifar.annict.view.activity.EpisodeDetailActivity;
 import com.konifar.annict.view.fragment.MyProgramsFragment;
 
 import javax.inject.Inject;
@@ -61,7 +61,7 @@ public class PageNavigator {
     }
 
     public void startProgramDetailActivity(@Nullable Program program) {
-        activity.startActivity(ProgramDetailActivity.createIntent(activity, program));
+        activity.startActivity(EpisodeDetailActivity.createIntent(activity, program));
     }
 
 }
