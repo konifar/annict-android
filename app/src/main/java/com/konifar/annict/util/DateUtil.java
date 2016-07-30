@@ -60,7 +60,11 @@ public class DateUtil {
 
     @NonNull
     public static String getProgramStartDate(@Nullable Date date) {
-        return DateFormat.format(FORMAT_PROGRAM_START_DATE, date).toString();
+        if (date != null) {
+            return DateFormat.format(FORMAT_PROGRAM_START_DATE, date).toString();
+        } else {
+            return "";
+        }
     }
 
     public static int getMinutes(Date stime, Date etime) {

@@ -64,6 +64,7 @@ public class MyProgramsViewModelTest {
         Programs programs = MockHelper.mockPrograms(5);
         when(annictClient.getMePrograms(1)).thenReturn(Observable.just(programs));
 
+        viewModel.isLoading = false;
         viewModel.showPrograms("abcdefghij", "abcdefghij");
         verify(eventBus, times(1)).post(any(MyProgramsLoadedEvent.class));
         assertEquals(View.GONE, viewModel.progressBarVisibility.get());
