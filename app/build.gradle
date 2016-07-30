@@ -162,7 +162,6 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
     compile 'io.reactivex:rxjava:1.1.5'
     compile 'io.reactivex:rxandroid:1.2.0'
-    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
     compile 'com.annimon:stream:1.0.9'
     retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.3.0'
     // UI

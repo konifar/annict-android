@@ -120,7 +120,7 @@ public class MyProgramsFragment extends BaseFragment {
                 });
     }
 
-    public class MyProgramsAdapter extends ArrayRecyclerAdapter<MyProgramItemViewModel, BindingHolder<ItemProgramBinding>> {
+    protected class MyProgramsAdapter extends ArrayRecyclerAdapter<MyProgramItemViewModel, BindingHolder<ItemProgramBinding>> {
 
         public MyProgramsAdapter(@NonNull Context context) {
             super(context);

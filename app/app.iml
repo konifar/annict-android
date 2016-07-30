@@ -43,6 +43,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/developDebug/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/developDebug/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/developDebug/shaders" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/develop/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/develop/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/develop/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/develop/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/develop/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/develop/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/develop/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/test/develop/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testDevelopDebug/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testDevelopDebug/resources" type="java-test-resource" />
@@ -52,13 +59,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/testDevelopDebug/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testDevelopDebug/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testDevelopDebug/shaders" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/develop/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/develop/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/develop/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/develop/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/develop/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/develop/debug" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/develop/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/develop/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/develop/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/develop/assets" type="java-resource" />
@@ -148,8 +148,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.gfx.android.orma/orma-migration/2.3.2/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.gfx.android.orma/orma/2.3.2/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.ozodrukh/CircularReveal/1.3.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.jakewharton.rxbinding/rxbinding-recyclerview-v7/0.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.jakewharton.rxbinding/rxbinding/0.4.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.rejasupotaro/kvs-schema/5.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/io.reactivex/rxandroid/1.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
@@ -215,7 +213,6 @@
     <orderEntry type="library" exported="" scope="TEST" name="robolectric-utils-3.1.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-model-2.2.1" level="project" />
     <orderEntry type="library" exported="" name="design-24.0.0-beta1" level="project" />
-    <orderEntry type="library" exported="" name="rxbinding-0.4.0" level="project" />
     <orderEntry type="library" exported="" name="commons-codec-1.10" level="project" />
     <orderEntry type="library" exported="" name="parceler-api-1.0.4" level="project" />
     <orderEntry type="library" exported="" name="ST4-4.0.8" level="project" />
@@ -242,8 +239,8 @@
     <orderEntry type="library" exported="" scope="TEST" name="shadows-core-v23-3.1.1" level="project" />
     <orderEntry type="library" exported="" name="kotlin-runtime-1.0.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="asm-tree-5.0.1" level="project" />
-    <orderEntry type="library" exported="" scope="TEST" name="maven-artifact-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="maven-artifact-2.2.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="asm-analysis-5.0.1" level="project" />
     <orderEntry type="library" exported="" name="adapter-rxjava-2.0.0" level="project" />
     <orderEntry type="library" exported="" name="orma-migration-2.3.2" level="project" />
@@ -258,9 +255,8 @@
     <orderEntry type="library" exported="" scope="TEST" name="robolectric-resources-3.1.1" level="project" />
     <orderEntry type="library" exported="" name="gson-2.6.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="rules-0.4.1" level="project" />
-    <orderEntry type="library" exported="" name="jsr305-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="okio-1.6.0" level="project" />
-    <orderEntry type="library" exported="" name="rxbinding-recyclerview-v7-0.4.0" level="project" />
+    <orderEntry type="library" exported="" name="jsr305-2.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="mockito-all-1.10.19" level="project" />
     <orderEntry type="library" exported="" name="baseLibrary-2.1.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="maven-ant-tasks-2.1.3" level="project" />
