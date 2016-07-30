@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/theme500"
-        android:padding="@dimen/spacing">
+        android:padding="@dimen/space_16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_large" />
+                android:layout_height="@dimen/space_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -40,20 +40,20 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/login_welcome"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_xxlarge" />
+                android:textSize="@dimen/text_24sp" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_large" />
+                android:layout_height="@dimen/space_24dp" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="@{viewModel.onClickLoginButton}"
-                android:padding="@dimen/spacing"
+                android:padding="@dimen/space_16dp"
                 android:text="@string/login"
                 android:textColor="@color/grey600"
-                android:textSize="@dimen/text_xlarge"
+                android:textSize="@dimen/text_20sp"
                 app:backgroundTint="@color/white" />
 
         </LinearLayout>

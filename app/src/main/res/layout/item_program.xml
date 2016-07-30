@@ -15,16 +15,43 @@
         android:layout_height="wrap_content"
         android:background="@drawable/clickable_white"
         android:clickable="true"
+        android:clipToPadding="false"
         android:onClick="@{viewModel.onClickRoot}"
-        android:padding="@dimen/spacing">
+        android:padding="@dimen/space_16dp">
+
+        <TextView
+            android:id="@+id/txt_date"
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_access_time_black_14dp_vector_state"
+            android:drawablePadding="@dimen/icon_space_4dp"
+            android:drawableStart="@drawable/ic_access_time_black_14dp_vector_state"
+            android:text="@{viewModel.displayDate}"
+            android:textColor="@color/accent100" />
+
+        <TextView
+            android:id="@+id/txt_channel"
+            style="@style/TextSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_8dp"
+            android:layout_marginStart="@dimen/space_8dp"
+            android:layout_marginTop="-3dp"
+            android:layout_toEndOf="@id/txt_date"
+            android:layout_toRightOf="@id/txt_date"
+            android:background="@drawable/tag_grey200"
+            android:text="@{viewModel.channel}" />
 
         <ImageView
             android:id="@+id/img_thumb"
             android:layout_width="@dimen/image_thumb"
             android:layout_height="@dimen/image_thumb"
-            android:layout_marginEnd="@dimen/spacing"
-            android:layout_marginRight="@dimen/spacing"
-            android:background="@color/grey200"
+            android:layout_below="@+id/txt_date"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:layout_marginRight="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:background="@drawable/rectangle_border_grey200"
             android:contentDescription="@string/photo"
             app:photoImageSize="@{@dimen/image_thumb}"
             app:photoImageUrl="@{viewModel.thumbUrl}" />
@@ -34,6 +61,8 @@
             style="@style/TextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_date"
+            android:layout_marginTop="@dimen/space_8dp"
             android:layout_toEndOf="@id/img_thumb"
             android:layout_toRightOf="@id/img_thumb"
             android:text="@{viewModel.workTitle}" />
@@ -44,32 +73,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_work"
-            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/space_4dp"
             android:layout_toEndOf="@id/img_thumb"
+            android:layout_toLeftOf="@+id/btn_check"
             android:layout_toRightOf="@id/img_thumb"
-            android:text="@{viewModel.episodeTitle}" />
+            android:layout_toStartOf="@+id/btn_check"
+            android:text="@{viewModel.episodeTitle}"
+            android:textColor="@color/theme600" />
 
-        <TextView
-            android:id="@+id/txt_date"
-            style="@style/TextSub"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_episode"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:layout_toEndOf="@id/img_thumb"
-            android:layout_toRightOf="@id/img_thumb"
-            android:text="@{viewModel.displayDate}" />
-
-        <TextView
-            android:id="@+id/txt_channel"
-            style="@style/TextSub"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_small"
-            android:layout_marginStart="@dimen/spacing_small"
-            android:layout_toEndOf="@id/txt_date"
-            android:layout_toRightOf="@id/txt_date"
-            android:text="@{viewModel.channel}" />
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btn_check"
+            android:layout_width="@dimen/review_btn_size"
+            android:layout_height="@dimen/review_btn_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/txt_work"
+            android:layout_marginEnd="-4dp"
+            android:layout_marginLeft="@dimen/space_4dp"
+            android:layout_marginRight="-4dp"
+            android:layout_marginStart="@dimen/space_4dp"
+            app:backgroundTint="@color/accent100"
+            app:srcCompat="@drawable/ic_edit_white_18dp_vector" />
 
     </RelativeLayout>
 
