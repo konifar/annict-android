@@ -78,6 +78,7 @@ public class MyProgramsViewModel implements ViewModel {
                             eventBus.post(new MyProgramsLoadedEvent(programViewModels));
                         },
                         throwable -> {
+                            footerProgressBarVisibility.set(View.GONE);
                             Log.e(TAG, "load programs error occurred.", throwable);
                         }
                 );
@@ -114,6 +115,7 @@ public class MyProgramsViewModel implements ViewModel {
                             eventBus.post(new MyProgramsLoadedEvent(programViewModels));
                         },
                         throwable -> {
+                            progressBarVisibility.set(View.GONE);
                             Log.e(TAG, "load auth token error occurred.", throwable);
                         }
                 );
