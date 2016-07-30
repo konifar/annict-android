@@ -16,6 +16,7 @@ import com.konifar.annict.databinding.ItemProgramBinding;
 import com.konifar.annict.pref.DefaultPrefs;
 import com.konifar.annict.view.widget.ArrayRecyclerAdapter;
 import com.konifar.annict.view.widget.BindingHolder;
+import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
 import com.konifar.annict.viewmodel.MyProgramItemViewModel;
 import com.konifar.annict.viewmodel.MyProgramsViewModel;
@@ -77,7 +78,7 @@ public class MyProgramsFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         Subscription sub = eventBus.observe(MyProgramsLoadedEvent.class)
-                .subscribe(event -> adapter.addAll(event.myProgramItemViewModels));
+                .subscribe(event -> adapter.addAllWithNotify(event.myProgramItemViewModels));
         compositeSubscription.add(sub);
     }
 
@@ -103,11 +104,20 @@ public class MyProgramsFragment extends BaseFragment {
     }
 
     private void initRecyclerView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         adapter = new MyProgramsAdapter(getContext());
 
         binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+
+        binding.nestedScrollView.setOnScrollChangeListener(
+                new InfiniteOnScrollChangeListener(binding.recyclerView, linearLayoutManager) {
+                    @Override
+                    public void onLoadMore() {
+                        viewModel.showNextPrograms();
+                    }
+                });
     }
 
     protected class MyProgramsAdapter extends ArrayRecyclerAdapter<MyProgramItemViewModel, BindingHolder<ItemProgramBinding>> {
@@ -124,8 +134,7 @@ public class MyProgramsFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(BindingHolder<ItemProgramBinding> holder, int position) {
             MyProgramItemViewModel viewModel = getItem(position);
-            ItemProgramBinding binding = holder.binding;
-            binding.setViewModel(viewModel);
+            holder.binding.setViewModel(viewModel);
         }
     }
 

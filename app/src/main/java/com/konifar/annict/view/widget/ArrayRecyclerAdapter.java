@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,8 +14,6 @@ public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder
 
     final Context context;
     final ArrayList<T> list;
-    OnItemClickListener<T> onItemClickListener;
-    OnItemLongClickListener<T> onItemLongClickListener;
 
     public ArrayRecyclerAdapter(@NonNull Context context) {
         this.context = context;
@@ -52,7 +49,7 @@ public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder
     }
 
     @UiThread
-    public void addAllWithNotification(Collection<T> items) {
+    public void addAllWithNotify(Collection<T> items) {
         int position = getItemCount();
         addAll(items);
         notifyItemInserted(position);
@@ -64,24 +61,6 @@ public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder
 
     public Context getContext() {
         return context;
-    }
-
-    public void setOnItemClickListener(OnItemClickListener<T> listener) {
-        onItemClickListener = listener;
-    }
-
-    public void setOnItemLongClickListener(OnItemLongClickListener<T> listener) {
-        onItemLongClickListener = listener;
-    }
-
-    public void dispatchOnItemClick(View view, T item) {
-        assert onItemClickListener != null;
-        onItemClickListener.onItemClick(view, item);
-    }
-
-    public boolean dispatchOnItemLongClick(View view, T item) {
-        assert onItemLongClickListener != null;
-        return onItemLongClickListener.onItemLongClick(view, item);
     }
 
     @Override

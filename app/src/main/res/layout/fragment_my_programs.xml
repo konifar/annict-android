@@ -27,13 +27,38 @@
             android:layout_gravity="center"
             app:visibility="@{viewModel.progressBarVisibility}" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            style="@style/BaseRecyclerView"
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            app:visibility="@{viewModel.recyclerViewVisibility}" />
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    style="@style/BaseRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:scrollbars="vertical"
+                    app:visibility="@{viewModel.recyclerViewVisibility}"
+                    tools:targetApi="lollipop" />
+
+                <FrameLayout
+                    android:id="@+id/footer_loading_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/recycler_view"
+                    app:visibility="@{viewModel.footerProgressBarVisibility}">
+
+                    <include layout="@layout/view_loading" />
+                </FrameLayout>
+
+            </RelativeLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
     </FrameLayout>
 
