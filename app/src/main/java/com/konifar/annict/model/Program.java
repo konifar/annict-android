@@ -16,6 +16,8 @@ import java.util.Date;
 @Table
 public class Program {
 
+    public static final String TAG = Program.class.getSimpleName();
+
     @PrimaryKey(auto = false)
     @Column(indexed = true)
     @SerializedName("id")

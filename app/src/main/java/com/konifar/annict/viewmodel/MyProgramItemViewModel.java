@@ -1,9 +1,11 @@
 package com.konifar.annict.viewmodel;
 
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.konifar.annict.model.Program;
 import com.konifar.annict.util.DateUtil;
+import com.konifar.annict.util.PageNavigator;
 
 public class MyProgramItemViewModel implements ViewModel {
 
@@ -17,7 +19,11 @@ public class MyProgramItemViewModel implements ViewModel {
 
     public String channel;
 
-    public MyProgramItemViewModel(@NonNull Program program) {
+    public final Program program;
+
+    private final PageNavigator pageNavigator;
+
+    public MyProgramItemViewModel(@NonNull Program program, PageNavigator pageNavigator) {
         if (program.work != null) {
             workTitle = program.work.title;
             if (program.work.twitterUserName != null) {
@@ -29,11 +35,18 @@ public class MyProgramItemViewModel implements ViewModel {
         if (program.episode != null) episodeTitle = program.episode.title;
         if (program.channel != null) channel = program.channel.name;
         displayDate = DateUtil.getLongFormatDate(program.startedAt);
+
+        this.program = program;
+        this.pageNavigator = pageNavigator;
     }
 
     @Override
     public void destroy() {
         // Do nothing
+    }
+
+    public void onClickRoot(@SuppressWarnings("unused") View view) {
+        pageNavigator.startProgramDetailActivity(program);
     }
 
 }

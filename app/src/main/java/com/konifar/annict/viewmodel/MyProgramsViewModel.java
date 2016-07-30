@@ -13,6 +13,7 @@ import com.annimon.stream.Stream;
 import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.model.Programs;
 import com.konifar.annict.pref.DefaultPrefs;
+import com.konifar.annict.util.PageNavigator;
 import com.konifar.annict.viewmodel.event.EventBus;
 import com.konifar.annict.viewmodel.event.MyProgramsLoadedEvent;
 
@@ -31,6 +32,7 @@ public class MyProgramsViewModel implements ViewModel {
     private final Context context;
     private final AnnictClient client;
     private final EventBus eventBus;
+    private final PageNavigator pageNavigator;
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     private int currentPage = 1;
@@ -43,23 +45,23 @@ public class MyProgramsViewModel implements ViewModel {
     @Inject
     public MyProgramsViewModel(Context context,
                                AnnictClient client,
-                               EventBus eventBus) {
+                               EventBus eventBus,
+                               PageNavigator pageNavigator) {
         this.context = context;
         this.client = client;
         this.eventBus = eventBus;
+        this.pageNavigator = pageNavigator;
     }
 
     public void showNextPrograms() {
         if (isLoading) return;
+        isLoading = true;
 
         int nextPage = currentPage + 1;
         Subscription sub = client.getMePrograms(nextPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(() -> {
-                    isLoading = true;
-                    footerProgressBarVisibility.set(View.VISIBLE);
-                })
+                .doOnSubscribe(() -> footerProgressBarVisibility.set(View.VISIBLE))
                 .doOnCompleted(() -> {
                     isLoading = false;
                     footerProgressBarVisibility.set(View.GONE);
@@ -70,7 +72,7 @@ public class MyProgramsViewModel implements ViewModel {
                 })
                 .map(programs ->
                         Stream.of(programs.list)
-                                .map(MyProgramItemViewModel::new)
+                                .map(program -> new MyProgramItemViewModel(program, pageNavigator))
                                 .collect(Collectors.toList())
                 ).subscribe(
                         programViewModels -> {
@@ -88,14 +90,12 @@ public class MyProgramsViewModel implements ViewModel {
 
     public void showPrograms(@Nullable String accessToken, @NonNull String authCode) {
         if (isLoading) return;
+        isLoading = true;
 
         Subscription sub = getLoadObservable(accessToken, authCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(() -> {
-                    isLoading = true;
-                    progressBarVisibility.set(View.VISIBLE);
-                })
+                .doOnSubscribe(() -> progressBarVisibility.set(View.VISIBLE))
                 .doOnCompleted(() -> {
                     isLoading = false;
                     progressBarVisibility.set(View.GONE);
@@ -106,7 +106,7 @@ public class MyProgramsViewModel implements ViewModel {
                 })
                 .map(programs ->
                         Stream.of(programs.list)
-                                .map(MyProgramItemViewModel::new)
+                                .map(program -> new MyProgramItemViewModel(program, pageNavigator))
                                 .collect(Collectors.toList())
                 )
                 .subscribe(

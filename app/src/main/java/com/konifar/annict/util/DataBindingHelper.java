@@ -32,5 +32,4 @@ public class DataBindingHelper {
     public static void setPhotoImageUrlWithSize(ImageView imageView, @Nullable String imageUrl, float sizeInDimen) {
         setImageUrlWithSize(imageView, imageUrl, sizeInDimen, R.color.grey200);
     }
-
 }
