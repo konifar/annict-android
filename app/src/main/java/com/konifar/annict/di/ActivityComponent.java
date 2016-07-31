@@ -4,6 +4,7 @@ import com.konifar.annict.di.scope.ActivityScope;
 import com.konifar.annict.view.activity.EpisodeDetailActivity;
 import com.konifar.annict.view.activity.LoginActivity;
 import com.konifar.annict.view.activity.MainActivity;
+import com.konifar.annict.view.activity.SettingsActivity;
 import com.konifar.annict.view.activity.WorkDetailActivity;
 
 import dagger.Subcomponent;
@@ -19,6 +20,8 @@ public interface ActivityComponent {
     void inject(EpisodeDetailActivity activity);
 
     void inject(WorkDetailActivity activity);
+
+    void inject(SettingsActivity activity);
 
     FragmentComponent plus(FragmentModule module);
 

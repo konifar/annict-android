@@ -16,6 +16,7 @@ import com.konifar.annict.model.Program;
 import com.konifar.annict.model.Work;
 import com.konifar.annict.view.activity.EpisodeDetailActivity;
 import com.konifar.annict.view.activity.LoginActivity;
+import com.konifar.annict.view.activity.SettingsActivity;
 import com.konifar.annict.view.activity.WorkDetailActivity;
 import com.konifar.annict.view.fragment.MyProgramsFragment;
 import com.konifar.annict.view.fragment.RecordCreateDialogFragment;
@@ -74,6 +75,10 @@ public class PageNavigator {
     public void showRecordCreateDialog(Program program) {
         RecordCreateDialogFragment dialog = RecordCreateDialogFragment.newInstance(program);
         dialog.show(activity.getSupportFragmentManager(), RecordCreateDialogFragment.TAG);
+    }
+
+    public void startSettingsActivity() {
+        activity.startActivity(SettingsActivity.createIntent(activity));
     }
 
 }
