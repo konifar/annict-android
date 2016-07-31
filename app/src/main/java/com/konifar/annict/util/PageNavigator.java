@@ -18,6 +18,7 @@ import com.konifar.annict.view.activity.EpisodeDetailActivity;
 import com.konifar.annict.view.activity.LoginActivity;
 import com.konifar.annict.view.activity.SettingsActivity;
 import com.konifar.annict.view.activity.WorkDetailActivity;
+import com.konifar.annict.view.fragment.MainFragment;
 import com.konifar.annict.view.fragment.MyProgramsFragment;
 import com.konifar.annict.view.fragment.RecordCreateDialogFragment;
 
@@ -44,6 +45,14 @@ public class PageNavigator {
                 .build();
 
         intent.launchUrl(activity, Uri.parse(url));
+    }
+
+    public void replaceMainFragment(@IdRes int layoutResId) {
+        replaceFragment(MainFragment.newInstance(), layoutResId);
+    }
+
+    public void replaceMainFragment(@NonNull String authCode, @IdRes int layoutResId) {
+        replaceFragment(MainFragment.newInstance(authCode), layoutResId);
     }
 
     public void replaceMyProgramsFragment(@IdRes int layoutResId) {

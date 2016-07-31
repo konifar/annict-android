@@ -21,14 +21,14 @@ public class MainViewModel implements ViewModel {
                          @Nullable String authCode,
                          @IdRes int layoutResId) {
         if (!TextUtils.isEmpty(accessToken)) {
-            navigator.replaceMyProgramsFragment(layoutResId);
+            navigator.replaceMainFragment(layoutResId);
         } else {
             // After authentication, intent has uri data including auth code.
             if (TextUtils.isEmpty(authCode)) {
                 navigator.startLoginActivity();
                 navigator.finish();
             } else {
-                navigator.replaceMyProgramsFragment(authCode, layoutResId);
+                navigator.replaceMainFragment(authCode, layoutResId);
             }
         }
     }
@@ -36,6 +36,14 @@ public class MainViewModel implements ViewModel {
     @Override
     public void destroy() {
         // Do nothing
+    }
+
+    public void onClickSearchMenu() {
+        // TODO
+    }
+
+    public void onClickSettingMenu() {
+        navigator.startSettingsActivity();
     }
 
 }

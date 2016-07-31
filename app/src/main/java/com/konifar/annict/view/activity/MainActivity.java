@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.konifar.annict.R;
-import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.databinding.ActivityMainBinding;
 import com.konifar.annict.pref.DefaultPrefs;
 import com.konifar.annict.viewmodel.MainViewModel;
@@ -16,8 +15,6 @@ public class MainActivity extends BaseActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    @Inject
-    AnnictClient client;
     @Inject
     MainViewModel viewModel;
 
