@@ -31,4 +31,9 @@
         <item name="android:scrollingCache">false</item>
     </style>
 
+    <style name="DialogWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_fade_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_fade_exit</item>
+    </style>
+
 </resources>

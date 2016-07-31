@@ -102,6 +102,7 @@
             android:layout_marginLeft="@dimen/space_4dp"
             android:layout_marginRight="-4dp"
             android:layout_marginStart="@dimen/space_4dp"
+            android:onClick="@{viewModel.onClickRecordButton}"
             app:backgroundTint="@color/accent100"
             app:srcCompat="@drawable/ic_edit_white_18dp_vector" />
 

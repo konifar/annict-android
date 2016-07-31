@@ -18,6 +18,7 @@ import com.konifar.annict.view.activity.EpisodeDetailActivity;
 import com.konifar.annict.view.activity.LoginActivity;
 import com.konifar.annict.view.activity.WorkDetailActivity;
 import com.konifar.annict.view.fragment.MyProgramsFragment;
+import com.konifar.annict.view.fragment.RecordCreateDialogFragment;
 
 import javax.inject.Inject;
 
@@ -68,6 +69,11 @@ public class PageNavigator {
 
     public void startWorkDetailActivity(@Nullable Work work) {
         activity.startActivity(WorkDetailActivity.createIntent(activity, work));
+    }
+
+    public void showRecordCreateDialog(Program program) {
+        RecordCreateDialogFragment dialog = RecordCreateDialogFragment.newInstance(program);
+        dialog.show(activity.getSupportFragmentManager(), RecordCreateDialogFragment.TAG);
     }
 
 }

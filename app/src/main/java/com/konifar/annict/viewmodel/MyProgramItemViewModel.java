@@ -68,4 +68,8 @@ public class MyProgramItemViewModel implements ViewModel {
         pageNavigator.startWorkDetailActivity(program.work);
     }
 
+    public void onClickRecordButton(@SuppressWarnings("unused") View view) {
+        pageNavigator.showRecordCreateDialog(program);
+    }
+
 }
