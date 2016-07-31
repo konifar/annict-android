@@ -56,6 +56,16 @@
             app:photoImageSize="@{@dimen/image_thumb}"
             app:photoImageUrl="@{viewModel.thumbUrl}" />
 
+        <View
+            style="@style/ClickCover"
+            android:layout_alignBottom="@+id/img_thumb"
+            android:layout_alignEnd="@+id/img_thumb"
+            android:layout_alignLeft="@+id/img_thumb"
+            android:layout_alignRight="@+id/img_thumb"
+            android:layout_alignStart="@+id/img_thumb"
+            android:layout_alignTop="@+id/img_thumb"
+            android:onClick="@{viewModel.onClickImage}" />
+
         <TextView
             android:id="@+id/txt_work"
             style="@style/TextTitle"
@@ -92,6 +102,7 @@
             android:layout_marginLeft="@dimen/space_4dp"
             android:layout_marginRight="-4dp"
             android:layout_marginStart="@dimen/space_4dp"
+            android:onClick="@{viewModel.onClickRecordButton}"
             app:backgroundTint="@color/accent100"
             app:srcCompat="@drawable/ic_edit_white_18dp_vector" />
 

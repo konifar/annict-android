@@ -15,12 +15,25 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <!-- Clicker -->
+    <style name="ClickCover">
+        <item name="android:background">@drawable/clickable</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:clickable">true</item>
+    </style>
+
     <!-- Component -->
     <style name="BaseRecyclerView">
         <item name="android:clipToPadding">false</item>
         <item name="android:fadingEdge">none</item>
         <item name="android:scrollbarStyle">outsideOverlay</item>
         <item name="android:scrollingCache">false</item>
+    </style>
+
+    <style name="DialogWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_fade_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_fade_exit</item>
     </style>
 
 </resources>

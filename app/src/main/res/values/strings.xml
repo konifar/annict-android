@@ -7,6 +7,7 @@
     <string name="share">シェア</string>
     <string name="photo">画像</string>
     <string name="logo">ロゴ</string>
+    <string name="search">検索</string>
 
     <!-- Login -->
     <string name="login">ログイン</string>
@@ -21,6 +22,10 @@
     <string name="status_no_select">未選択</string>
 
     <!-- Program -->
+    <string name="my_programs_title">放送予定</string>
     <string name="episode_brackets">{episode_number}『{episode_title}』</string>
+
+    <!-- Settings -->
+    <string name="settings">設定</string>
 
 </resources>

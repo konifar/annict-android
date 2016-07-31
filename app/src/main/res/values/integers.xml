@@ -2,7 +2,6 @@
 <resources>
 
     <integer name="activity_transition_mills">200</integer>
-    <integer name="view_reveal_mills">250</integer>
-    <integer name="map_camera_move_mills">200</integer>
+    <integer name="dialog_transition_mills">200</integer>
 
 </resources>

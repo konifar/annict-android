@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 
-public class MyProgramsFragment extends BaseFragment {
+public class MyProgramsFragment extends BaseFragment implements MainTabPage {
 
     private static final String ARG_AUTH_CODE = "auth_code";
 
@@ -118,6 +119,21 @@ public class MyProgramsFragment extends BaseFragment {
                         viewModel.showNextPrograms();
                     }
                 });
+    }
+
+    @Override
+    public int getTitleResId() {
+        return R.string.my_programs_title;
+    }
+
+    @Override
+    public void scrollToTop() {
+        binding.recyclerView.smoothScrollToPosition(0);
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
     }
 
     protected class MyProgramsAdapter extends ArrayRecyclerAdapter<MyProgramItemViewModel, BindingHolder<ItemProgramBinding>> {

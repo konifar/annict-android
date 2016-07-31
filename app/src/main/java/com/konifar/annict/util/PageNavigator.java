@@ -13,9 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import com.konifar.annict.R;
 import com.konifar.annict.di.scope.ActivityScope;
 import com.konifar.annict.model.Program;
+import com.konifar.annict.model.Work;
+import com.konifar.annict.view.activity.EpisodeDetailActivity;
 import com.konifar.annict.view.activity.LoginActivity;
-import com.konifar.annict.view.activity.ProgramDetailActivity;
+import com.konifar.annict.view.activity.SettingsActivity;
+import com.konifar.annict.view.activity.WorkDetailActivity;
+import com.konifar.annict.view.fragment.MainFragment;
 import com.konifar.annict.view.fragment.MyProgramsFragment;
+import com.konifar.annict.view.fragment.RecordCreateDialogFragment;
 
 import javax.inject.Inject;
 
@@ -42,6 +47,14 @@ public class PageNavigator {
         intent.launchUrl(activity, Uri.parse(url));
     }
 
+    public void replaceMainFragment(@IdRes int layoutResId) {
+        replaceFragment(MainFragment.newInstance(), layoutResId);
+    }
+
+    public void replaceMainFragment(@NonNull String authCode, @IdRes int layoutResId) {
+        replaceFragment(MainFragment.newInstance(authCode), layoutResId);
+    }
+
     public void replaceMyProgramsFragment(@IdRes int layoutResId) {
         replaceFragment(MyProgramsFragment.newInstance(), layoutResId);
     }
@@ -60,8 +73,21 @@ public class PageNavigator {
         ft.commit();
     }
 
-    public void startProgramDetailActivity(@Nullable Program program) {
-        activity.startActivity(ProgramDetailActivity.createIntent(activity, program));
+    public void startEpisodeDetailActivity(@Nullable Program program) {
+        activity.startActivity(EpisodeDetailActivity.createIntent(activity, program));
+    }
+
+    public void startWorkDetailActivity(@Nullable Work work) {
+        activity.startActivity(WorkDetailActivity.createIntent(activity, work));
+    }
+
+    public void showRecordCreateDialog(Program program) {
+        RecordCreateDialogFragment dialog = RecordCreateDialogFragment.newInstance(program);
+        dialog.show(activity.getSupportFragmentManager(), RecordCreateDialogFragment.TAG);
+    }
+
+    public void startSettingsActivity() {
+        activity.startActivity(SettingsActivity.createIntent(activity));
     }
 
 }

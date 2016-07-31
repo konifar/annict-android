@@ -7,23 +7,23 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.konifar.annict.R;
-import com.konifar.annict.databinding.ActivityProgramDetailBinding;
+import com.konifar.annict.databinding.ActivityEpisodeDetailBinding;
 import com.konifar.annict.model.Program;
-import com.konifar.annict.viewmodel.ProgramDetailViewModel;
+import com.konifar.annict.viewmodel.EpisodeDetailViewModel;
 
 import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
-public class ProgramDetailActivity extends BaseActivity {
+public class EpisodeDetailActivity extends BaseActivity {
 
-    private ActivityProgramDetailBinding binding;
+    private ActivityEpisodeDetailBinding binding;
 
     @Inject
-    ProgramDetailViewModel viewModel;
+    EpisodeDetailViewModel viewModel;
 
     public static Intent createIntent(Context context, @Nullable Program program) {
-        Intent intent = new Intent(context, ProgramDetailActivity.class);
+        Intent intent = new Intent(context, EpisodeDetailActivity.class);
         intent.putExtra(Program.TAG, Parcels.wrap(program));
         return intent;
     }
@@ -36,7 +36,7 @@ public class ProgramDetailActivity extends BaseActivity {
         Program program = Parcels.unwrap(getIntent().getParcelableExtra(Program.TAG));
         viewModel.setProgram(program);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_program_detail);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_episode_detail);
         binding.setViewModel(viewModel);
         initBackToolbar(binding.toolbar);
     }

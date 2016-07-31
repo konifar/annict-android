@@ -35,11 +35,11 @@ public class MainViewModelTest {
 
         // When accessToken is not empty
         mainViewModel.showData("abcdefghijklmn", "", layoutResId);
-        verify(navigator, times(1)).replaceMyProgramsFragment(layoutResId);
+        verify(navigator, times(1)).replaceMainFragment(layoutResId);
 
         // When accessToken is empty and authCode is not empty
         mainViewModel.showData("", "abcdefghijklmn", layoutResId);
-        verify(navigator, times(1)).replaceMyProgramsFragment("abcdefghijklmn", layoutResId);
+        verify(navigator, times(1)).replaceMainFragment("abcdefghijklmn", layoutResId);
 
         // When accessToken and authCode is empty
         mainViewModel.showData("", "", layoutResId);
