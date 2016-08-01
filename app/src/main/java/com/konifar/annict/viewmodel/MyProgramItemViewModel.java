@@ -10,6 +10,7 @@ import com.konifar.annict.model.Episode;
 import com.konifar.annict.model.Program;
 import com.konifar.annict.util.DateUtil;
 import com.konifar.annict.util.PageNavigator;
+import com.konifar.annict.util.ViewHelper;
 import com.squareup.phrase.Phrase;
 
 public class MyProgramItemViewModel implements ViewModel {
@@ -32,9 +33,7 @@ public class MyProgramItemViewModel implements ViewModel {
         if (program.work != null) {
             workTitle = program.work.title;
             if (program.work.twitterUserName != null) {
-                // TODO this is temporary for now.
-                // http://furyu.hatenablog.com/entry/20130730/1375178609
-                thumbUrl = "http://furyu.nazo.cc/twicon/" + program.work.twitterUserName + "/bigger";
+                thumbUrl = ViewHelper.getTwitterProfileImageUrl(program.work.twitterUserName);
             }
         }
         if (program.episode != null) {

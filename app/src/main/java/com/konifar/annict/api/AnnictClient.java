@@ -8,7 +8,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.konifar.annict.BuildConfig;
 import com.konifar.annict.model.Programs;
+import com.konifar.annict.model.Status;
 import com.konifar.annict.model.Token;
+import com.konifar.annict.model.Works;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -27,6 +29,8 @@ public class AnnictClient {
 
     private static final String BASE_URI = "https://api.annict.com";
     private static final String OAUTH_REDIRECT_URI = "intent://annict-android/authorize";
+
+    private static final int DEFAULT_PER_PAGE = 30;
 
     private final AnnictService service;
 
@@ -73,9 +77,22 @@ public class AnnictClient {
                 null,
                 null,
                 page,
-                50,
+                DEFAULT_PER_PAGE,
                 null,
                 Sort.DESC.toString());
+    }
+
+    public Observable<Works> getMeWorks(Status filterStatus, int page) {
+        return service.getMeWorks(null,
+                null,
+                null,
+                null,
+                filterStatus.toString(),
+                page,
+                DEFAULT_PER_PAGE,
+                null,
+                null,
+                null);
     }
 
     private enum Sort {
@@ -115,6 +132,21 @@ public class AnnictClient {
                                            @Query("per_page") int perPage,
                                            @Query("sort_id") @Nullable String sortId,
                                            @Query("sort_started_at") @Nullable String sortStartedAt);
+
+        /**
+         * https://annict.wikihub.io/wiki/api/me-works
+         */
+        @GET("/v1/me/works")
+        Observable<Works> getMeWorks(@Query("fields") @Nullable String fields,
+                                     @Query("filter_ids") @Nullable String filterIds,
+                                     @Query("filter_season") @Nullable String filterSeason,
+                                     @Query("filter_title") @Nullable String filterTitle,
+                                     @Query("filter_status") @Nullable String filterStatus,
+                                     @Query("page") int page,
+                                     @Query("per_page") int perPage,
+                                     @Query("sort_id") @Nullable String sortId,
+                                     @Query("sort_reason") @Nullable String sortReason,
+                                     @Query("sort_watchers_count") @Nullable String sortWatchersCount);
 
     }
 

@@ -9,6 +9,7 @@ import com.konifar.annict.R;
  */
 public enum Status {
 
+    NON(R.string.status_non),
     WANNA_WATCH(R.string.status_wanna_watch),
     WATCHING(R.string.status_watching),
     WATCHED(R.string.status_watched),
