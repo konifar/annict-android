@@ -15,8 +15,7 @@ import com.konifar.annict.model.Status;
 import com.konifar.annict.model.Works;
 import com.konifar.annict.pref.DefaultPrefs;
 import com.konifar.annict.util.PageNavigator;
-import com.konifar.annict.viewmodel.event.EventBus;
-import com.konifar.annict.viewmodel.event.MyWorksLoadedEvent;
+import com.konifar.annict.view.fragment.MyWorksFragment;
 
 import javax.inject.Inject;
 
@@ -32,7 +31,6 @@ public class MyWorksViewModel implements ViewModel {
 
     private final Context context;
     private final AnnictClient client;
-    private final EventBus eventBus;
     private final PageNavigator pageNavigator;
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
 
@@ -48,11 +46,9 @@ public class MyWorksViewModel implements ViewModel {
     @Inject
     public MyWorksViewModel(Context context,
                             AnnictClient client,
-                            EventBus eventBus,
                             PageNavigator pageNavigator) {
         this.context = context;
         this.client = client;
-        this.eventBus = eventBus;
         this.pageNavigator = pageNavigator;
     }
 
@@ -60,7 +56,7 @@ public class MyWorksViewModel implements ViewModel {
         this.status = status;
     }
 
-    public void showNextWorks() {
+    public void showNextWorks(MyWorksFragment.MyWorksAdapter adapter) {
         if (isLoading) return;
         isLoading = true;
 
@@ -84,7 +80,7 @@ public class MyWorksViewModel implements ViewModel {
                 ).subscribe(
                         workViewModels -> {
                             currentPage++;
-                            eventBus.post(new MyWorksLoadedEvent(workViewModels));
+                            adapter.addAllWithNotify(workViewModels);
                         },
                         throwable -> {
                             footerProgressBarVisibility.set(View.GONE);
@@ -95,7 +91,8 @@ public class MyWorksViewModel implements ViewModel {
         compositeSubscription.add(sub);
     }
 
-    public void showWorks(@Nullable String accessToken, @NonNull String authCode) {
+    public void showWorks(@Nullable String accessToken, @NonNull String authCode,
+                          MyWorksFragment.MyWorksAdapter adapter) {
         if (isLoading) return;
         isLoading = true;
 
@@ -119,7 +116,7 @@ public class MyWorksViewModel implements ViewModel {
                 .subscribe(
                         workViewModels -> {
                             recyclerViewVisibility.set(View.VISIBLE);
-                            eventBus.post(new MyWorksLoadedEvent(workViewModels));
+                            adapter.addAllWithNotify(workViewModels);
                         },
                         throwable -> {
                             progressBarVisibility.set(View.GONE);

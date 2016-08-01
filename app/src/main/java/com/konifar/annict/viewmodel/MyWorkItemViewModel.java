@@ -51,4 +51,8 @@ public class MyWorkItemViewModel extends BaseObservable implements ViewModel {
         pageNavigator.startWorkDetailActivity(work);
     }
 
+    public void onClickImage(@SuppressWarnings("unused") View view) {
+        pageNavigator.startWorkDetailActivity(work);
+    }
+
 }

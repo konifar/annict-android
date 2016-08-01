@@ -11,49 +11,42 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.konifar.annict.R;
-import com.konifar.annict.databinding.FragmentMyProgramsBinding;
-import com.konifar.annict.databinding.ItemProgramBinding;
+import com.konifar.annict.databinding.FragmentMyWorksBinding;
+import com.konifar.annict.databinding.ItemWorkBinding;
+import com.konifar.annict.model.Status;
 import com.konifar.annict.pref.DefaultPrefs;
 import com.konifar.annict.view.widget.ArrayRecyclerAdapter;
 import com.konifar.annict.view.widget.BindingHolder;
 import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
-import com.konifar.annict.viewmodel.MyProgramItemViewModel;
-import com.konifar.annict.viewmodel.MyProgramsViewModel;
-import com.konifar.annict.viewmodel.event.EventBus;
-import com.konifar.annict.viewmodel.event.MyProgramsLoadedEvent;
+import com.konifar.annict.viewmodel.MyWorkItemViewModel;
+import com.konifar.annict.viewmodel.MyWorksViewModel;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
 
-
-public class MyProgramsFragment extends BaseFragment implements MainTabPage {
+public class MyWorksFragment extends BaseFragment implements MainTabPage {
 
     @Inject
-    MyProgramsViewModel viewModel;
-    @Inject
-    EventBus eventBus;
-    @Inject
-    CompositeSubscription compositeSubscription;
+    MyWorksViewModel viewModel;
 
     private String authCode;
 
-    private FragmentMyProgramsBinding binding;
+    private FragmentMyWorksBinding binding;
 
-    private MyProgramsAdapter adapter;
+    private MyWorksAdapter adapter;
 
-    public static MyProgramsFragment newInstance(@NonNull String authCode) {
-        MyProgramsFragment fragment = new MyProgramsFragment();
+    public static MyWorksFragment newInstance(@NonNull String authCode, Status status) {
+        MyWorksFragment fragment = new MyWorksFragment();
         Bundle bundle = new Bundle();
         bundle.putString(ARG_AUTH_CODE, authCode);
+        bundle.putSerializable(Status.class.getSimpleName(), status);
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    public static MyProgramsFragment newInstance() {
-        return new MyProgramsFragment();
+    public static MyWorksFragment newInstance() {
+        return new MyWorksFragment();
     }
 
     @Override
@@ -67,15 +60,9 @@ public class MyProgramsFragment extends BaseFragment implements MainTabPage {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             authCode = getArguments().getString(ARG_AUTH_CODE);
+            Status status = (Status) getArguments().getSerializable(Status.class.getSimpleName());
+            if (status != null) viewModel.setStatus(status);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Subscription sub = eventBus.observe(MyProgramsLoadedEvent.class)
-                .subscribe(event -> adapter.addAllWithNotify(event.myProgramItemViewModels));
-        compositeSubscription.add(sub);
     }
 
     @Nullable
@@ -83,11 +70,11 @@ public class MyProgramsFragment extends BaseFragment implements MainTabPage {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentMyProgramsBinding.inflate(inflater, container, false);
+        binding = FragmentMyWorksBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
 
         initRecyclerView();
-        viewModel.showPrograms(DefaultPrefs.get(getContext()).getAccessToken(), authCode);
+        viewModel.showWorks(DefaultPrefs.get(getContext()).getAccessToken(), authCode, adapter);
 
         return binding.getRoot();
     }
@@ -95,13 +82,12 @@ public class MyProgramsFragment extends BaseFragment implements MainTabPage {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        compositeSubscription.unsubscribe();
         viewModel.destroy();
     }
 
     private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        adapter = new MyProgramsAdapter(getContext());
+        adapter = new MyWorksAdapter(getContext());
 
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
@@ -111,7 +97,7 @@ public class MyProgramsFragment extends BaseFragment implements MainTabPage {
                 new InfiniteOnScrollChangeListener(binding.recyclerView, linearLayoutManager) {
                     @Override
                     public void onLoadMore() {
-                        viewModel.showNextPrograms();
+                        viewModel.showNextWorks(adapter);
                     }
                 });
     }
@@ -126,20 +112,20 @@ public class MyProgramsFragment extends BaseFragment implements MainTabPage {
         return this;
     }
 
-    protected class MyProgramsAdapter extends ArrayRecyclerAdapter<MyProgramItemViewModel, BindingHolder<ItemProgramBinding>> {
+    public class MyWorksAdapter extends ArrayRecyclerAdapter<MyWorkItemViewModel, BindingHolder<ItemWorkBinding>> {
 
-        public MyProgramsAdapter(@NonNull Context context) {
+        public MyWorksAdapter(@NonNull Context context) {
             super(context);
         }
 
         @Override
-        public BindingHolder<ItemProgramBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new BindingHolder<>(getContext(), parent, R.layout.item_program);
+        public BindingHolder<ItemWorkBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new BindingHolder<>(getContext(), parent, R.layout.item_work);
         }
 
         @Override
-        public void onBindViewHolder(BindingHolder<ItemProgramBinding> holder, int position) {
-            MyProgramItemViewModel viewModel = getItem(position);
+        public void onBindViewHolder(BindingHolder<ItemWorkBinding> holder, int position) {
+            MyWorkItemViewModel viewModel = getItem(position);
             holder.binding.setViewModel(viewModel);
         }
     }
