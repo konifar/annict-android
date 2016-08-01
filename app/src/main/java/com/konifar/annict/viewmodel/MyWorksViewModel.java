@@ -5,7 +5,6 @@ import android.databinding.ObservableInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.annimon.stream.Collectors;
@@ -15,19 +14,17 @@ import com.konifar.annict.model.Status;
 import com.konifar.annict.model.Works;
 import com.konifar.annict.pref.DefaultPrefs;
 import com.konifar.annict.util.PageNavigator;
-import com.konifar.annict.view.fragment.MyWorksFragment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 public class MyWorksViewModel implements ViewModel {
-
-    private static final String TAG = MyWorksViewModel.class.getSimpleName();
 
     private final Context context;
     private final AnnictClient client;
@@ -56,12 +53,17 @@ public class MyWorksViewModel implements ViewModel {
         this.status = status;
     }
 
-    public void showNextWorks(MyWorksFragment.MyWorksAdapter adapter) {
-        if (isLoading) return;
+    public void incremantePage() {
+        currentPage++;
+    }
+
+    public Observable<List<MyWorkItemViewModel>> showNextWorks() {
+        if (isLoading) return Observable.empty();
         isLoading = true;
 
         int nextPage = currentPage + 1;
-        Subscription sub = client.getMeWorks(status, nextPage)
+
+        return client.getMeWorks(status, nextPage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(() -> footerProgressBarVisibility.set(View.VISIBLE))
@@ -77,26 +79,15 @@ public class MyWorksViewModel implements ViewModel {
                         Stream.of(works.list)
                                 .map(work -> new MyWorkItemViewModel(work, status, pageNavigator))
                                 .collect(Collectors.toList())
-                ).subscribe(
-                        workViewModels -> {
-                            currentPage++;
-                            adapter.addAllWithNotify(workViewModels);
-                        },
-                        throwable -> {
-                            footerProgressBarVisibility.set(View.GONE);
-                            Log.e(TAG, "load works error occurred.", throwable);
-                        }
                 );
-
-        compositeSubscription.add(sub);
     }
 
-    public void showWorks(@Nullable String accessToken, @NonNull String authCode,
-                          MyWorksFragment.MyWorksAdapter adapter) {
-        if (isLoading) return;
+    public Observable<List<MyWorkItemViewModel>> showWorks(@Nullable String accessToken,
+                                                           @NonNull String authCode) {
+        if (isLoading) return Observable.empty();
         isLoading = true;
 
-        Subscription sub = getLoadObservable(accessToken, authCode)
+        return getLoadObservable(accessToken, authCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(() -> progressBarVisibility.set(View.VISIBLE))
@@ -112,19 +103,7 @@ public class MyWorksViewModel implements ViewModel {
                         Stream.of(works.list)
                                 .map(work -> new MyWorkItemViewModel(work, status, pageNavigator))
                                 .collect(Collectors.toList())
-                )
-                .subscribe(
-                        workViewModels -> {
-                            recyclerViewVisibility.set(View.VISIBLE);
-                            adapter.addAllWithNotify(workViewModels);
-                        },
-                        throwable -> {
-                            progressBarVisibility.set(View.GONE);
-                            Log.e(TAG, "load auth token error occurred.", throwable);
-                        }
                 );
-
-        compositeSubscription.add(sub);
     }
 
     private Observable<Works> getLoadObservable(@Nullable String accessToken, @NonNull String authCode) {

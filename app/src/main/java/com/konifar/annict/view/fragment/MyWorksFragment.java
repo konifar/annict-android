@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import javax.inject.Inject;
 
 
 public class MyWorksFragment extends BaseFragment implements MainTabPage {
+
+    private static final String TAG = MyWorksFragment.class.getSimpleName();
 
     @Inject
     MyWorksViewModel viewModel;
@@ -74,7 +77,18 @@ public class MyWorksFragment extends BaseFragment implements MainTabPage {
         binding.setViewModel(viewModel);
 
         initRecyclerView();
-        viewModel.showWorks(DefaultPrefs.get(getContext()).getAccessToken(), authCode, adapter);
+        viewModel.showWorks(DefaultPrefs.get(getContext()).getAccessToken(), authCode)
+                .subscribe(
+                        workViewModels -> {
+                            viewModel.recyclerViewVisibility.set(View.VISIBLE);
+                            adapter.addAllWithNotify(workViewModels);
+                        },
+                        throwable -> {
+                            viewModel.progressBarVisibility.set(View.GONE);
+                            Log.e(TAG, "load auth token error occurred.", throwable);
+                        }
+                );
+        ;
 
         return binding.getRoot();
     }
@@ -97,7 +111,17 @@ public class MyWorksFragment extends BaseFragment implements MainTabPage {
                 new InfiniteOnScrollChangeListener(binding.recyclerView, linearLayoutManager) {
                     @Override
                     public void onLoadMore() {
-                        viewModel.showNextWorks(adapter);
+                        viewModel.showNextWorks()
+                                .subscribe(
+                                        workViewModels -> {
+                                            viewModel.incremantePage();
+                                            adapter.addAllWithNotify(workViewModels);
+                                        },
+                                        throwable -> {
+                                            viewModel.footerProgressBarVisibility.set(View.GONE);
+                                            Log.e(TAG, "load works error occurred.", throwable);
+                                        }
+                                );
                     }
                 });
     }
