@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.konifar.annict.R;
 import com.konifar.annict.di.scope.ActivityScope;
 import com.konifar.annict.model.Program;
+import com.konifar.annict.model.Status;
 import com.konifar.annict.model.Work;
 import com.konifar.annict.view.activity.EpisodeDetailActivity;
 import com.konifar.annict.view.activity.LoginActivity;
@@ -21,6 +22,7 @@ import com.konifar.annict.view.activity.WorkDetailActivity;
 import com.konifar.annict.view.fragment.MainFragment;
 import com.konifar.annict.view.fragment.MyProgramsFragment;
 import com.konifar.annict.view.fragment.RecordCreateDialogFragment;
+import com.konifar.annict.view.widget.StatusSelectDialog;
 
 import javax.inject.Inject;
 
@@ -88,6 +90,10 @@ public class PageNavigator {
 
     public void startSettingsActivity() {
         activity.startActivity(SettingsActivity.createIntent(activity));
+    }
+
+    public void showStatusSelectDialog(Status status, StatusSelectDialog.Callback cb) {
+        StatusSelectDialog.show(activity, status, cb);
     }
 
 }

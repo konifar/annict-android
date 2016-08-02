@@ -1,9 +1,11 @@
 package com.konifar.annict.viewmodel;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.konifar.annict.model.Status;
 import com.konifar.annict.model.Work;
 import com.konifar.annict.util.PageNavigator;
@@ -21,7 +23,8 @@ public class MyWorkItemViewModel extends BaseObservable implements ViewModel {
 
     public String watchersCount;
 
-    public String statusText;
+    @Bindable
+    public Status status;
 
     public final Work work;
 
@@ -36,8 +39,7 @@ public class MyWorkItemViewModel extends BaseObservable implements ViewModel {
         mediaText = work.mediaText;
         watchersCount = String.valueOf(work.watchersCount);
 
-        statusText = status.name();
-
+        this.status = status;
         this.work = work;
         this.pageNavigator = pageNavigator;
     }
@@ -53,6 +55,13 @@ public class MyWorkItemViewModel extends BaseObservable implements ViewModel {
 
     public void onClickImage(@SuppressWarnings("unused") View view) {
         pageNavigator.startWorkDetailActivity(work);
+    }
+
+    public void onClickStatusChange(@SuppressWarnings("unused") View view) {
+        pageNavigator.showStatusSelectDialog(status, selectedStatus -> {
+            this.status = selectedStatus;
+            notifyPropertyChanged(BR.status);
+        });
     }
 
 }

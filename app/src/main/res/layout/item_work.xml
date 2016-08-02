@@ -89,6 +89,25 @@
             android:text="@{viewModel.watchersCount}"
             android:textSize="@dimen/text_14sp" />
 
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_status_change"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/review_btn_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/txt_title"
+            android:layout_marginEnd="-4dp"
+            android:layout_marginLeft="@dimen/space_4dp"
+            android:layout_marginRight="-4dp"
+            android:layout_marginStart="@dimen/space_4dp"
+            android:drawableEnd="@drawable/ic_arrow_drop_down_white_18dp_vector_state"
+            android:drawablePadding="@dimen/icon_space_4dp"
+            android:drawableRight="@drawable/ic_arrow_drop_down_white_18dp_vector_state"
+            android:onClick="@{viewModel.onClickStatusChange}"
+            android:text="@{viewModel.status.stringRes}"
+            app:backgroundTint="@color/accent100"
+            app:srcCompat="@drawable/ic_edit_white_18dp_vector" />
+
     </RelativeLayout>
 
 </layout>

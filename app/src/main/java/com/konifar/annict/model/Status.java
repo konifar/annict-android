@@ -4,6 +4,9 @@ import android.support.annotation.StringRes;
 
 import com.konifar.annict.R;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * https://annict.wikihub.io/wiki/api/me-statuses
  */
@@ -27,6 +30,10 @@ public enum Status {
     @Override
     public String toString() {
         return super.toString().toLowerCase();
+    }
+
+    public static List<Status> all() {
+        return Arrays.asList(NO_SELECT, WANNA_WATCH, WATCHING, WATCHED, ON_HOLD, STOP_WATCHING);
     }
 
 }
