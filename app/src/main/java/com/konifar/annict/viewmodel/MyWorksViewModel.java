@@ -5,7 +5,6 @@ import android.databinding.ObservableInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.annimon.stream.Collectors;
@@ -46,8 +45,6 @@ public class MyWorksViewModel implements ViewModel {
         this.context = context;
         this.client = client;
         this.pageNavigator = pageNavigator;
-
-        Log.d("hogehoge", DefaultPrefs.get(context).getAccessToken() + "");
     }
 
     public void setStatus(@NonNull Status status) {
