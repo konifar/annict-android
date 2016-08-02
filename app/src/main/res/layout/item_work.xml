@@ -48,6 +48,47 @@
             android:layout_toRightOf="@id/img_thumb"
             android:text="@{viewModel.title}" />
 
+        <TextView
+            android:id="@+id/txt_season_name"
+            style="@style/TextSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_title"
+            android:layout_marginTop="@dimen/space_4dp"
+            android:layout_toEndOf="@id/img_thumb"
+            android:layout_toRightOf="@id/img_thumb"
+            android:background="@drawable/tag_grey200"
+            android:text="@{viewModel.seasonNameText}" />
+
+        <TextView
+            android:id="@+id/txt_media"
+            style="@style/TextSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_title"
+            android:layout_marginLeft="@dimen/space_4dp"
+            android:layout_marginStart="@dimen/space_4dp"
+            android:layout_marginTop="@dimen/space_4dp"
+            android:layout_toEndOf="@id/txt_season_name"
+            android:layout_toRightOf="@id/txt_season_name"
+            android:background="@drawable/tag_grey200"
+            android:text="@{viewModel.mediaText}" />
+
+        <TextView
+            android:id="@+id/txt_watchers_count"
+            style="@style/TextSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_season_name"
+            android:layout_marginTop="@dimen/space_4dp"
+            android:layout_toEndOf="@id/img_thumb"
+            android:layout_toRightOf="@id/img_thumb"
+            android:drawableLeft="@drawable/ic_people_grey_500_14dp_vector"
+            android:drawablePadding="@dimen/icon_space_4dp"
+            android:drawableStart="@drawable/ic_people_grey_500_14dp_vector"
+            android:text="@{viewModel.watchersCount}"
+            android:textSize="@dimen/text_14sp" />
+
     </RelativeLayout>
 
 </layout>

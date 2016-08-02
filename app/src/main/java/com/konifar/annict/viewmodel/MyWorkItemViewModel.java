@@ -19,7 +19,7 @@ public class MyWorkItemViewModel extends BaseObservable implements ViewModel {
 
     public String mediaText;
 
-    public int watchersCount;
+    public String watchersCount;
 
     public String statusText;
 
@@ -34,7 +34,7 @@ public class MyWorkItemViewModel extends BaseObservable implements ViewModel {
         }
         seasonNameText = work.seasonNameText;
         mediaText = work.mediaText;
-        watchersCount = work.watchersCount;
+        watchersCount = String.valueOf(work.watchersCount);
 
         statusText = status.name();
 
