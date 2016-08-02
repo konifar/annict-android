@@ -95,6 +95,10 @@ public class AnnictClient {
                 null);
     }
 
+    public Observable<Void> postMeStatuses(long workId, Status status) {
+        return service.postMeStatuses(workId, status.toString());
+    }
+
     private enum Sort {
         ASC, DESC;
 
@@ -147,6 +151,13 @@ public class AnnictClient {
                                      @Query("sort_id") @Nullable String sortId,
                                      @Query("sort_reason") @Nullable String sortReason,
                                      @Query("sort_watchers_count") @Nullable String sortWatchersCount);
+
+        /**
+         * https://annict.wikihub.io/wiki/api/me-statuses
+         */
+        @POST("/v1/me/statuses")
+        Observable<Void> postMeStatuses(@Query("work_id") long workId,
+                                        @Query("kind") String kind);
 
     }
 

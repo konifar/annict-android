@@ -5,6 +5,7 @@ import android.databinding.ObservableInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.annimon.stream.Collectors;
@@ -22,14 +23,12 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
 
 public class MyWorksViewModel implements ViewModel {
 
     private final Context context;
     private final AnnictClient client;
     private final PageNavigator pageNavigator;
-    private final CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     private int currentPage = 1;
     private boolean isLoading;
@@ -47,6 +46,8 @@ public class MyWorksViewModel implements ViewModel {
         this.context = context;
         this.client = client;
         this.pageNavigator = pageNavigator;
+
+        Log.d("hogehoge", DefaultPrefs.get(context).getAccessToken() + "");
     }
 
     public void setStatus(@NonNull Status status) {
@@ -77,7 +78,7 @@ public class MyWorksViewModel implements ViewModel {
                 })
                 .map(works ->
                         Stream.of(works.list)
-                                .map(work -> new MyWorkItemViewModel(work, status, pageNavigator))
+                                .map(work -> new MyWorkItemViewModel(work, status, pageNavigator, client))
                                 .collect(Collectors.toList())
                 );
     }
@@ -101,7 +102,7 @@ public class MyWorksViewModel implements ViewModel {
                 })
                 .map(works ->
                         Stream.of(works.list)
-                                .map(work -> new MyWorkItemViewModel(work, status, pageNavigator))
+                                .map(work -> new MyWorkItemViewModel(work, status, pageNavigator, client))
                                 .collect(Collectors.toList())
                 );
     }
@@ -120,7 +121,7 @@ public class MyWorksViewModel implements ViewModel {
 
     @Override
     public void destroy() {
-        compositeSubscription.unsubscribe();
+        //
     }
 
 }

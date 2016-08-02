@@ -22,6 +22,7 @@ import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
 import com.konifar.annict.viewmodel.MyWorkItemViewModel;
 import com.konifar.annict.viewmodel.MyWorksViewModel;
+import com.konifar.annict.viewmodel.ViewModel;
 
 import javax.inject.Inject;
 
@@ -46,10 +47,6 @@ public class MyWorksFragment extends BaseFragment implements MainTabPage {
         bundle.putSerializable(Status.class.getSimpleName(), status);
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    public static MyWorksFragment newInstance() {
-        return new MyWorksFragment();
     }
 
     @Override
@@ -96,6 +93,7 @@ public class MyWorksFragment extends BaseFragment implements MainTabPage {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        adapter.destroy();
         viewModel.destroy();
     }
 
@@ -151,6 +149,12 @@ public class MyWorksFragment extends BaseFragment implements MainTabPage {
         public void onBindViewHolder(BindingHolder<ItemWorkBinding> holder, int position) {
             MyWorkItemViewModel viewModel = getItem(position);
             holder.binding.setViewModel(viewModel);
+        }
+
+        public void destroy() {
+            for (ViewModel viewModel : list) {
+                viewModel.destroy();
+            }
         }
     }
 

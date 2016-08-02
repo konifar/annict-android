@@ -20,6 +20,7 @@ import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
 import com.konifar.annict.viewmodel.MyProgramItemViewModel;
 import com.konifar.annict.viewmodel.MyProgramsViewModel;
+import com.konifar.annict.viewmodel.ViewModel;
 import com.konifar.annict.viewmodel.event.EventBus;
 import com.konifar.annict.viewmodel.event.MyProgramsLoadedEvent;
 
@@ -96,6 +97,7 @@ public class MyProgramsFragment extends BaseFragment implements MainTabPage {
     public void onDestroyView() {
         super.onDestroyView();
         compositeSubscription.unsubscribe();
+        adapter.destroy();
         viewModel.destroy();
     }
 
@@ -141,6 +143,12 @@ public class MyProgramsFragment extends BaseFragment implements MainTabPage {
         public void onBindViewHolder(BindingHolder<ItemProgramBinding> holder, int position) {
             MyProgramItemViewModel viewModel = getItem(position);
             holder.binding.setViewModel(viewModel);
+        }
+
+        public void destroy() {
+            for (ViewModel viewModel : list) {
+                viewModel.destroy();
+            }
         }
     }
 
