@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.annimon.stream.Stream;
 import com.konifar.annict.R;
 import com.konifar.annict.databinding.FragmentMyWorksBinding;
 import com.konifar.annict.databinding.ItemWorkBinding;
@@ -22,7 +23,6 @@ import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
 import com.konifar.annict.viewmodel.MyWorkItemViewModel;
 import com.konifar.annict.viewmodel.MyWorksViewModel;
-import com.konifar.annict.viewmodel.ViewModel;
 
 import javax.inject.Inject;
 
@@ -152,9 +152,7 @@ public class MyWorksFragment extends BaseFragment implements MainTabPage {
         }
 
         public void destroy() {
-            for (ViewModel viewModel : list) {
-                viewModel.destroy();
-            }
+            Stream.of(list).forEach(MyWorkItemViewModel::destroy);
         }
     }
 

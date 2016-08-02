@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.annimon.stream.Stream;
 import com.konifar.annict.R;
 import com.konifar.annict.databinding.FragmentMyProgramsBinding;
 import com.konifar.annict.databinding.ItemProgramBinding;
@@ -20,7 +21,6 @@ import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
 import com.konifar.annict.viewmodel.MyProgramItemViewModel;
 import com.konifar.annict.viewmodel.MyProgramsViewModel;
-import com.konifar.annict.viewmodel.ViewModel;
 import com.konifar.annict.viewmodel.event.EventBus;
 import com.konifar.annict.viewmodel.event.MyProgramsLoadedEvent;
 
@@ -146,9 +146,7 @@ public class MyProgramsFragment extends BaseFragment implements MainTabPage {
         }
 
         public void destroy() {
-            for (ViewModel viewModel : list) {
-                viewModel.destroy();
-            }
+            Stream.of(list).forEach(MyProgramItemViewModel::destroy);
         }
     }
 
