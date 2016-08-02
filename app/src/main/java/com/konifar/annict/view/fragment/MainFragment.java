@@ -16,8 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.annimon.stream.Stream;
 import com.konifar.annict.R;
 import com.konifar.annict.databinding.FragmentMainBinding;
+import com.konifar.annict.model.Status;
 import com.konifar.annict.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
@@ -80,6 +82,7 @@ public class MainFragment extends BaseFragment {
         adapter = new MainPagerAdapter(getFragmentManager());
 
         binding.viewPager.setAdapter(adapter);
+        binding.viewPager.setOffscreenPageLimit(3);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
         binding.tabLayout.addOnTabSelectedListener(new CustomViewPagerOnTabSelectedListener(binding.viewPager));
     }
@@ -104,17 +107,23 @@ public class MainFragment extends BaseFragment {
 
     private class MainPagerAdapter extends FragmentStatePagerAdapter {
 
-        private final List<MainTabPage> pages;
+        private final List<String> titles = new ArrayList<>();
+        private final List<MainTabPage> pages = new ArrayList<>();
 
         public MainPagerAdapter(FragmentManager fm) {
             super(fm);
-            pages = createPages();
+            createPages();
         }
 
-        private List<MainTabPage> createPages() {
-            List<MainTabPage> pages = new ArrayList<>();
+        private void createPages() {
+            titles.add(getString(R.string.my_programs_title));
             pages.add(MyProgramsFragment.newInstance(authCode));
-            return pages;
+
+            Stream.of(Status.WATCHING, Status.WANNA_WATCH, Status.WATCHED)
+                    .forEach(status -> {
+                        titles.add(getString(status.stringRes));
+                        pages.add(MyWorksFragment.newInstance(authCode, status));
+                    });
         }
 
         @Override
@@ -133,7 +142,7 @@ public class MainFragment extends BaseFragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return getContext().getString(pages.get(position).getTitleResId());
+            return titles.get(position);
         }
     }
 

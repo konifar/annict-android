@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.konifar.annict.R;
-import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.databinding.FragmentMyProgramsBinding;
 import com.konifar.annict.databinding.ItemProgramBinding;
 import com.konifar.annict.pref.DefaultPrefs;
@@ -32,10 +31,6 @@ import rx.subscriptions.CompositeSubscription;
 
 public class MyProgramsFragment extends BaseFragment implements MainTabPage {
 
-    private static final String ARG_AUTH_CODE = "auth_code";
-
-    @Inject
-    AnnictClient client;
     @Inject
     MyProgramsViewModel viewModel;
     @Inject
@@ -119,11 +114,6 @@ public class MyProgramsFragment extends BaseFragment implements MainTabPage {
                         viewModel.showNextPrograms();
                     }
                 });
-    }
-
-    @Override
-    public int getTitleResId() {
-        return R.string.my_programs_title;
     }
 
     @Override

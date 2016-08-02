@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.konifar.annict.viewmodel.MyWorkItemViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/clickable_white"
+        android:clickable="true"
+        android:onClick="@{viewModel.onClickRoot}"
+        android:padding="@dimen/space_16dp">
+
+        <ImageView
+            android:id="@+id/img_thumb"
+            android:layout_width="@dimen/image_thumb"
+            android:layout_height="@dimen/image_thumb"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:layout_marginRight="@dimen/space_16dp"
+            android:background="@drawable/rectangle_border_grey200"
+            android:contentDescription="@string/photo"
+            app:photoImageSize="@{@dimen/image_thumb}"
+            app:photoImageUrl="@{viewModel.thumbUrl}" />
+
+        <View
+            style="@style/ClickCover"
+            android:layout_alignBottom="@+id/img_thumb"
+            android:layout_alignEnd="@+id/img_thumb"
+            android:layout_alignLeft="@+id/img_thumb"
+            android:layout_alignRight="@+id/img_thumb"
+            android:layout_alignStart="@+id/img_thumb"
+            android:layout_alignTop="@+id/img_thumb"
+            android:onClick="@{viewModel.onClickImage}" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            style="@style/TextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/img_thumb"
+            android:layout_toRightOf="@id/img_thumb"
+            android:text="@{viewModel.title}" />
+
+    </RelativeLayout>
+
+</layout>

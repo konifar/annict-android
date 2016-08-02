@@ -4,6 +4,7 @@ import com.konifar.annict.di.scope.FragmentScope;
 import com.konifar.annict.view.fragment.LoginFragment;
 import com.konifar.annict.view.fragment.MainFragment;
 import com.konifar.annict.view.fragment.MyProgramsFragment;
+import com.konifar.annict.view.fragment.MyWorksFragment;
 import com.konifar.annict.view.fragment.RecordCreateDialogFragment;
 
 import dagger.Subcomponent;
@@ -19,5 +20,7 @@ public interface FragmentComponent {
     void inject(LoginFragment fragment);
 
     void inject(RecordCreateDialogFragment fragment);
+
+    void inject(MyWorksFragment fragment);
 
 }
