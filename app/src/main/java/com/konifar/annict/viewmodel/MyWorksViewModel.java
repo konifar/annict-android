@@ -55,7 +55,7 @@ public class MyWorksViewModel implements ViewModel {
         currentPage++;
     }
 
-    public Observable<List<MyWorkItemViewModel>> showNextWorks() {
+    public Observable<List<WorkItemViewModel>> showNextWorks() {
         if (isLoading) return Observable.empty();
         isLoading = true;
 
@@ -75,13 +75,13 @@ public class MyWorksViewModel implements ViewModel {
                 })
                 .map(works ->
                         Stream.of(works.list)
-                                .map(work -> new MyWorkItemViewModel(work, status, pageNavigator, client))
+                                .map(work -> new WorkItemViewModel(context, work, status, pageNavigator, client))
                                 .collect(Collectors.toList())
                 );
     }
 
-    public Observable<List<MyWorkItemViewModel>> showWorks(@Nullable String accessToken,
-                                                           @NonNull String authCode) {
+    public Observable<List<WorkItemViewModel>> showWorks(@Nullable String accessToken,
+                                                         @NonNull String authCode) {
         if (isLoading) return Observable.empty();
         isLoading = true;
 
@@ -99,7 +99,7 @@ public class MyWorksViewModel implements ViewModel {
                 })
                 .map(works ->
                         Stream.of(works.list)
-                                .map(work -> new MyWorkItemViewModel(work, status, pageNavigator, client))
+                                .map(work -> new WorkItemViewModel(context, work, status, pageNavigator, client))
                                 .collect(Collectors.toList())
                 );
     }
