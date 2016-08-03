@@ -39,7 +39,7 @@ public class MainViewModel implements ViewModel {
     }
 
     public void onClickSearchMenu() {
-        // TODO
+        navigator.startSearchActivity();
     }
 
     public void onClickSettingMenu() {

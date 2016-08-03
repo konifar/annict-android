@@ -42,4 +42,7 @@
     <!-- Settings -->
     <string name="settings">設定</string>
 
+    <!-- Search -->
+    <string name="search_hint">タイトルで検索</string>
+
 </resources>
