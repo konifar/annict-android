@@ -17,6 +17,7 @@ import com.konifar.annict.model.Status;
 import com.konifar.annict.model.Work;
 import com.konifar.annict.view.activity.EpisodeDetailActivity;
 import com.konifar.annict.view.activity.LoginActivity;
+import com.konifar.annict.view.activity.SearchActivity;
 import com.konifar.annict.view.activity.SettingsActivity;
 import com.konifar.annict.view.activity.WorkDetailActivity;
 import com.konifar.annict.view.fragment.MainFragment;
@@ -94,6 +95,10 @@ public class PageNavigator {
 
     public void showStatusSelectDialog(Status status, StatusSelectDialog.Callback cb) {
         StatusSelectDialog.show(activity, status, cb);
+    }
+
+    public void startSearchActivity() {
+        SearchActivity.start(activity);
     }
 
 }

@@ -21,7 +21,7 @@ import com.konifar.annict.view.widget.ArrayRecyclerAdapter;
 import com.konifar.annict.view.widget.BindingHolder;
 import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
-import com.konifar.annict.viewmodel.MyWorkItemViewModel;
+import com.konifar.annict.viewmodel.WorkItemViewModel;
 import com.konifar.annict.viewmodel.MyWorksViewModel;
 
 import javax.inject.Inject;
@@ -134,7 +134,7 @@ public class MyWorksFragment extends BaseFragment implements MainTabPage {
         return this;
     }
 
-    public class MyWorksAdapter extends ArrayRecyclerAdapter<MyWorkItemViewModel, BindingHolder<ItemWorkBinding>> {
+    public class MyWorksAdapter extends ArrayRecyclerAdapter<WorkItemViewModel, BindingHolder<ItemWorkBinding>> {
 
         public MyWorksAdapter(@NonNull Context context) {
             super(context);
@@ -147,12 +147,12 @@ public class MyWorksFragment extends BaseFragment implements MainTabPage {
 
         @Override
         public void onBindViewHolder(BindingHolder<ItemWorkBinding> holder, int position) {
-            MyWorkItemViewModel viewModel = getItem(position);
+            WorkItemViewModel viewModel = getItem(position);
             holder.binding.setViewModel(viewModel);
         }
 
         public void destroy() {
-            Stream.of(list).forEach(MyWorkItemViewModel::destroy);
+            Stream.of(list).forEach(WorkItemViewModel::destroy);
         }
     }
 

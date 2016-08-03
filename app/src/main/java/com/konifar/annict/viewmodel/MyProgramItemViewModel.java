@@ -11,7 +11,6 @@ import com.konifar.annict.model.Program;
 import com.konifar.annict.util.DateUtil;
 import com.konifar.annict.util.PageNavigator;
 import com.konifar.annict.util.ViewHelper;
-import com.squareup.phrase.Phrase;
 
 public class MyProgramItemViewModel implements ViewModel {
 
@@ -41,10 +40,8 @@ public class MyProgramItemViewModel implements ViewModel {
             if (TextUtils.isEmpty(episode.title)) {
                 episodeTitle = episode.numberText;
             } else {
-                episodeTitle = Phrase.from(context, R.string.episode_brackets)
-                        .putOptional("episode_number", program.episode.numberText)
-                        .put("episode_title", program.episode.title)
-                        .format().toString();
+                episodeTitle = context.getString(R.string.episode_brackets,
+                        program.episode.numberText, program.episode.title);
             }
         }
         if (program.channel != null) channel = program.channel.name;
