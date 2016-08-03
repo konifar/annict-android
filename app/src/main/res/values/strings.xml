@@ -21,6 +21,7 @@
     <string name="status_on_hold">中断</string>
     <string name="status_stop_watching">中止</string>
     <string name="status_no_select">未選択</string>
+    <string name="status_select_message">ステータスを選択</string>
 
     <!-- Program -->
     <string name="my_programs_title">放送予定</string>

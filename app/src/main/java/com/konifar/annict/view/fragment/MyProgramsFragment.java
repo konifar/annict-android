@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.annimon.stream.Stream;
 import com.konifar.annict.R;
 import com.konifar.annict.databinding.FragmentMyProgramsBinding;
 import com.konifar.annict.databinding.ItemProgramBinding;
@@ -96,6 +97,7 @@ public class MyProgramsFragment extends BaseFragment implements MainTabPage {
     public void onDestroyView() {
         super.onDestroyView();
         compositeSubscription.unsubscribe();
+        adapter.destroy();
         viewModel.destroy();
     }
 
@@ -141,6 +143,10 @@ public class MyProgramsFragment extends BaseFragment implements MainTabPage {
         public void onBindViewHolder(BindingHolder<ItemProgramBinding> holder, int position) {
             MyProgramItemViewModel viewModel = getItem(position);
             holder.binding.setViewModel(viewModel);
+        }
+
+        public void destroy() {
+            Stream.of(list).forEach(MyProgramItemViewModel::destroy);
         }
     }
 

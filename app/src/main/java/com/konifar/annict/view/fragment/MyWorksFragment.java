@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.annimon.stream.Stream;
 import com.konifar.annict.R;
 import com.konifar.annict.databinding.FragmentMyWorksBinding;
 import com.konifar.annict.databinding.ItemWorkBinding;
@@ -46,10 +47,6 @@ public class MyWorksFragment extends BaseFragment implements MainTabPage {
         bundle.putSerializable(Status.class.getSimpleName(), status);
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    public static MyWorksFragment newInstance() {
-        return new MyWorksFragment();
     }
 
     @Override
@@ -96,6 +93,7 @@ public class MyWorksFragment extends BaseFragment implements MainTabPage {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        adapter.destroy();
         viewModel.destroy();
     }
 
@@ -151,6 +149,10 @@ public class MyWorksFragment extends BaseFragment implements MainTabPage {
         public void onBindViewHolder(BindingHolder<ItemWorkBinding> holder, int position) {
             MyWorkItemViewModel viewModel = getItem(position);
             holder.binding.setViewModel(viewModel);
+        }
+
+        public void destroy() {
+            Stream.of(list).forEach(MyWorkItemViewModel::destroy);
         }
     }
 
