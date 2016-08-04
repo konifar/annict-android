@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Text -->
     <style name="TextTitle">
@@ -54,6 +54,16 @@
         <item name="android:textColorHint">@color/white_alpha_40</item>
         <item name="android:textColorHighlight">@color/black_alpha_12</item>
         <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TabLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/theme500</item>
+        <item name="android:elevation" tools:targetApi="lollipop">@dimen/elevation</item>
+        <item name="elevation">@dimen/elevation</item>
+        <item name="tabIndicatorColor">@color/accent100</item>
+        <item name="tabTextColor">@color/white_alpha_40</item>
     </style>
 
 </resources>

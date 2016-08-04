@@ -23,6 +23,7 @@ import com.konifar.annict.view.activity.WorkDetailActivity;
 import com.konifar.annict.view.fragment.MainFragment;
 import com.konifar.annict.view.fragment.MyProgramsFragment;
 import com.konifar.annict.view.fragment.RecordCreateDialogFragment;
+import com.konifar.annict.view.fragment.SearchFragment;
 import com.konifar.annict.view.widget.StatusSelectDialog;
 
 import javax.inject.Inject;
@@ -99,6 +100,14 @@ public class PageNavigator {
 
     public void startSearchActivity() {
         SearchActivity.start(activity);
+    }
+
+    public void replaceSearchFragment(@IdRes int layoutResId) {
+        replaceFragment(SearchFragment.newInstance(), layoutResId);
+    }
+
+    public void replaceSearchFragment(@NonNull String authCode, @IdRes int layoutResId) {
+        replaceFragment(SearchFragment.newInstance(authCode), layoutResId);
     }
 
 }

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.konifar.annict.view.fragment.MainFragment">
+    tools:context="com.konifar.annict.view.fragment.SearchFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,7 +11,7 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             style="@style/TabLayout"
-            app:tabMode="scrollable" />
+            app:tabMode="fixed" />
 
         <com.booking.rtlviewpager.RtlViewPager
             android:id="@+id/view_pager"

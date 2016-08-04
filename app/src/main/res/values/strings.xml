@@ -44,5 +44,7 @@
 
     <!-- Search -->
     <string name="search_hint">タイトルで検索</string>
+    <string name="search_season">シーズン</string>
+    <string name="search_popular">人気</string>
 
 </resources>
