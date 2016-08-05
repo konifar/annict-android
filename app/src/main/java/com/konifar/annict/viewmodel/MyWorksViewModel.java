@@ -9,10 +9,10 @@ import android.view.View;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
-import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.model.Status;
-import com.konifar.annict.model.Works;
-import com.konifar.annict.pref.DefaultPrefs;
+import com.konifar.annict.model.Work;
+import com.konifar.annict.repository.StatusRepository;
+import com.konifar.annict.repository.WorkRepository;
 import com.konifar.annict.util.PageNavigator;
 
 import java.util.List;
@@ -20,19 +20,18 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class MyWorksViewModel implements ViewModel {
 
     private final Context context;
-    private final AnnictClient client;
+    private final WorkRepository workRepository;
+    private final StatusRepository statusRepository;
     private final PageNavigator pageNavigator;
 
     private int currentPage = 1;
     private boolean isLoading;
 
-    private Status status = Status.NON;
+    private Status status = Status.NO_SELECT;
 
     public ObservableInt progressBarVisibility = new ObservableInt(View.GONE);
     public ObservableInt recyclerViewVisibility = new ObservableInt(View.GONE);
@@ -40,10 +39,12 @@ public class MyWorksViewModel implements ViewModel {
 
     @Inject
     public MyWorksViewModel(Context context,
-                            AnnictClient client,
+                            WorkRepository workRepository,
+                            StatusRepository statusRepository,
                             PageNavigator pageNavigator) {
         this.context = context;
-        this.client = client;
+        this.workRepository = workRepository;
+        this.statusRepository = statusRepository;
         this.pageNavigator = pageNavigator;
     }
 
@@ -61,9 +62,7 @@ public class MyWorksViewModel implements ViewModel {
 
         int nextPage = currentPage + 1;
 
-        return client.getMeWorks(status, nextPage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        return workRepository.getMineWhereStatus(status, nextPage)
                 .doOnSubscribe(() -> footerProgressBarVisibility.set(View.VISIBLE))
                 .doOnCompleted(() -> {
                     isLoading = false;
@@ -73,11 +72,7 @@ public class MyWorksViewModel implements ViewModel {
                     isLoading = false;
                     footerProgressBarVisibility.set(View.GONE);
                 })
-                .map(works ->
-                        Stream.of(works.list)
-                                .map(work -> new WorkItemViewModel(context, work, status, pageNavigator, client))
-                                .collect(Collectors.toList())
-                );
+                .map(this::createViewModel);
     }
 
     public Observable<List<WorkItemViewModel>> showWorks(@Nullable String accessToken,
@@ -86,8 +81,6 @@ public class MyWorksViewModel implements ViewModel {
         isLoading = true;
 
         return getLoadObservable(accessToken, authCode)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(() -> progressBarVisibility.set(View.VISIBLE))
                 .doOnCompleted(() -> {
                     isLoading = false;
@@ -97,22 +90,20 @@ public class MyWorksViewModel implements ViewModel {
                     isLoading = false;
                     progressBarVisibility.set(View.GONE);
                 })
-                .map(works ->
-                        Stream.of(works.list)
-                                .map(work -> new WorkItemViewModel(context, work, status, pageNavigator, client))
-                                .collect(Collectors.toList())
-                );
+                .map(this::createViewModel);
     }
 
-    private Observable<Works> getLoadObservable(@Nullable String accessToken, @NonNull String authCode) {
+    private List<WorkItemViewModel> createViewModel(List<Work> works) {
+        return Stream.of(works)
+                .map(work -> new WorkItemViewModel(context, work, status, pageNavigator, statusRepository))
+                .collect(Collectors.toList());
+    }
+
+    private Observable<List<Work>> getLoadObservable(@Nullable String accessToken, @NonNull String authCode) {
         if (!TextUtils.isEmpty(accessToken)) {
-            return client.getMeWorks(status, 1);
+            return workRepository.getMineWhereStatus(status, 1);
         } else {
-            return client.postOauthToken(authCode)
-                    .flatMap(token -> {
-                        DefaultPrefs.get(context).putAccessToken(token.accessToken);
-                        return client.getMeWorks(status, 1);
-                    });
+            return workRepository.getMineWhereStatusWithAuth(authCode, status, 1);
         }
     }
 
@@ -120,5 +111,4 @@ public class MyWorksViewModel implements ViewModel {
     public void destroy() {
         //
     }
-
 }

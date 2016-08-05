@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.konifar.annict.di.AppComponent;
 import com.konifar.annict.di.AppModule;
 import com.konifar.annict.di.DaggerAppComponent;
+import com.squareup.leakcanary.LeakCanary;
 
 public class MainApplication extends Application {
 
@@ -23,6 +24,8 @@ public class MainApplication extends Application {
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
+
+        LeakCanary.install(this);
 
         new StethoWrapper(this).setup();
     }
