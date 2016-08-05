@@ -5,11 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.konifar.annict.R;
 import com.konifar.annict.databinding.ActivitySearchBinding;
+import com.konifar.annict.pref.DefaultPrefs;
+import com.konifar.annict.viewmodel.SearchViewModel;
+
+import javax.inject.Inject;
 
 public class SearchActivity extends BaseActivity {
+
+    private static final String TAG = SearchActivity.class.getSimpleName();
+
+    @Inject
+    SearchViewModel viewModel;
 
     private ActivitySearchBinding binding;
 
@@ -25,10 +35,22 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getComponent().inject(this);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         initBackToolbar(binding.searchToolbar.getToolbar());
+        getComponent().inject(this);
+
+        viewModel.showData(DefaultPrefs.get(this).getAccessToken(), extractAuthCode(), R.id.content_view);
+    }
+
+    private String extractAuthCode() {
+        if (getIntent() != null && getIntent().getData() != null) {
+            String authCode = getIntent().getData().getQueryParameter("code");
+            Log.d(TAG, "authCode:" + authCode);
+            return authCode;
+        } else {
+            return "";
+        }
     }
 
     @Override

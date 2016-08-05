@@ -95,6 +95,30 @@ public class AnnictClient {
                 null);
     }
 
+    public Observable<Works> getWorksWhereSeason(String season, int page) {
+        return service.getWorks(null,
+                null,
+                season,
+                null,
+                page,
+                DEFAULT_PER_PAGE,
+                null,
+                null,
+                null);
+    }
+
+    public Observable<Works> getWorksSortByWatchersCount(int page) {
+        return service.getWorks(null,
+                null,
+                null,
+                null,
+                page,
+                DEFAULT_PER_PAGE,
+                null,
+                null,
+                Sort.DESC.toString());
+    }
+
     public Observable<Void> postMeStatuses(long workId, Status status) {
         return service.postMeStatuses(workId, status.toString());
     }
@@ -158,6 +182,20 @@ public class AnnictClient {
         @POST("/v1/me/statuses")
         Observable<Void> postMeStatuses(@Query("work_id") long workId,
                                         @Query("kind") String kind);
+
+        /**
+         * https://annict.wikihub.io/wiki/api/works
+         */
+        @GET("/v1/works")
+        Observable<Works> getWorks(@Query("fields") @Nullable String fields,
+                                   @Query("filter_ids") @Nullable String filterIds,
+                                   @Query("filter_season") @Nullable String filterSeason,
+                                   @Query("filter_title") @Nullable String filterTitle,
+                                   @Query("page") int page,
+                                   @Query("per_page") int perPage,
+                                   @Query("sort_id") @Nullable String sortId,
+                                   @Query("sort_reason") @Nullable String sortReason,
+                                   @Query("sort_watchers_count") @Nullable String sortWatchersCount);
 
     }
 
