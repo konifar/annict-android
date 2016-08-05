@@ -9,11 +9,10 @@ import android.view.View;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
-import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.model.SearchType;
 import com.konifar.annict.model.Season;
-import com.konifar.annict.model.Works;
-import com.konifar.annict.pref.DefaultPrefs;
+import com.konifar.annict.model.Work;
+import com.konifar.annict.repository.WorkRepository;
 import com.konifar.annict.util.PageNavigator;
 
 import java.util.List;
@@ -27,7 +26,7 @@ import rx.schedulers.Schedulers;
 public class SearchTabViewModel implements ViewModel {
 
     private final Context context;
-    private final AnnictClient client;
+    private final WorkRepository repository;
     private final PageNavigator navigator;
 
     private int currentPage = 1;
@@ -41,10 +40,10 @@ public class SearchTabViewModel implements ViewModel {
 
     @Inject
     public SearchTabViewModel(Context context,
-                              AnnictClient client,
+                              WorkRepository repository,
                               PageNavigator navigator) {
         this.context = context;
-        this.client = client;
+        this.repository = repository;
         this.navigator = navigator;
     }
 
@@ -63,8 +62,6 @@ public class SearchTabViewModel implements ViewModel {
         int nextPage = currentPage + 1;
 
         return getWorksObservable(nextPage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(() -> footerProgressBarVisibility.set(View.VISIBLE))
                 .doOnCompleted(() -> {
                     isLoading = false;
@@ -74,19 +71,32 @@ public class SearchTabViewModel implements ViewModel {
                     isLoading = false;
                     footerProgressBarVisibility.set(View.GONE);
                 })
-                .map(works ->
-                        Stream.of(works.list)
-                                .map(work -> new SearchItemViewModel(context, work, navigator))
-                                .collect(Collectors.toList())
-                );
+                .map(this::createViewModel);
     }
 
-    public Observable<Works> getWorksObservable(int page) {
+    private List<SearchItemViewModel> createViewModel(List<Work> works) {
+        return Stream.of(works)
+                .map(work -> new SearchItemViewModel(context, work, navigator))
+                .collect(Collectors.toList());
+    }
+
+    public Observable<List<Work>> getWorksObservable(int page) {
         switch (type) {
             case SEASON:
-                return client.getWorksWhereSeason(Season.SUMMER.getName(2016), page);
+                return repository.getWhereSeason(Season.SUMMER.getName(2016), page);
             case POPULAR:
-                return client.getWorksSortByWatchersCount(page);
+                return repository.getOrderWatchersCountDesc(page);
+            default:
+                throw new IllegalStateException(type + " is not supported.");
+        }
+    }
+
+    public Observable<List<Work>> getWorksObservableWithAuth(String authCode, int page) {
+        switch (type) {
+            case SEASON:
+                return repository.getWhereSeasonWithAuth(authCode, Season.SUMMER.getName(2016), page);
+            case POPULAR:
+                return repository.getOrderWatchersCountDescWithAuth(authCode, page);
             default:
                 throw new IllegalStateException(type + " is not supported.");
         }
@@ -109,22 +119,14 @@ public class SearchTabViewModel implements ViewModel {
                     isLoading = false;
                     progressBarVisibility.set(View.GONE);
                 })
-                .map(works ->
-                        Stream.of(works.list)
-                                .map(work -> new SearchItemViewModel(context, work, navigator))
-                                .collect(Collectors.toList())
-                );
+                .map(this::createViewModel);
     }
 
-    private Observable<Works> getLoadObservable(@Nullable String accessToken, @NonNull String authCode) {
+    private Observable<List<Work>> getLoadObservable(@Nullable String accessToken, @NonNull String authCode) {
         if (!TextUtils.isEmpty(accessToken)) {
             return getWorksObservable(1);
         } else {
-            return client.postOauthToken(authCode)
-                    .flatMap(token -> {
-                        DefaultPrefs.get(context).putAccessToken(token.accessToken);
-                        return getWorksObservable(1);
-                    });
+            return getWorksObservableWithAuth(authCode, 1);
         }
     }
 

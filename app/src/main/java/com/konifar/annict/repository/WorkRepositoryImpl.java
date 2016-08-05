@@ -34,10 +34,14 @@ public class WorkRepositoryImpl implements WorkRepository {
 
     @Override
     public Observable<List<Work>> getMineWhereStatusWithAuth(String authCode, Status status, int page) {
+        return withAuth(authCode, getMineWhereStatus(status, page));
+    }
+
+    private Observable<List<Work>> withAuth(String authCode, Observable<List<Work>> observable) {
         return client.postOauthToken(authCode)
                 .flatMap(token -> {
                     DefaultPrefs.get(context).putAccessToken(token.accessToken);
-                    return getMineWhereStatus(status, page);
+                    return observable;
                 });
     }
 
@@ -52,6 +56,11 @@ public class WorkRepositoryImpl implements WorkRepository {
     }
 
     @Override
+    public Observable<List<Work>> getWhereSeasonWithAuth(String authCode, String season, int page) {
+        return withAuth(authCode, getWhereSeason(season, page));
+    }
+
+    @Override
     public Observable<List<Work>> getWhereSeason(String season, int page) {
         return new WorksBuilder(client, page)
                 .filterSeason(season)
@@ -59,6 +68,11 @@ public class WorkRepositoryImpl implements WorkRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(works -> works.list);
+    }
+
+    @Override
+    public Observable<List<Work>> getOrderWatchersCountDescWithAuth(String authCode, int page) {
+        return withAuth(authCode, getOrderWatchersCountDesc(page));
     }
 
     @Override

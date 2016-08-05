@@ -82,30 +82,6 @@ public class AnnictClient {
                 Sort.DESC.toString());
     }
 
-    public Observable<Works> getWorksWhereSeason(String season, int page) {
-        return service.getWorks(null,
-                null,
-                season,
-                null,
-                page,
-                DEFAULT_PER_PAGE,
-                null,
-                null,
-                null);
-    }
-
-    public Observable<Works> getWorksSortByWatchersCount(int page) {
-        return service.getWorks(null,
-                null,
-                null,
-                null,
-                page,
-                DEFAULT_PER_PAGE,
-                null,
-                null,
-                Sort.DESC.toString());
-    }
-
     public interface AnnictService {
 
         /**

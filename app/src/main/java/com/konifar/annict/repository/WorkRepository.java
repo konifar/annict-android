@@ -13,7 +13,11 @@ public interface WorkRepository {
 
     Observable<List<Work>> getMineWhereStatus(Status status, int page);
 
+    Observable<List<Work>> getWhereSeasonWithAuth(String authCode, String season, int page);
+
     Observable<List<Work>> getWhereSeason(String season, int page);
+
+    Observable<List<Work>> getOrderWatchersCountDescWithAuth(String authCode, int page);
 
     Observable<List<Work>> getOrderWatchersCountDesc(int page);
 }
