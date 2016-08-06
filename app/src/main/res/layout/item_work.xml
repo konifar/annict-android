@@ -26,7 +26,6 @@
             android:layout_marginRight="@dimen/space_16dp"
             android:background="@drawable/rectangle_border_grey200"
             android:contentDescription="@string/photo"
-            app:photoImageSize="@{@dimen/image_thumb}"
             app:photoImageUrl="@{viewModel.thumbUrl}" />
 
         <View

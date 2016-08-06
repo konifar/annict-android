@@ -56,7 +56,7 @@ public class RecordCreateDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Program program = Parcels.unwrap(getArguments().getParcelable(Program.TAG));
-            viewModel.setProgram(program);
+            viewModel.bindProgram(program);
         }
     }
 

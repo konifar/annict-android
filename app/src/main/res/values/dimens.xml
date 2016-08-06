@@ -33,6 +33,7 @@
     <dimen name="image_thumb">60dp</dimen>
     <dimen name="image_thumb_border">2dp</dimen>
     <dimen name="image_logo_large">100dp</dimen>
+    <dimen name="image_cover_height">200dp</dimen>
 
     <dimen name="tag_radius">4dp</dimen>
     <dimen name="tag_padding_horizontal">8dp</dimen>

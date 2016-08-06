@@ -3,12 +3,13 @@ package com.konifar.annict.viewmodel;
 import com.konifar.annict.BR;
 import com.konifar.annict.model.Program;
 import com.konifar.annict.repository.RecordRepository;
+import com.konifar.annict.util.DateUtil;
 import com.konifar.annict.util.PageNavigator;
+import com.konifar.annict.util.ViewHelper;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.ObservableField;
 
 import javax.inject.Inject;
 
@@ -29,18 +30,32 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     @Bindable
+    public String thumbUrl;
+
+    @Bindable
+    public String workTitle;
+
+    @Bindable
+    public String episodeTitle;
+
+    @Bindable
+    public String displayDate;
+
+    @Bindable
     public float rating;
 
     @Bindable
     public int ratingProgress; // For SeekBar
 
-    public ObservableField<String> comment;
-
-    public ObservableField<Boolean> shouldTwitterShare;
-
-    public ObservableField<Boolean> shouldFacebookShare;
+    @Bindable
+    public String comment;
 
     @Bindable
+    public boolean shouldTwitterShare;
+
+    @Bindable
+    public boolean shouldFacebookShare;
+
     public Program program;
 
     @Inject
@@ -54,9 +69,23 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
         return program;
     }
 
-    public void setProgram(Program program) {
+    public void bindProgram(Program program) {
         this.program = program;
-        notifyPropertyChanged(BR.program);
+
+        if (program.work != null) {
+            workTitle = program.work.title;
+            if (program.work.twitterUserName != null) {
+                thumbUrl = ViewHelper.getTwitterProfileImageUrl(program.work.twitterUserName);
+            }
+        }
+        episodeTitle = ViewHelper.getEpisodeTitle(program.episode, context);
+
+        displayDate = DateUtil.getProgramStartDate(program.startedAt);
+
+        notifyPropertyChanged(BR.workTitle);
+        notifyPropertyChanged(BR.thumbUrl);
+        notifyPropertyChanged(BR.episodeTitle);
+        notifyPropertyChanged(BR.displayDate);
     }
 
     public float getRating() {
