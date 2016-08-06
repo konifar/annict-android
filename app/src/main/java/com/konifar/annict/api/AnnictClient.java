@@ -23,6 +23,7 @@ import rx.Observable;
 @Singleton public class AnnictClient {
 
   private static final String BASE_URI = "https://api.annict.com";
+
   private static final String OAUTH_REDIRECT_URI = "intent://annict-android/authorize";
 
   public final AnnictService service;

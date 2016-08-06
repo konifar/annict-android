@@ -22,10 +22,13 @@ import javax.inject.Inject;
 public class SearchFragment extends BaseFragment {
 
   public static final String TAG = SearchFragment.class.getSimpleName();
+
   private static final String ARG_AUTH_CODE = "auth_code";
+
   @Inject SearchViewModel viewModel;
 
   private SearchPagerAdapter adapter;
+
   private FragmentSearchBinding binding;
 
   private String authCode;

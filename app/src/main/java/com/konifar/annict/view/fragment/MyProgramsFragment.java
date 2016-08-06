@@ -30,6 +30,7 @@ public class MyProgramsFragment extends BaseFragment implements TabPage {
   private static final String TAG = MyProgramsFragment.class.getSimpleName();
 
   @Inject MyProgramsViewModel viewModel;
+
   @Inject CompositeSubscription compositeSubscription;
 
   private String authCode;

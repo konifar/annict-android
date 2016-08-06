@@ -15,7 +15,9 @@ import java.util.concurrent.TimeUnit;
 public class DateUtil {
 
   private static final String FORMAT_MMDD = "MMMd";
+
   private static final String FORMAT_KKMM = "kk:mm";
+
   private static final String FORMAT_YYYYMMDDKKMM = "yyyyMMMdkkmm";
 
   private static final String FORMAT_PROGRAM_START_DATE = "MM/dd(E) kk:mm";

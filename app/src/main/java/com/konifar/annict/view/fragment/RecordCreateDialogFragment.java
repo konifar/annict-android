@@ -30,6 +30,7 @@ public class RecordCreateDialogFragment extends DialogFragment {
   @Inject RecordCreateViewModel viewModel;
 
   private FragmentRecordCreateDialogBinding binding;
+
   private FragmentComponent fragmentComponent;
 
   public static RecordCreateDialogFragment newInstance(@NonNull Program program) {

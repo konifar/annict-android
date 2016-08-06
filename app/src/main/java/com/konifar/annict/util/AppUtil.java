@@ -49,10 +49,10 @@ import javax.inject.Singleton;
     SpannableStringBuilder builder = new SpannableStringBuilder();
     builder.append(text);
     builder.setSpan(new ClickableSpan() {
-          @Override public void onClick(View view) {
-            showWebPage(activity, url);
-          }
-        }, text.indexOf(linkText), text.indexOf(linkText) + linkText.length(),
+                      @Override public void onClick(View view) {
+                        showWebPage(activity, url);
+                      }
+                    }, text.indexOf(linkText), text.indexOf(linkText) + linkText.length(),
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
     textView.setText(builder);

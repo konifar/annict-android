@@ -12,6 +12,7 @@ public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder
     extends RecyclerView.Adapter<VH> implements Iterable<T> {
 
   protected final ArrayList<T> list;
+
   final Context context;
 
   public ArrayRecyclerAdapter(@NonNull Context context) {

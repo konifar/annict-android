@@ -11,14 +11,23 @@ public class WorksBuilder implements Builder<Works> {
   private static final int DEFAULT_PER_PAGE = 30;
 
   private final AnnictClient client;
+
   private String fields;
+
   private String filterIds;
+
   private String filterSeason;
+
   private String filterTitle;
+
   private int page;
+
   private int perPage = DEFAULT_PER_PAGE;
+
   private String sortId;
+
   private String sortReason;
+
   private String sortWatchersCount;
 
   public WorksBuilder(AnnictClient client, int page) {

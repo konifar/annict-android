@@ -27,10 +27,13 @@ import javax.inject.Inject;
 public class MainFragment extends BaseFragment {
 
   public static final String TAG = MainFragment.class.getSimpleName();
+
   private static final String ARG_AUTH_CODE = "auth_code";
+
   @Inject MainViewModel viewModel;
 
   private MainPagerAdapter adapter;
+
   private FragmentMainBinding binding;
 
   private String authCode;

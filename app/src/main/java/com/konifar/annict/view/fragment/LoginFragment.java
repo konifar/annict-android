@@ -6,14 +6,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.databinding.FragmentLoginBinding;
 import com.konifar.annict.viewmodel.LoginViewModel;
 import javax.inject.Inject;
 
 public class LoginFragment extends BaseFragment {
 
-  @Inject AnnictClient client;
   @Inject LoginViewModel viewModel;
 
   public static LoginFragment newInstance() {

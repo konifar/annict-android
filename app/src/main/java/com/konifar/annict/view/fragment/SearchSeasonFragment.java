@@ -30,6 +30,7 @@ public class SearchSeasonFragment extends BaseFragment implements TabPage {
   private static final String TAG = SearchSeasonFragment.class.getSimpleName();
 
   @Inject SearchSeasonViewModel viewModel;
+
   @Inject CompositeSubscription compositeSubscription;
 
   private String authCode;

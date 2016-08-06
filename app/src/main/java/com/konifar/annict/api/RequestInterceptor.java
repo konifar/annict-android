@@ -15,6 +15,7 @@ import okhttp3.Response;
 @Singleton public class RequestInterceptor implements Interceptor {
 
   final ConnectivityManager connectivityManager;
+
   final Context context;
 
   @Inject public RequestInterceptor(Context context) {

@@ -11,19 +11,31 @@ public class MeProgramsBuilder implements Builder<Programs> {
   private static final int DEFAULT_PER_PAGE = 30;
 
   private final AnnictClient client;
-  private String fields;
-  private String filterIds;
-  private String filterChannelIds;
-  private String filterWorkIds;
-  private String filterStartedAtGt;
-  private String filterStartedAtLt;
-  private boolean filterUnwatched;
-  private boolean filterRebroadcast;
-  private int page;
-  private int perPage = DEFAULT_PER_PAGE;
-  private String sortId;
-  private String sortStartedAt;
 
+  private String fields;
+
+  private String filterIds;
+
+  private String filterChannelIds;
+
+  private String filterWorkIds;
+
+  private String filterStartedAtGt;
+
+  private String filterStartedAtLt;
+
+  private boolean filterUnwatched;
+
+  private boolean filterRebroadcast;
+
+  private int page;
+
+  private int perPage = DEFAULT_PER_PAGE;
+
+  private String sortId;
+
+  private String sortStartedAt;
+  
   public MeProgramsBuilder(AnnictClient client, int page) {
     this.client = client;
     this.page = page;

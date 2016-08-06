@@ -30,6 +30,7 @@ public class SearchPopularFragment extends BaseFragment implements TabPage {
   private static final String TAG = SearchPopularFragment.class.getSimpleName();
 
   @Inject SearchPopularViewModel viewModel;
+
   @Inject CompositeSubscription compositeSubscription;
 
   private String authCode;

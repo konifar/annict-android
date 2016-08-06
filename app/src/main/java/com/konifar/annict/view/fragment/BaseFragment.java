@@ -9,6 +9,8 @@ import com.konifar.annict.view.activity.BaseActivity;
 
 public abstract class BaseFragment extends Fragment {
 
+  static String ARG_AUTH_CODE = "auth_code";
+
   private FragmentComponent fragmentComponent;
 
   @NonNull public FragmentComponent getComponent() {

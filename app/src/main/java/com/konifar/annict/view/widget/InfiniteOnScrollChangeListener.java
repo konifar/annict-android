@@ -8,9 +8,11 @@ public abstract class InfiniteOnScrollChangeListener
     implements NestedScrollView.OnScrollChangeListener {
 
   private int previousTotalItemCount = 0;
+
   private boolean loading = true;
 
   private RecyclerView recyclerView;
+
   private LinearLayoutManager linearLayoutManager;
 
   public InfiniteOnScrollChangeListener(RecyclerView recyclerView,
