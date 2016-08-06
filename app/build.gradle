@@ -179,6 +179,7 @@ dependencies {
         transitive = true;
     }
     compile 'com.booking:rtlviewpager:1.0.1'
+    compile 'com.iarcuschin:simpleratingbar:0.0.5'
 
     // Test
     testCompile 'junit:junit:4.12'

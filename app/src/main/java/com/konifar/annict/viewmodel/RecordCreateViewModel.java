@@ -1,14 +1,14 @@
 package com.konifar.annict.viewmodel;
 
 import com.konifar.annict.BR;
-import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.model.Program;
+import com.konifar.annict.repository.RecordRepository;
 import com.konifar.annict.util.PageNavigator;
-import com.konifar.annict.viewmodel.event.EventBus;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.ObservableField;
 
 import javax.inject.Inject;
 
@@ -18,26 +18,36 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
 
     private static final String TAG = RecordCreateViewModel.class.getSimpleName();
 
+    private static final int PROGRESS_BAR_PRECISION = 10;
+
     private final Context context;
 
-    private final AnnictClient client;
+    private final RecordRepository repository;
 
-    private final EventBus eventBus;
-
-    private final PageNavigator pageNavigator;
+    private final PageNavigator navigator;
 
     private final CompositeSubscription compositeSubscription = new CompositeSubscription();
+
+    @Bindable
+    public float rating;
+
+    @Bindable
+    public int ratingProgress; // For SeekBar
+
+    public ObservableField<String> comment;
+
+    public ObservableField<Boolean> shouldTwitterShare;
+
+    public ObservableField<Boolean> shouldFacebookShare;
 
     @Bindable
     public Program program;
 
     @Inject
-    public RecordCreateViewModel(Context context, AnnictClient client, EventBus eventBus,
-        PageNavigator pageNavigator) {
+    public RecordCreateViewModel(Context context, RecordRepository repository, PageNavigator navigator) {
         this.context = context;
-        this.client = client;
-        this.eventBus = eventBus;
-        this.pageNavigator = pageNavigator;
+        this.repository = repository;
+        this.navigator = navigator;
     }
 
     public Program getProgram() {
@@ -47,6 +57,32 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
     public void setProgram(Program program) {
         this.program = program;
         notifyPropertyChanged(BR.program);
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        if (this.rating != rating) {
+            this.rating = rating;
+            notifyPropertyChanged(BR.rating);
+            this.ratingProgress = (int) rating * PROGRESS_BAR_PRECISION;
+            notifyPropertyChanged(BR.ratingProgress);
+        }
+    }
+
+    public int getRatingProgress() {
+        return ratingProgress;
+    }
+
+    public void setRatingProgress(int ratingProgress) {
+        if (this.ratingProgress != ratingProgress) {
+            this.ratingProgress = ratingProgress;
+            notifyPropertyChanged(BR.ratingProgress);
+            this.rating = (float) (ratingProgress) / PROGRESS_BAR_PRECISION;
+            notifyPropertyChanged(BR.rating);
+        }
     }
 
     @Override

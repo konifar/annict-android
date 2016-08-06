@@ -20,7 +20,8 @@ public class RecordRepositoryImpl implements RecordRepository {
     }
 
     @Override
-    public Observable<Record> edit(Long episodeId, String comment, Float rating, boolean shareTwitter, boolean shareFacebook) {
+    public Observable<Record> edit(Long episodeId, String comment, Float rating,
+        boolean shareTwitter, boolean shareFacebook) {
         return new MeRecordsBuilder(client, episodeId)
             .comment(comment)
             .rating(rating)

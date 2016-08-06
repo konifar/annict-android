@@ -66,4 +66,13 @@
         <item name="tabTextColor">@color/white_alpha_40</item>
     </style>
 
+    <style name="RatingBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="borderColor">@color/amber600</item>
+        <item name="fillColor">@color/amber500</item>
+        <item name="numberOfStars">5</item>
+        <item name="stepSize">1</item>
+    </style>
+
 </resources>
