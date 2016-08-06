@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 
 public interface TabPage {
 
-  void scrollToTop();
+    void scrollToTop();
 
-  Fragment getFragment();
+    Fragment getFragment();
 }

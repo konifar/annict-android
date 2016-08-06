@@ -1,38 +1,48 @@
 package com.konifar.annict.viewmodel;
 
-import android.content.Context;
 import com.konifar.annict.model.Season;
 import com.konifar.annict.model.Work;
 import com.konifar.annict.repository.WorkRepository;
 import com.konifar.annict.util.PageNavigator;
+
+import android.content.Context;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
 import rx.Observable;
 
 public class SearchSeasonViewModel extends AbstractListViewModel<Work, SearchItemViewModel> {
 
-  private final Context context;
-  private final WorkRepository repository;
-  private final PageNavigator navigator;
+    private final Context context;
 
-  @Inject public SearchSeasonViewModel(Context context, WorkRepository repository,
-      PageNavigator navigator) {
-    this.context = context;
-    this.repository = repository;
-    this.navigator = navigator;
-  }
+    private final WorkRepository repository;
 
-  @Override public Observable<List<Work>> getLoadObservable(int page) {
-    // TODO
-    return repository.getWhereSeason(Season.SUMMER.getName(2016), page);
-  }
+    private final PageNavigator navigator;
 
-  @Override public Observable<List<Work>> getLoadObservableWithAuth(String authCode, int page) {
-    // TODO
-    return repository.getWhereSeasonWithAuth(authCode, Season.SUMMER.getName(2016), page);
-  }
+    @Inject
+    public SearchSeasonViewModel(Context context, WorkRepository repository,
+        PageNavigator navigator) {
+        this.context = context;
+        this.repository = repository;
+        this.navigator = navigator;
+    }
 
-  @Override SearchItemViewModel convertToViewModel(Work work) {
-    return new SearchItemViewModel(context, work, navigator);
-  }
+    @Override
+    public Observable<List<Work>> getLoadObservable(int page) {
+        // TODO
+        return repository.getWhereSeason(Season.SUMMER.getName(2016), page);
+    }
+
+    @Override
+    SearchItemViewModel convertToViewModel(Work work) {
+        return new SearchItemViewModel(context, work, navigator);
+    }
+
+    @Override
+    public Observable<List<Work>> getLoadObservableWithAuth(String authCode, int page) {
+        // TODO
+        return repository.getWhereSeasonWithAuth(authCode, Season.SUMMER.getName(2016), page);
+    }
 }

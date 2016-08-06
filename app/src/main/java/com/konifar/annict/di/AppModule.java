@@ -1,8 +1,5 @@
 package com.konifar.annict.di;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
 import com.konifar.annict.api.RequestInterceptor;
 import com.konifar.annict.repository.ProgramRepository;
 import com.konifar.annict.repository.ProgramRepositoryImpl;
@@ -11,69 +8,89 @@ import com.konifar.annict.repository.StatusRepositoryImpl;
 import com.konifar.annict.repository.WorkRepository;
 import com.konifar.annict.repository.WorkRepositoryImpl;
 import com.konifar.annict.viewmodel.event.EventBus;
+
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import java.io.File;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
-import java.io.File;
-import javax.inject.Singleton;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import rx.subscriptions.CompositeSubscription;
 
-@Module public class AppModule {
+@Module
+public class AppModule {
 
-  static final String CACHE_FILE_NAME = "okhttp.cache";
-  static final long MAX_CACHE_SIZE = 4 * 1024 * 1024;
-  static final String SHARED_PREF_NAME = "preferences";
+    static final String CACHE_FILE_NAME = "okhttp.cache";
 
-  private Context context;
+    static final long MAX_CACHE_SIZE = 4 * 1024 * 1024;
 
-  public AppModule(Application app) {
-    context = app;
-  }
+    static final String SHARED_PREF_NAME = "preferences";
 
-  @Provides public Context provideContext() {
-    return context;
-  }
+    private Context context;
 
-  @Singleton @Provides
-  public OkHttpClient provideHttpClient(Context context, Interceptor interceptor) {
-    File cacheDir = new File(context.getCacheDir(), CACHE_FILE_NAME);
-    Cache cache = new Cache(cacheDir, MAX_CACHE_SIZE);
+    public AppModule(Application app) {
+        context = app;
+    }
 
-    OkHttpClient.Builder c = new OkHttpClient.Builder().cache(cache).addInterceptor(interceptor);
+    @Provides
+    public Context provideContext() {
+        return context;
+    }
 
-    return c.build();
-  }
+    @Singleton
+    @Provides
+    public OkHttpClient provideHttpClient(Context context, Interceptor interceptor) {
+        File cacheDir = new File(context.getCacheDir(), CACHE_FILE_NAME);
+        Cache cache = new Cache(cacheDir, MAX_CACHE_SIZE);
 
-  @Provides public Interceptor provideRequestInterceptor(Context context) {
-    return new RequestInterceptor(context);
-  }
+        OkHttpClient.Builder c = new OkHttpClient.Builder().cache(cache).addInterceptor(interceptor);
 
-  @Provides public SharedPreferences provideSharedPreferences(Context context) {
-    return context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-  }
+        return c.build();
+    }
 
-  @Provides public CompositeSubscription provideCompositeSubscription() {
-    return new CompositeSubscription();
-  }
+    @Provides
+    public Interceptor provideRequestInterceptor(Context context) {
+        return new RequestInterceptor(context);
+    }
 
-  @Singleton @Provides public EventBus provideEventBus() {
-    return new EventBus();
-  }
+    @Provides
+    public SharedPreferences provideSharedPreferences(Context context) {
+        return context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+    }
 
-  @Singleton @Provides
-  public StatusRepository provideStatusRepository(StatusRepositoryImpl statusRepository) {
-    return statusRepository;
-  }
+    @Provides
+    public CompositeSubscription provideCompositeSubscription() {
+        return new CompositeSubscription();
+    }
 
-  @Singleton @Provides
-  public WorkRepository provideWorkRepository(WorkRepositoryImpl workRepository) {
-    return workRepository;
-  }
+    @Singleton
+    @Provides
+    public EventBus provideEventBus() {
+        return new EventBus();
+    }
 
-  @Singleton @Provides
-  public ProgramRepository provideProgramRepository(ProgramRepositoryImpl programRepository) {
-    return programRepository;
-  }
+    @Singleton
+    @Provides
+    public StatusRepository provideStatusRepository(StatusRepositoryImpl statusRepository) {
+        return statusRepository;
+    }
+
+    @Singleton
+    @Provides
+    public WorkRepository provideWorkRepository(WorkRepositoryImpl workRepository) {
+        return workRepository;
+    }
+
+    @Singleton
+    @Provides
+    public ProgramRepository provideProgramRepository(ProgramRepositoryImpl programRepository) {
+        return programRepository;
+    }
 }

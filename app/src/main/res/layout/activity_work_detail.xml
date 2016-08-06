@@ -2,40 +2,35 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.konifar.activity.WorkDetailActivity"
-    >
+    tools:context="com.konifar.annict.view.activity.WorkDetailActivity">
 
-  <data>
+    <data>
 
-    <variable
-        name="viewModel"
-        type="com.konifar.annict.viewmodel.WorkDetailViewModel"
-        />
-  </data>
+        <variable
+            name="viewModel"
+            type="com.konifar.annict.viewmodel.WorkDetailViewModel" />
+    </data>
 
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      >
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:elevation="@dimen/elevation"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="@{viewModel.work.title}"
-        />
+        android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/content_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:elevation="@dimen/elevation"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="@{viewModel.work.title}" />
 
-  </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar" />
+
+    </RelativeLayout>
 
 </layout>

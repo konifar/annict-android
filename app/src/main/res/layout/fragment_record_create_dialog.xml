@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.konifar.fragment.LoginFragment"
-    >
+    tools:context="com.konifar.annict.view.fragment.LoginFragment">
 
-  <data>
+    <data>
 
-    <variable
-        name="viewModel"
-        type="com.konifar.annict.viewmodel.RecordCreateViewModel"
-        />
-  </data>
+        <variable
+            name="viewModel"
+            type="com.konifar.annict.viewmodel.RecordCreateViewModel" />
+    </data>
 
-  <FrameLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@color/white"
-      android:padding="@dimen/space_16dp"
-      >
-
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@{viewModel.program.work.title}"
-        />
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="@dimen/space_16dp">
 
-  </FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.program.work.title}" />
+
+    </FrameLayout>
 
 </layout>

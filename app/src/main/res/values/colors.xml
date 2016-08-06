@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <!-- Based on http://www.google.com/design/spec/style/color.html -->
+    <!-- Based on http://www.google.com/design/spec/style/color.html -->
 
-  <!-- Theme & Accent -->
-  <color name="theme500">#F75A71</color>
-  <color name="theme600">#F64761</color>
-  <color name="accent100">#36B1BF</color>
+    <!-- Theme & Accent -->
+    <color name="theme500">#F75A71</color>
+    <color name="theme600">#F64761</color>
+    <color name="accent100">#36B1BF</color>
 
-  <!-- Greyscales -->
-  <color name="grey50">#FAFAFA</color>
-  <color name="grey200">#EEEEEE</color>
-  <color name="grey500">#9E9E9E</color>
-  <color name="grey600">#757575</color>
-  <color name="black">#000000</color>
-  <color name="black_alpha_12">#1F000000</color>
-  <color name="black_alpha_30">#4D000000</color>
-  <color name="black_alpha_87">#DD000000</color>
-  <color name="white">#FFFFFF</color>
-  <color name="white_alpha_40">#B3FFFFFF</color>
-  <color name="white_alpha_95">#F2FFFFFF</color>
+    <!-- Greyscales -->
+    <color name="grey50">#FAFAFA</color>
+    <color name="grey200">#EEEEEE</color>
+    <color name="grey500">#9E9E9E</color>
+    <color name="grey600">#757575</color>
+    <color name="black">#000000</color>
+    <color name="black_alpha_12">#1F000000</color>
+    <color name="black_alpha_30">#4D000000</color>
+    <color name="black_alpha_87">#DD000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_alpha_40">#B3FFFFFF</color>
+    <color name="white_alpha_95">#F2FFFFFF</color>
 
 </resources>

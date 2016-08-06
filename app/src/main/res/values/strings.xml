@@ -1,50 +1,50 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Commons -->
-  <string name="open">ひらく</string>
-  <string name="close">とじる</string>
-  <string name="ok">OK</string>
-  <string name="cancel">キャンセル</string>
-  <string name="share">シェア</string>
-  <string name="photo">画像</string>
-  <string name="logo">ロゴ</string>
-  <string name="search">検索</string>
+    <!-- Commons -->
+    <string name="open">ひらく</string>
+    <string name="close">とじる</string>
+    <string name="ok">OK</string>
+    <string name="cancel">キャンセル</string>
+    <string name="share">シェア</string>
+    <string name="photo">画像</string>
+    <string name="logo">ロゴ</string>
+    <string name="search">検索</string>
 
-  <!-- Login -->
-  <string name="login">ログイン</string>
-  <string name="login_welcome">Annictへようこそ。</string>
+    <!-- Login -->
+    <string name="login">ログイン</string>
+    <string name="login_welcome">Annictへようこそ。</string>
 
-  <!-- Status -->
-  <string name="status_non"/>
-  <string name="status_wanna_watch">見たい</string>
-  <string name="status_watching">見てる</string>
-  <string name="status_watched">見た</string>
-  <string name="status_on_hold">中断</string>
-  <string name="status_stop_watching">中止</string>
-  <string name="status_no_select">未選択</string>
-  <string name="status_select_message">ステータスを選択</string>
+    <!-- Status -->
+    <string name="status_non" />
+    <string name="status_wanna_watch">見たい</string>
+    <string name="status_watching">見てる</string>
+    <string name="status_watched">見た</string>
+    <string name="status_on_hold">中断</string>
+    <string name="status_stop_watching">中止</string>
+    <string name="status_no_select">未選択</string>
+    <string name="status_select_message">ステータスを選択</string>
 
-  <!-- Program -->
-  <string name="my_programs_title">放送予定</string>
+    <!-- Program -->
+    <string name="my_programs_title">放送予定</string>
     <string name="episode_brackets">
         <xliff:g id="episode_number">%1$s</xliff:g>『<xliff:g id="episode_title">%2$s</xliff:g>』
     </string>
 
-  <!-- Work -->
-  <plurals name="people_count">
-    <item quantity="one">%1$d人</item>
-    <item quantity="other">%1$d人</item>
-  </plurals>
-  <plurals name="episodes_count">
-    <item quantity="one">全%1$d話</item>
-    <item quantity="other">全%1$d話</item>
-  </plurals>
+    <!-- Work -->
+    <plurals name="people_count">
+        <item quantity="one">%1$d人</item>
+        <item quantity="other">%1$d人</item>
+    </plurals>
+    <plurals name="episodes_count">
+        <item quantity="one">全%1$d話</item>
+        <item quantity="other">全%1$d話</item>
+    </plurals>
 
-  <!-- Settings -->
-  <string name="settings">設定</string>
+    <!-- Settings -->
+    <string name="settings">設定</string>
 
-  <!-- Search -->
-  <string name="search_hint">タイトルで検索</string>
-  <string name="search_season">シーズン</string>
-  <string name="search_popular">人気</string>
+    <!-- Search -->
+    <string name="search_hint">タイトルで検索</string>
+    <string name="search_season">シーズン</string>
+    <string name="search_popular">人気</string>
 
 </resources>

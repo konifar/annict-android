@@ -1,27 +1,30 @@
 package com.konifar.annict;
 
-import android.app.Application;
-import android.support.annotation.NonNull;
 import com.konifar.annict.di.AppComponent;
 import com.konifar.annict.di.AppModule;
 import com.konifar.annict.di.DaggerAppComponent;
 import com.squareup.leakcanary.LeakCanary;
 
+import android.app.Application;
+import android.support.annotation.NonNull;
+
 public class MainApplication extends Application {
 
-  AppComponent appComponent;
+    AppComponent appComponent;
 
-  @NonNull public AppComponent getComponent() {
-    return appComponent;
-  }
+    @NonNull
+    public AppComponent getComponent() {
+        return appComponent;
+    }
 
-  @Override public void onCreate() {
-    super.onCreate();
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
-    appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+        appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
 
-    LeakCanary.install(this);
+        LeakCanary.install(this);
 
-    new StethoWrapper(this).setup();
-  }
+        new StethoWrapper(this).setup();
+    }
 }
