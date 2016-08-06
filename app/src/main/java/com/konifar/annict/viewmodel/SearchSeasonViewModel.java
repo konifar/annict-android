@@ -30,11 +30,13 @@ public class SearchSeasonViewModel extends AbstractListViewModel<Work, SearchIte
 
     @Override
     public Observable<List<Work>> getLoadObservable(int page) {
+        // TODO
         return repository.getWhereSeason(Season.SUMMER.getName(2016), page);
     }
 
     @Override
     public Observable<List<Work>> getLoadObservableWithAuth(String authCode, int page) {
+        // TODO
         return repository.getWhereSeasonWithAuth(authCode, Season.SUMMER.getName(2016), page);
     }
 

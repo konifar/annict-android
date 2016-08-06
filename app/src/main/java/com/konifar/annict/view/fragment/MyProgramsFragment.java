@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,6 @@ import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
 import com.konifar.annict.viewmodel.MyProgramItemViewModel;
 import com.konifar.annict.viewmodel.MyProgramsViewModel;
-import com.konifar.annict.viewmodel.event.EventBus;
-import com.konifar.annict.viewmodel.event.MyProgramsLoadedEvent;
 
 import javax.inject.Inject;
 
@@ -32,10 +31,10 @@ import rx.subscriptions.CompositeSubscription;
 
 public class MyProgramsFragment extends BaseFragment implements TabPage {
 
+    private static final String TAG = MyProgramsFragment.class.getSimpleName();
+
     @Inject
     MyProgramsViewModel viewModel;
-    @Inject
-    EventBus eventBus;
     @Inject
     CompositeSubscription compositeSubscription;
 
@@ -71,14 +70,6 @@ public class MyProgramsFragment extends BaseFragment implements TabPage {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Subscription sub = eventBus.observe(MyProgramsLoadedEvent.class)
-                .subscribe(event -> adapter.addAllWithNotify(event.myProgramItemViewModels));
-        compositeSubscription.add(sub);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -88,9 +79,24 @@ public class MyProgramsFragment extends BaseFragment implements TabPage {
         binding.setViewModel(viewModel);
 
         initRecyclerView();
-        viewModel.showPrograms(DefaultPrefs.get(getContext()).getAccessToken(), authCode);
+        showWithAuth();
 
         return binding.getRoot();
+    }
+
+    private void showWithAuth() {
+        Subscription sub = viewModel.showWithAuth(DefaultPrefs.get(getContext()).getAccessToken(), authCode)
+                .subscribe(
+                        viewModels -> {
+                            viewModel.recyclerViewVisibility.set(View.VISIBLE);
+                            adapter.addAllWithNotify(viewModels);
+                        },
+                        throwable -> {
+                            viewModel.progressBarVisibility.set(View.GONE);
+                            Log.e(TAG, "load auth token error occurred.", throwable);
+                        }
+                );
+        compositeSubscription.add(sub);
     }
 
     @Override
@@ -113,9 +119,23 @@ public class MyProgramsFragment extends BaseFragment implements TabPage {
                 new InfiniteOnScrollChangeListener(binding.recyclerView, linearLayoutManager) {
                     @Override
                     public void onLoadMore() {
-                        viewModel.showNextPrograms();
+                        showNext();
                     }
                 });
+    }
+
+    private void showNext() {
+        Subscription sub = viewModel.showNext().subscribe(
+                workViewModels -> {
+                    viewModel.incremantePage();
+                    adapter.addAllWithNotify(workViewModels);
+                },
+                throwable -> {
+                    viewModel.footerProgressBarVisibility.set(View.GONE);
+                    Log.e(TAG, "load works error occurred.", throwable);
+                }
+        );
+        compositeSubscription.add(sub);
     }
 
     @Override

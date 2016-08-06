@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.konifar.annict.api.RequestInterceptor;
+import com.konifar.annict.repository.ProgramRepository;
+import com.konifar.annict.repository.ProgramRepositoryImpl;
 import com.konifar.annict.repository.StatusRepository;
 import com.konifar.annict.repository.StatusRepositoryImpl;
 import com.konifar.annict.repository.WorkRepository;
@@ -84,5 +86,11 @@ public class AppModule {
     @Provides
     public WorkRepository provideWorkRepository(WorkRepositoryImpl workRepository) {
         return workRepository;
+    }
+
+    @Singleton
+    @Provides
+    public ProgramRepository provideProgramRepository(ProgramRepositoryImpl programRepository) {
+        return programRepository;
     }
 }

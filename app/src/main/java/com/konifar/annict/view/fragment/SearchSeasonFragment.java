@@ -25,6 +25,9 @@ import com.konifar.annict.viewmodel.SearchSeasonViewModel;
 
 import javax.inject.Inject;
 
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
+
 
 public class SearchSeasonFragment extends BaseFragment implements TabPage {
 
@@ -32,6 +35,8 @@ public class SearchSeasonFragment extends BaseFragment implements TabPage {
 
     @Inject
     SearchSeasonViewModel viewModel;
+    @Inject
+    CompositeSubscription compositeSubscription;
 
     private String authCode;
 
@@ -70,7 +75,13 @@ public class SearchSeasonFragment extends BaseFragment implements TabPage {
         binding.setViewModel(viewModel);
 
         initRecyclerView();
-        viewModel.showWithAuth(DefaultPrefs.get(getContext()).getAccessToken(), authCode)
+        showWithAuth();
+
+        return binding.getRoot();
+    }
+
+    private void showWithAuth() {
+        Subscription sub = viewModel.showWithAuth(DefaultPrefs.get(getContext()).getAccessToken(), authCode)
                 .subscribe(
                         workViewModels -> {
                             viewModel.recyclerViewVisibility.set(View.VISIBLE);
@@ -81,14 +92,13 @@ public class SearchSeasonFragment extends BaseFragment implements TabPage {
                             Log.e(TAG, "load auth token error occurred.", throwable);
                         }
                 );
-        ;
-
-        return binding.getRoot();
+        compositeSubscription.add(sub);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        compositeSubscription.unsubscribe();
         adapter.destroy();
         viewModel.destroy();
     }
@@ -105,19 +115,23 @@ public class SearchSeasonFragment extends BaseFragment implements TabPage {
                 new InfiniteOnScrollChangeListener(binding.recyclerView, linearLayoutManager) {
                     @Override
                     public void onLoadMore() {
-                        viewModel.showNext()
-                                .subscribe(
-                                        workViewModels -> {
-                                            viewModel.incremantePage();
-                                            adapter.addAllWithNotify(workViewModels);
-                                        },
-                                        throwable -> {
-                                            viewModel.footerProgressBarVisibility.set(View.GONE);
-                                            Log.e(TAG, "load works error occurred.", throwable);
-                                        }
-                                );
+                        showNext();
                     }
                 });
+    }
+
+    private void showNext() {
+        Subscription sub = viewModel.showNext().subscribe(
+                workViewModels -> {
+                    viewModel.incremantePage();
+                    adapter.addAllWithNotify(workViewModels);
+                },
+                throwable -> {
+                    viewModel.footerProgressBarVisibility.set(View.GONE);
+                    Log.e(TAG, "load works error occurred.", throwable);
+                }
+        );
+        compositeSubscription.add(sub);
     }
 
     @Override

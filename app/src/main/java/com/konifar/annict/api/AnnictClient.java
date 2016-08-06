@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.konifar.annict.BuildConfig;
 import com.konifar.annict.model.Programs;
-import com.konifar.annict.model.Sort;
 import com.konifar.annict.model.Token;
 import com.konifar.annict.model.Works;
 
@@ -29,8 +28,6 @@ public class AnnictClient {
 
     private static final String BASE_URI = "https://api.annict.com";
     private static final String OAUTH_REDIRECT_URI = "intent://annict-android/authorize";
-
-    private static final int DEFAULT_PER_PAGE = 30;
 
     public final AnnictService service;
 
@@ -65,21 +62,6 @@ public class AnnictClient {
                 "authorization_code",
                 OAUTH_REDIRECT_URI,
                 authCode);
-    }
-
-    public Observable<Programs> getMePrograms(int page) {
-        return service.getMeProgarms(null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                page,
-                DEFAULT_PER_PAGE,
-                null,
-                Sort.DESC.toString());
     }
 
     public interface AnnictService {

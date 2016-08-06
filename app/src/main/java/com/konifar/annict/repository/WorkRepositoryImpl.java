@@ -39,6 +39,8 @@ public class WorkRepositoryImpl implements WorkRepository {
 
     private Observable<List<Work>> withAuth(String authCode, Observable<List<Work>> observable) {
         return client.postOauthToken(authCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(token -> {
                     DefaultPrefs.get(context).putAccessToken(token.accessToken);
                     return observable;
