@@ -8,15 +8,13 @@ import android.view.View;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.konifar.annict.R;
-import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.model.Status;
 import com.konifar.annict.model.Work;
+import com.konifar.annict.repository.StatusRepository;
 import com.konifar.annict.util.PageNavigator;
 import com.konifar.annict.util.ViewHelper;
 
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 public class WorkItemViewModel extends BaseObservable implements ViewModel {
@@ -42,12 +40,12 @@ public class WorkItemViewModel extends BaseObservable implements ViewModel {
 
     private final PageNavigator pageNavigator;
 
-    private final AnnictClient client;
+    private final StatusRepository repository;
 
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
     public WorkItemViewModel(Context context, @NonNull Work work, Status status,
-                             PageNavigator pageNavigator, AnnictClient client) {
+                             PageNavigator pageNavigator, StatusRepository repository) {
         title = work.title;
         if (work.twitterUserName != null) {
             thumbUrl = ViewHelper.getTwitterProfileImageUrl(work.twitterUserName);
@@ -62,7 +60,7 @@ public class WorkItemViewModel extends BaseObservable implements ViewModel {
         this.status = status;
         this.work = work;
         this.pageNavigator = pageNavigator;
-        this.client = client;
+        this.repository = repository;
     }
 
     @Override
@@ -87,11 +85,7 @@ public class WorkItemViewModel extends BaseObservable implements ViewModel {
     }
 
     private void updateStatus() {
-        Subscription sub = client.postMeStatuses(work.id, status)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-
+        Subscription sub = repository.edit(work.id, status).subscribe();
         compositeSubscription.add(sub);
     }
 

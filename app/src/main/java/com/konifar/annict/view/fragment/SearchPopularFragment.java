@@ -13,15 +13,15 @@ import android.view.ViewGroup;
 
 import com.annimon.stream.Stream;
 import com.konifar.annict.R;
-import com.konifar.annict.databinding.FragmentMyProgramsBinding;
-import com.konifar.annict.databinding.ItemProgramBinding;
+import com.konifar.annict.databinding.FragmentSearchPopularBinding;
+import com.konifar.annict.databinding.ItemSearchBinding;
 import com.konifar.annict.pref.DefaultPrefs;
 import com.konifar.annict.view.widget.ArrayRecyclerAdapter;
 import com.konifar.annict.view.widget.BindingHolder;
 import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
-import com.konifar.annict.viewmodel.MyProgramItemViewModel;
-import com.konifar.annict.viewmodel.MyProgramsViewModel;
+import com.konifar.annict.viewmodel.SearchItemViewModel;
+import com.konifar.annict.viewmodel.SearchPopularViewModel;
 
 import javax.inject.Inject;
 
@@ -29,31 +29,27 @@ import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 
-public class MyProgramsFragment extends BaseFragment implements TabPage {
+public class SearchPopularFragment extends BaseFragment implements TabPage {
 
-    private static final String TAG = MyProgramsFragment.class.getSimpleName();
+    private static final String TAG = SearchPopularFragment.class.getSimpleName();
 
     @Inject
-    MyProgramsViewModel viewModel;
+    SearchPopularViewModel viewModel;
     @Inject
     CompositeSubscription compositeSubscription;
 
     private String authCode;
 
-    private FragmentMyProgramsBinding binding;
+    private FragmentSearchPopularBinding binding;
 
-    private MyProgramsAdapter adapter;
+    private SearchItemsAdapter adapter;
 
-    public static MyProgramsFragment newInstance(@NonNull String authCode) {
-        MyProgramsFragment fragment = new MyProgramsFragment();
+    public static SearchPopularFragment newInstance(@NonNull String authCode) {
+        SearchPopularFragment fragment = new SearchPopularFragment();
         Bundle bundle = new Bundle();
         bundle.putString(ARG_AUTH_CODE, authCode);
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    public static MyProgramsFragment newInstance() {
-        return new MyProgramsFragment();
     }
 
     @Override
@@ -75,7 +71,7 @@ public class MyProgramsFragment extends BaseFragment implements TabPage {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentMyProgramsBinding.inflate(inflater, container, false);
+        binding = FragmentSearchPopularBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
 
         initRecyclerView();
@@ -87,9 +83,9 @@ public class MyProgramsFragment extends BaseFragment implements TabPage {
     private void showWithAuth() {
         Subscription sub = viewModel.showWithAuth(DefaultPrefs.get(getContext()).getAccessToken(), authCode)
                 .subscribe(
-                        viewModels -> {
+                        workViewModels -> {
                             viewModel.recyclerViewVisibility.set(View.VISIBLE);
-                            adapter.addAllWithNotify(viewModels);
+                            adapter.addAllWithNotify(workViewModels);
                         },
                         throwable -> {
                             viewModel.progressBarVisibility.set(View.GONE);
@@ -109,7 +105,7 @@ public class MyProgramsFragment extends BaseFragment implements TabPage {
 
     private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        adapter = new MyProgramsAdapter(getContext());
+        adapter = new SearchItemsAdapter(getContext());
 
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
@@ -148,25 +144,25 @@ public class MyProgramsFragment extends BaseFragment implements TabPage {
         return this;
     }
 
-    protected class MyProgramsAdapter extends ArrayRecyclerAdapter<MyProgramItemViewModel, BindingHolder<ItemProgramBinding>> {
+    public class SearchItemsAdapter extends ArrayRecyclerAdapter<SearchItemViewModel, BindingHolder<ItemSearchBinding>> {
 
-        public MyProgramsAdapter(@NonNull Context context) {
+        public SearchItemsAdapter(@NonNull Context context) {
             super(context);
         }
 
         @Override
-        public BindingHolder<ItemProgramBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new BindingHolder<>(getContext(), parent, R.layout.item_program);
+        public BindingHolder<ItemSearchBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new BindingHolder<>(getContext(), parent, R.layout.item_search);
         }
 
         @Override
-        public void onBindViewHolder(BindingHolder<ItemProgramBinding> holder, int position) {
-            MyProgramItemViewModel viewModel = getItem(position);
+        public void onBindViewHolder(BindingHolder<ItemSearchBinding> holder, int position) {
+            SearchItemViewModel viewModel = getItem(position);
             holder.binding.setViewModel(viewModel);
         }
 
         public void destroy() {
-            Stream.of(list).forEach(MyProgramItemViewModel::destroy);
+            Stream.of(list).forEach(SearchItemViewModel::destroy);
         }
     }
 

@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.konifar.annict.BuildConfig;
 import com.konifar.annict.model.Programs;
-import com.konifar.annict.model.Status;
 import com.konifar.annict.model.Token;
 import com.konifar.annict.model.Works;
 
@@ -30,9 +29,7 @@ public class AnnictClient {
     private static final String BASE_URI = "https://api.annict.com";
     private static final String OAUTH_REDIRECT_URI = "intent://annict-android/authorize";
 
-    private static final int DEFAULT_PER_PAGE = 30;
-
-    private final AnnictService service;
+    public final AnnictService service;
 
     @Inject
     public AnnictClient(OkHttpClient client) {
@@ -65,71 +62,6 @@ public class AnnictClient {
                 "authorization_code",
                 OAUTH_REDIRECT_URI,
                 authCode);
-    }
-
-    public Observable<Programs> getMePrograms(int page) {
-        return service.getMeProgarms(null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                page,
-                DEFAULT_PER_PAGE,
-                null,
-                Sort.DESC.toString());
-    }
-
-    public Observable<Works> getMeWorks(Status filterStatus, int page) {
-        return service.getMeWorks(null,
-                null,
-                null,
-                null,
-                filterStatus.toString(),
-                page,
-                DEFAULT_PER_PAGE,
-                null,
-                null,
-                null);
-    }
-
-    public Observable<Works> getWorksWhereSeason(String season, int page) {
-        return service.getWorks(null,
-                null,
-                season,
-                null,
-                page,
-                DEFAULT_PER_PAGE,
-                null,
-                null,
-                null);
-    }
-
-    public Observable<Works> getWorksSortByWatchersCount(int page) {
-        return service.getWorks(null,
-                null,
-                null,
-                null,
-                page,
-                DEFAULT_PER_PAGE,
-                null,
-                null,
-                Sort.DESC.toString());
-    }
-
-    public Observable<Void> postMeStatuses(long workId, Status status) {
-        return service.postMeStatuses(workId, status.toString());
-    }
-
-    private enum Sort {
-        ASC, DESC;
-
-        @Override
-        public String toString() {
-            return super.toString().toLowerCase();
-        }
     }
 
     public interface AnnictService {
@@ -181,7 +113,7 @@ public class AnnictClient {
          */
         @POST("/v1/me/statuses")
         Observable<Void> postMeStatuses(@Query("work_id") long workId,
-                                        @Query("kind") String kind);
+                                        @Query("kind") @NonNull String kind);
 
         /**
          * https://annict.wikihub.io/wiki/api/works

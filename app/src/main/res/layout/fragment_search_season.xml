@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.konifar.annict.viewmodel.SearchTabViewModel" />
+            type="com.konifar.annict.viewmodel.SearchSeasonViewModel" />
     </data>
 
     <FrameLayout

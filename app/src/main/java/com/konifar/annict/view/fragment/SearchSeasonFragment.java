@@ -13,38 +13,41 @@ import android.view.ViewGroup;
 
 import com.annimon.stream.Stream;
 import com.konifar.annict.R;
-import com.konifar.annict.databinding.FragmentSearchTabBinding;
+import com.konifar.annict.databinding.FragmentSearchSeasonBinding;
 import com.konifar.annict.databinding.ItemSearchBinding;
-import com.konifar.annict.model.SearchType;
 import com.konifar.annict.pref.DefaultPrefs;
 import com.konifar.annict.view.widget.ArrayRecyclerAdapter;
 import com.konifar.annict.view.widget.BindingHolder;
 import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
 import com.konifar.annict.viewmodel.SearchItemViewModel;
-import com.konifar.annict.viewmodel.SearchTabViewModel;
+import com.konifar.annict.viewmodel.SearchSeasonViewModel;
 
 import javax.inject.Inject;
 
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
-public class SearchTabFragment extends BaseFragment implements MainTabPage {
 
-    private static final String TAG = SearchTabFragment.class.getSimpleName();
+public class SearchSeasonFragment extends BaseFragment implements TabPage {
+
+    private static final String TAG = SearchSeasonFragment.class.getSimpleName();
 
     @Inject
-    SearchTabViewModel viewModel;
+    SearchSeasonViewModel viewModel;
+    @Inject
+    CompositeSubscription compositeSubscription;
 
     private String authCode;
 
-    private FragmentSearchTabBinding binding;
+    private FragmentSearchSeasonBinding binding;
 
     private SearchItemsAdapter adapter;
 
-    public static SearchTabFragment newInstance(@NonNull String authCode, SearchType type) {
-        SearchTabFragment fragment = new SearchTabFragment();
+    public static SearchSeasonFragment newInstance(@NonNull String authCode) {
+        SearchSeasonFragment fragment = new SearchSeasonFragment();
         Bundle bundle = new Bundle();
         bundle.putString(ARG_AUTH_CODE, authCode);
-        bundle.putSerializable(SearchType.class.getSimpleName(), type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -60,8 +63,6 @@ public class SearchTabFragment extends BaseFragment implements MainTabPage {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             authCode = getArguments().getString(ARG_AUTH_CODE);
-            SearchType type = (SearchType) getArguments().getSerializable(SearchType.class.getSimpleName());
-            if (type != null) viewModel.setType(type);
         }
     }
 
@@ -70,11 +71,17 @@ public class SearchTabFragment extends BaseFragment implements MainTabPage {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentSearchTabBinding.inflate(inflater, container, false);
+        binding = FragmentSearchSeasonBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
 
         initRecyclerView();
-        viewModel.showWorks(DefaultPrefs.get(getContext()).getAccessToken(), authCode)
+        showWithAuth();
+
+        return binding.getRoot();
+    }
+
+    private void showWithAuth() {
+        Subscription sub = viewModel.showWithAuth(DefaultPrefs.get(getContext()).getAccessToken(), authCode)
                 .subscribe(
                         workViewModels -> {
                             viewModel.recyclerViewVisibility.set(View.VISIBLE);
@@ -85,14 +92,13 @@ public class SearchTabFragment extends BaseFragment implements MainTabPage {
                             Log.e(TAG, "load auth token error occurred.", throwable);
                         }
                 );
-        ;
-
-        return binding.getRoot();
+        compositeSubscription.add(sub);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        compositeSubscription.unsubscribe();
         adapter.destroy();
         viewModel.destroy();
     }
@@ -109,19 +115,23 @@ public class SearchTabFragment extends BaseFragment implements MainTabPage {
                 new InfiniteOnScrollChangeListener(binding.recyclerView, linearLayoutManager) {
                     @Override
                     public void onLoadMore() {
-                        viewModel.showNextWorks()
-                                .subscribe(
-                                        workViewModels -> {
-                                            viewModel.incremantePage();
-                                            adapter.addAllWithNotify(workViewModels);
-                                        },
-                                        throwable -> {
-                                            viewModel.footerProgressBarVisibility.set(View.GONE);
-                                            Log.e(TAG, "load works error occurred.", throwable);
-                                        }
-                                );
+                        showNext();
                     }
                 });
+    }
+
+    private void showNext() {
+        Subscription sub = viewModel.showNext().subscribe(
+                workViewModels -> {
+                    viewModel.incremantePage();
+                    adapter.addAllWithNotify(workViewModels);
+                },
+                throwable -> {
+                    viewModel.footerProgressBarVisibility.set(View.GONE);
+                    Log.e(TAG, "load works error occurred.", throwable);
+                }
+        );
+        compositeSubscription.add(sub);
     }
 
     @Override

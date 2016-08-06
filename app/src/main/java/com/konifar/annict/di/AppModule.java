@@ -5,6 +5,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.konifar.annict.api.RequestInterceptor;
+import com.konifar.annict.repository.ProgramRepository;
+import com.konifar.annict.repository.ProgramRepositoryImpl;
+import com.konifar.annict.repository.StatusRepository;
+import com.konifar.annict.repository.StatusRepositoryImpl;
+import com.konifar.annict.repository.WorkRepository;
+import com.konifar.annict.repository.WorkRepositoryImpl;
 import com.konifar.annict.viewmodel.event.EventBus;
 
 import java.io.File;
@@ -70,4 +76,21 @@ public class AppModule {
         return new EventBus();
     }
 
+    @Singleton
+    @Provides
+    public StatusRepository provideStatusRepository(StatusRepositoryImpl statusRepository) {
+        return statusRepository;
+    }
+
+    @Singleton
+    @Provides
+    public WorkRepository provideWorkRepository(WorkRepositoryImpl workRepository) {
+        return workRepository;
+    }
+
+    @Singleton
+    @Provides
+    public ProgramRepository provideProgramRepository(ProgramRepositoryImpl programRepository) {
+        return programRepository;
+    }
 }
