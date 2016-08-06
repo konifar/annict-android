@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="@null" />
+  <solid android:color="@null"/>
 
-    <stroke
-        android:width="@dimen/tag_border_width"
-        android:color="@color/grey200" />
+  <stroke
+      android:color="@color/grey200"
+      android:width="@dimen/tag_border_width"/>
 
-    <corners android:radius="@dimen/tag_radius" />
+  <corners android:radius="@dimen/tag_radius"/>
 
-    <padding
-        android:bottom="@dimen/tag_padding_vertical"
-        android:left="@dimen/tag_padding_horizontal"
-        android:right="@dimen/tag_padding_horizontal"
-        android:top="@dimen/tag_padding_vertical" />
+  <padding
+      android:bottom="@dimen/tag_padding_vertical"
+      android:left="@dimen/tag_padding_horizontal"
+      android:right="@dimen/tag_padding_horizontal"
+      android:top="@dimen/tag_padding_vertical"/>
 
 </shape>

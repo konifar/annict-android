@@ -2,24 +2,28 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.konifar.annict.view.fragment.SearchFragment">
+    tools:context="com.konifar.annict.view.fragment.SearchFragment"
+    >
 
-    <RelativeLayout
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        app:tabMode="fixed"
+        style="@style/TabLayout"
+        />
+
+    <com.booking.rtlviewpager.RtlViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab_layout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
-            style="@style/TabLayout"
-            app:tabMode="fixed" />
-
-        <com.booking.rtlviewpager.RtlViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/tab_layout"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    </RelativeLayout>
+  </RelativeLayout>
 
 </layout>

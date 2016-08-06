@@ -2,62 +2,71 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.konifar.fragment.LoginFragment">
+    tools:context="com.konifar.fragment.LoginFragment"
+    >
 
-    <data>
+  <data>
 
-        <variable
-            name="viewModel"
-            type="com.konifar.annict.viewmodel.LoginViewModel" />
-    </data>
+    <variable
+        name="viewModel"
+        type="com.konifar.annict.viewmodel.LoginViewModel"
+        />
+  </data>
 
-    <FrameLayout
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/theme500"
+      android:padding="@dimen/space_16dp"
+      >
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/theme500"
-        android:padding="@dimen/space_16dp">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+      <ImageView
+          android:layout_width="@dimen/image_logo_large"
+          android:layout_height="@dimen/image_logo_large"
+          android:layout_gravity="center_horizontal"
+          android:contentDescription="@string/logo"
+          app:srcCompat="@drawable/avd_logo"
+          />
 
-            <ImageView
-                android:layout_width="@dimen/image_logo_large"
-                android:layout_height="@dimen/image_logo_large"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/logo"
-                app:srcCompat="@drawable/avd_logo" />
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/space_24dp"
+          />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_24dp" />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:text="@string/login_welcome"
+          android:textColor="@color/white"
+          android:textSize="@dimen/text_24sp"
+          />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/login_welcome"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_24sp" />
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/space_24dp"
+          />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_24dp" />
+      <Button
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:onClick="@{viewModel.onClickLoginButton}"
+          android:padding="@dimen/space_16dp"
+          android:text="@string/login"
+          android:textColor="@color/grey600"
+          android:textSize="@dimen/text_20sp"
+          app:backgroundTint="@color/white"
+          />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{viewModel.onClickLoginButton}"
-                android:padding="@dimen/space_16dp"
-                android:text="@string/login"
-                android:textColor="@color/grey600"
-                android:textSize="@dimen/text_20sp"
-                app:backgroundTint="@color/white" />
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </FrameLayout>
+  </FrameLayout>
 
 </layout>

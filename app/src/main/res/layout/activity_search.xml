@@ -2,33 +2,38 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.konifar.activity.SearchActivity">
+    tools:context="com.konifar.activity.SearchActivity"
+    >
 
-    <data>
+  <data>
 
-        <variable
-            name="viewModel"
-            type="com.konifar.annict.viewmodel.SearchViewModel" />
-    </data>
+    <variable
+        name="viewModel"
+        type="com.konifar.annict.viewmodel.SearchViewModel"
+        />
+  </data>
 
-    <RelativeLayout
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <com.konifar.annict.view.widget.SearchToolbar
+        android:id="@+id/search_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:gravity="center_vertical"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
 
-        <com.konifar.annict.view.widget.SearchToolbar
-            android:id="@+id/search_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:gravity="center_vertical"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    <FrameLayout
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_toolbar"
+        />
 
-        <FrameLayout
-            android:id="@+id/content_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/search_toolbar" />
-
-    </RelativeLayout>
+  </RelativeLayout>
 
 </layout>

@@ -12,118 +12,117 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
-
 import com.konifar.annict.R;
 import com.konifar.annict.databinding.ViewSearchToolbarBinding;
 import com.konifar.annict.util.LocaleUtil;
 
 public class SearchToolbar extends FrameLayout {
 
-    private static final int DRAWABLE_RIGHT = 2;
+  private static final int DRAWABLE_RIGHT = 2;
 
-    private ViewSearchToolbarBinding binding;
+  private ViewSearchToolbarBinding binding;
 
-    public SearchToolbar(Context context) {
-        this(context, null);
-    }
+  public SearchToolbar(Context context) {
+    this(context, null);
+  }
 
-    public SearchToolbar(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
+  public SearchToolbar(Context context, AttributeSet attrs) {
+    this(context, attrs, 0);
+  }
 
-    public SearchToolbar(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.view_search_toolbar, this, true);
+  public SearchToolbar(Context context, AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
+    binding =
+        DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.view_search_toolbar, this,
+            true);
 
-        if (!isInEditMode()) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SearchToolbar);
+    if (!isInEditMode()) {
+      TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SearchToolbar);
 
-            try {
-                boolean focus = a.getBoolean(R.styleable.SearchToolbar_searchFocus, false);
-                int hintResId = a.getResourceId(R.styleable.SearchToolbar_searchHint, R.string.search_hint);
-                setHint(hintResId);
-                if (focus) {
-                    binding.editSearch.requestFocus();
-                } else {
-                    clearFocus();
-                }
-                toggleCloseButtonVisible(false);
-                initView();
-            } finally {
-                a.recycle();
-            }
-        }
-    }
-
-    private Drawable getCloseDrawable() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            return binding.editSearch.getCompoundDrawablesRelative()[DRAWABLE_RIGHT];
+      try {
+        boolean focus = a.getBoolean(R.styleable.SearchToolbar_searchFocus, false);
+        int hintResId = a.getResourceId(R.styleable.SearchToolbar_searchHint, R.string.search_hint);
+        setHint(hintResId);
+        if (focus) {
+          binding.editSearch.requestFocus();
         } else {
-            return binding.editSearch.getCompoundDrawables()[DRAWABLE_RIGHT];
+          clearFocus();
         }
+        toggleCloseButtonVisible(false);
+        initView();
+      } finally {
+        a.recycle();
+      }
     }
+  }
 
-    private void toggleCloseButtonVisible(boolean visible) {
-        getCloseDrawable().setAlpha(visible ? 255 : 0);
+  private Drawable getCloseDrawable() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      return binding.editSearch.getCompoundDrawablesRelative()[DRAWABLE_RIGHT];
+    } else {
+      return binding.editSearch.getCompoundDrawables()[DRAWABLE_RIGHT];
     }
+  }
 
-    private void initView() {
-        binding.editSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Do nothing
-            }
+  private void toggleCloseButtonVisible(boolean visible) {
+    getCloseDrawable().setAlpha(visible ? 255 : 0);
+  }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                boolean visible = count > 0 || start > 0;
-                toggleCloseButtonVisible(visible);
-            }
+  private void initView() {
+    binding.editSearch.addTextChangedListener(new TextWatcher() {
+      @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        // Do nothing
+      }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                //
-            }
-        });
+      @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+        boolean visible = count > 0 || start > 0;
+        toggleCloseButtonVisible(visible);
+      }
 
-        binding.editSearch.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                boolean shouldClear = false;
-                if (LocaleUtil.shouldRtl()) {
-                    int rightEdgeOfRightDrawable = binding.editSearch.getLeft() + getCloseDrawable().getBounds().width();
-                    shouldClear = event.getRawX() <= rightEdgeOfRightDrawable;
-                } else {
-                    int leftEdgeOfRightDrawable = binding.editSearch.getRight() - getCloseDrawable().getBounds().width();
-                    shouldClear = event.getRawX() >= leftEdgeOfRightDrawable;
-                }
+      @Override public void afterTextChanged(Editable s) {
+        //
+      }
+    });
 
-                if (shouldClear) {
-                    clearText();
-                    return true;
-                }
-            }
-            return false;
-        });
-    }
+    binding.editSearch.setOnTouchListener((v, event) -> {
+      if (event.getAction() == MotionEvent.ACTION_UP) {
+        boolean shouldClear = false;
+        if (LocaleUtil.shouldRtl()) {
+          int rightEdgeOfRightDrawable =
+              binding.editSearch.getLeft() + getCloseDrawable().getBounds().width();
+          shouldClear = event.getRawX() <= rightEdgeOfRightDrawable;
+        } else {
+          int leftEdgeOfRightDrawable =
+              binding.editSearch.getRight() - getCloseDrawable().getBounds().width();
+          shouldClear = event.getRawX() >= leftEdgeOfRightDrawable;
+        }
 
-    private void clearText() {
-        binding.editSearch.setText("");
-    }
+        if (shouldClear) {
+          clearText();
+          return true;
+        }
+      }
+      return false;
+    });
+  }
 
-    public void setHint(int resId) {
-        binding.editSearch.setHint(resId);
-    }
+  private void clearText() {
+    binding.editSearch.setText("");
+  }
 
-    public String getText() {
-        return binding.editSearch.getText().toString();
-    }
+  public void setHint(int resId) {
+    binding.editSearch.setHint(resId);
+  }
 
-    public void addTextChangedListener(TextWatcher textWatcher) {
-        binding.editSearch.addTextChangedListener(textWatcher);
-    }
+  public String getText() {
+    return binding.editSearch.getText().toString();
+  }
 
-    public Toolbar getToolbar() {
-        return binding.toolbar;
-    }
+  public void addTextChangedListener(TextWatcher textWatcher) {
+    binding.editSearch.addTextChangedListener(textWatcher);
+  }
 
+  public Toolbar getToolbar() {
+    return binding.toolbar;
+  }
 }

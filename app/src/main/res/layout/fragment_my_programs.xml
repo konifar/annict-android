@@ -2,64 +2,73 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.konifar.fragment.MyProgramsFragment">
+    tools:context="com.konifar.fragment.MyProgramsFragment"
+    >
 
-    <data>
+  <data>
 
-        <variable
-            name="viewModel"
-            type="com.konifar.annict.viewmodel.MyProgramsViewModel" />
-    </data>
+    <variable
+        name="viewModel"
+        type="com.konifar.annict.viewmodel.MyProgramsViewModel"
+        />
+  </data>
 
-    <FrameLayout
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <RelativeLayout
+        android:id="@+id/content_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        />
 
-        <RelativeLayout
-            android:id="@+id/content_view"
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:visibility="@{viewModel.progressBarVisibility}"
+        />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:visibility="@{viewModel.progressBarVisibility}" />
+            android:nestedScrollingEnabled="false"
+            android:scrollbars="vertical"
+            app:visibility="@{viewModel.recyclerViewVisibility}"
+            tools:targetApi="lollipop"
+            style="@style/BaseRecyclerView"
+            />
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nested_scroll_view"
+        <FrameLayout
+            android:id="@+id/footer_loading_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recycler_view"
+            app:visibility="@{viewModel.footerProgressBarVisibility}"
+            >
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+          <include layout="@layout/view_loading"/>
+        </FrameLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    style="@style/BaseRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
-                    android:scrollbars="vertical"
-                    app:visibility="@{viewModel.recyclerViewVisibility}"
-                    tools:targetApi="lollipop" />
+      </RelativeLayout>
 
-                <FrameLayout
-                    android:id="@+id/footer_loading_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/recycler_view"
-                    app:visibility="@{viewModel.footerProgressBarVisibility}">
+    </android.support.v4.widget.NestedScrollView>
 
-                    <include layout="@layout/view_loading" />
-                </FrameLayout>
-
-            </RelativeLayout>
-
-        </android.support.v4.widget.NestedScrollView>
-
-    </FrameLayout>
+  </FrameLayout>
 
 </layout>

@@ -2,36 +2,41 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.konifar.activity.ProgramDetailActivity">
+    tools:context="com.konifar.activity.ProgramDetailActivity"
+    >
 
-    <data>
+  <data>
 
-        <variable
-            name="viewModel"
-            type="com.konifar.annict.viewmodel.EpisodeDetailViewModel" />
-    </data>
+    <variable
+        name="viewModel"
+        type="com.konifar.annict.viewmodel.EpisodeDetailViewModel"
+        />
+  </data>
 
-    <RelativeLayout
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:elevation="@dimen/elevation"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:subtitle="@{viewModel.program.episode.title}"
+        app:title="@{viewModel.program.work.title}"
+        />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:elevation="@dimen/elevation"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:subtitle="@{viewModel.program.episode.title}"
-            app:title="@{viewModel.program.work.title}" />
+    <FrameLayout
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        />
 
-        <FrameLayout
-            android:id="@+id/content_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/toolbar" />
-
-    </RelativeLayout>
+  </RelativeLayout>
 
 </layout>

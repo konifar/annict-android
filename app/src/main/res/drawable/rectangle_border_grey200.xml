@@ -2,12 +2,12 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="@color/grey200" />
+  <solid android:color="@color/grey200"/>
 
-    <padding
-        android:bottom="@dimen/image_thumb_border"
-        android:left="@dimen/image_thumb_border"
-        android:right="@dimen/image_thumb_border"
-        android:top="@dimen/image_thumb_border" />
+  <padding
+      android:bottom="@dimen/image_thumb_border"
+      android:left="@dimen/image_thumb_border"
+      android:right="@dimen/image_thumb_border"
+      android:top="@dimen/image_thumb_border"/>
 
 </shape>

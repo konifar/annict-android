@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="SearchToolbar">
-        <attr name="searchFocus" format="boolean" />
-        <attr name="searchHint" format="reference" />
-    </declare-styleable>
+  <declare-styleable name="SearchToolbar">
+    <attr format="boolean" name="searchFocus"/>
+    <attr format="reference" name="searchHint"/>
+  </declare-styleable>
 
 </resources>

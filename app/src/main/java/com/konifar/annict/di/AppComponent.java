@@ -1,17 +1,12 @@
 package com.konifar.annict.di;
 
 import com.konifar.annict.StethoWrapper;
-
+import dagger.Component;
 import javax.inject.Singleton;
 
-import dagger.Component;
+@Singleton @Component(modules = AppModule.class) public interface AppComponent {
 
-@Singleton
-@Component(modules = AppModule.class)
-public interface AppComponent {
+  void inject(StethoWrapper stethoDelegator);
 
-    void inject(StethoWrapper stethoDelegator);
-
-    ActivityComponent plus(ActivityModule module);
-
+  ActivityComponent plus(ActivityModule module);
 }

@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/theme500</item>
-        <item name="colorPrimaryDark">@color/theme600</item>
-        <item name="colorAccent">@color/accent100</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:textColorSecondary">@color/grey600</item>
-        <item name="android:windowBackground">@color/grey200</item>
-        <item name="colorControlNormal">@color/grey200</item>
-        <item name="colorControlActivated">@color/theme500</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="colorButtonNormal">@color/theme500</item>
-        <item name="android:dialogTheme">@style/DialogTheme</item>
-        <item name="android:alertDialogTheme">@style/DialogTheme</item>
-        <item name="android:alertDialogStyle">@style/DialogTheme</item>
-        <item name="android:textColorLink">@color/theme500</item>
-    </style>
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="colorPrimary">@color/theme500</item>
+    <item name="colorPrimaryDark">@color/theme600</item>
+    <item name="colorAccent">@color/accent100</item>
+    <item name="android:textColorPrimary">@color/white</item>
+    <item name="android:textColorSecondary">@color/grey600</item>
+    <item name="android:windowBackground">@color/grey200</item>
+    <item name="colorControlNormal">@color/grey200</item>
+    <item name="colorControlActivated">@color/theme500</item>
+    <item name="windowActionModeOverlay">true</item>
+    <item name="colorButtonNormal">@color/theme500</item>
+    <item name="android:dialogTheme">@style/DialogTheme</item>
+    <item name="android:alertDialogTheme">@style/DialogTheme</item>
+    <item name="android:alertDialogStyle">@style/DialogTheme</item>
+    <item name="android:textColorLink">@color/theme500</item>
+  </style>
 
-    <style name="AppTheme.Translucent">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-    </style>
+  <style name="AppTheme.Translucent">
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowIsFloating">false</item>
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
+  </style>
 
-    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <!-- avoid duplicate background beneath the dialog -->
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
+  <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+    <!-- avoid duplicate background beneath the dialog -->
+    <item name="android:windowBackground">@android:color/transparent</item>
+  </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+  <style name="AppTheme.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 </resources>

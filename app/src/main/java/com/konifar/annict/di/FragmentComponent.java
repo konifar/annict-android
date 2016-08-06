@@ -9,26 +9,23 @@ import com.konifar.annict.view.fragment.RecordCreateDialogFragment;
 import com.konifar.annict.view.fragment.SearchFragment;
 import com.konifar.annict.view.fragment.SearchPopularFragment;
 import com.konifar.annict.view.fragment.SearchSeasonFragment;
-
 import dagger.Subcomponent;
 
-@FragmentScope
-@Subcomponent(modules = FragmentModule.class)
-public interface FragmentComponent {
+@FragmentScope @Subcomponent(modules = FragmentModule.class) public interface FragmentComponent {
 
-    void inject(MainFragment fragment);
+  void inject(MainFragment fragment);
 
-    void inject(MyProgramsFragment fragment);
+  void inject(MyProgramsFragment fragment);
 
-    void inject(LoginFragment fragment);
+  void inject(LoginFragment fragment);
 
-    void inject(RecordCreateDialogFragment fragment);
+  void inject(RecordCreateDialogFragment fragment);
 
-    void inject(MyWorksFragment fragment);
+  void inject(MyWorksFragment fragment);
 
-    void inject(SearchFragment fragment);
+  void inject(SearchFragment fragment);
 
-    void inject(SearchSeasonFragment fragment);
+  void inject(SearchSeasonFragment fragment);
 
-    void inject(SearchPopularFragment fragment);
+  void inject(SearchPopularFragment fragment);
 }

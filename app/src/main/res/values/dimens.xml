@@ -1,45 +1,45 @@
 <resources>
-    <!-- space -->
-    <dimen name="space_4dp">4dp</dimen>
-    <dimen name="space_8dp">8dp</dimen>
-    <dimen name="space_16dp">16dp</dimen>
-    <dimen name="space_24dp">24dp</dimen>
+  <!-- space -->
+  <dimen name="space_4dp">4dp</dimen>
+  <dimen name="space_8dp">8dp</dimen>
+  <dimen name="space_16dp">16dp</dimen>
+  <dimen name="space_24dp">24dp</dimen>
 
-    <dimen name="space_minus_4dp">-4dp</dimen>
-    <dimen name="space_minus_8dp">-8dp</dimen>
-    <dimen name="space_minus_16dp">-16dp</dimen>
+  <dimen name="space_minus_4dp">-4dp</dimen>
+  <dimen name="space_minus_8dp">-8dp</dimen>
+  <dimen name="space_minus_16dp">-16dp</dimen>
 
-    <dimen name="icon_space_4dp">4dp</dimen>
-    <dimen name="line_space_2dp">2dp</dimen>
-
-
-    <!-- Text -->
-    <dimen name="text_12sp">12sp</dimen>
-    <dimen name="text_14sp">14sp</dimen>
-    <dimen name="text_16sp">16sp</dimen>
-    <dimen name="text_20sp">20sp</dimen>
-    <dimen name="text_24sp">24sp</dimen>
+  <dimen name="icon_space_4dp">4dp</dimen>
+  <dimen name="line_space_2dp">2dp</dimen>
 
 
-    <!-- Line -->
-    <dimen name="line_1dp">1dp</dimen>
-    <dimen name="line_2dp">2dp</dimen>
+  <!-- Text -->
+  <dimen name="text_12sp">12sp</dimen>
+  <dimen name="text_14sp">14sp</dimen>
+  <dimen name="text_16sp">16sp</dimen>
+  <dimen name="text_20sp">20sp</dimen>
+  <dimen name="text_24sp">24sp</dimen>
 
 
-    <!-- Elevation -->
-    <dimen name="elevation">4dp</dimen>
+  <!-- Line -->
+  <dimen name="line_1dp">1dp</dimen>
+  <dimen name="line_2dp">2dp</dimen>
 
-    <!-- Component -->
-    <dimen name="image_thumb">60dp</dimen>
-    <dimen name="image_thumb_border">2dp</dimen>
-    <dimen name="image_logo_large">100dp</dimen>
 
-    <dimen name="tag_radius">4dp</dimen>
-    <dimen name="tag_padding_horizontal">8dp</dimen>
-    <dimen name="tag_padding_vertical">4dp</dimen>
-    <dimen name="tag_border_width">1dp</dimen>
+  <!-- Elevation -->
+  <dimen name="elevation">4dp</dimen>
 
-    <dimen name="review_btn_size">40dp</dimen>
+  <!-- Component -->
+  <dimen name="image_thumb">60dp</dimen>
+  <dimen name="image_thumb_border">2dp</dimen>
+  <dimen name="image_logo_large">100dp</dimen>
+
+  <dimen name="tag_radius">4dp</dimen>
+  <dimen name="tag_padding_horizontal">8dp</dimen>
+  <dimen name="tag_padding_vertical">4dp</dimen>
+  <dimen name="tag_border_width">1dp</dimen>
+
+  <dimen name="review_btn_size">40dp</dimen>
 
 </resources>
 

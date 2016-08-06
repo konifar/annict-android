@@ -4,68 +4,62 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.v7.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder>
-        extends RecyclerView.Adapter<VH> implements Iterable<T> {
+    extends RecyclerView.Adapter<VH> implements Iterable<T> {
 
-    final Context context;
-    protected final ArrayList<T> list;
+  protected final ArrayList<T> list;
+  final Context context;
 
-    public ArrayRecyclerAdapter(@NonNull Context context) {
-        this.context = context;
-        this.list = new ArrayList<>();
-    }
+  public ArrayRecyclerAdapter(@NonNull Context context) {
+    this.context = context;
+    this.list = new ArrayList<>();
+  }
 
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
+  @Override public int getItemCount() {
+    return list.size();
+  }
 
-    @UiThread
-    public void reset(Collection<T> items) {
-        clear();
-        addAll(items);
-        notifyDataSetChanged();
-    }
+  @UiThread public void reset(Collection<T> items) {
+    clear();
+    addAll(items);
+    notifyDataSetChanged();
+  }
 
-    public T getItem(int position) {
-        return list.get(position);
-    }
+  public T getItem(int position) {
+    return list.get(position);
+  }
 
-    public void addItem(T item) {
-        list.add(item);
-    }
+  public void addItem(T item) {
+    list.add(item);
+  }
 
-    public void addAll(Collection<T> items) {
-        list.addAll(items);
-    }
+  public void addAll(Collection<T> items) {
+    list.addAll(items);
+  }
 
-    public void addAll(int position, Collection<T> items) {
-        list.addAll(position, items);
-    }
+  public void addAll(int position, Collection<T> items) {
+    list.addAll(position, items);
+  }
 
-    @UiThread
-    public void addAllWithNotify(Collection<T> items) {
-        int position = getItemCount();
-        addAll(items);
-        notifyItemInserted(position);
-    }
+  @UiThread public void addAllWithNotify(Collection<T> items) {
+    int position = getItemCount();
+    addAll(items);
+    notifyItemInserted(position);
+  }
 
-    public void clear() {
-        list.clear();
-    }
+  public void clear() {
+    list.clear();
+  }
 
-    public Context getContext() {
-        return context;
-    }
+  public Context getContext() {
+    return context;
+  }
 
-    @Override
-    public Iterator<T> iterator() {
-        return list.iterator();
-    }
-
+  @Override public Iterator<T> iterator() {
+    return list.iterator();
+  }
 }

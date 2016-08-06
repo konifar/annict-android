@@ -1,130 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
-    <data>
+  <data>
 
-        <variable
-            name="viewModel"
-            type="com.konifar.annict.viewmodel.WorkItemViewModel" />
-    </data>
+    <variable
+        name="viewModel"
+        type="com.konifar.annict.viewmodel.WorkItemViewModel"
+        />
+  </data>
 
-    <RelativeLayout
-        android:id="@+id/content_view"
+  <RelativeLayout
+      android:id="@+id/content_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/clickable_white"
+      android:clickable="true"
+      android:onClick="@{viewModel.onClickRoot}"
+      android:padding="@dimen/space_16dp"
+      >
+
+    <ImageView
+        android:id="@+id/img_thumb"
+        android:layout_width="@dimen/image_thumb"
+        android:layout_height="@dimen/image_thumb"
+        android:layout_marginEnd="@dimen/space_16dp"
+        android:layout_marginRight="@dimen/space_16dp"
+        android:background="@drawable/rectangle_border_grey200"
+        android:contentDescription="@string/photo"
+        app:photoImageSize="@{@dimen/image_thumb}"
+        app:photoImageUrl="@{viewModel.thumbUrl}"
+        />
+
+    <View
+        android:layout_alignBottom="@+id/img_thumb"
+        android:layout_alignEnd="@+id/img_thumb"
+        android:layout_alignLeft="@+id/img_thumb"
+        android:layout_alignRight="@+id/img_thumb"
+        android:layout_alignStart="@+id/img_thumb"
+        android:layout_alignTop="@+id/img_thumb"
+        android:onClick="@{viewModel.onClickImage}"
+        style="@style/ClickCover"
+        />
+
+    <TextView
+        android:id="@+id/txt_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/clickable_white"
-        android:clickable="true"
-        android:onClick="@{viewModel.onClickRoot}"
-        android:padding="@dimen/space_16dp">
+        android:layout_toEndOf="@id/img_thumb"
+        android:layout_toRightOf="@id/img_thumb"
+        android:text="@{viewModel.title}"
+        style="@style/TextTitle"
+        />
 
-        <ImageView
-            android:id="@+id/img_thumb"
-            android:layout_width="@dimen/image_thumb"
-            android:layout_height="@dimen/image_thumb"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:layout_marginRight="@dimen/space_16dp"
-            android:background="@drawable/rectangle_border_grey200"
-            android:contentDescription="@string/photo"
-            app:photoImageSize="@{@dimen/image_thumb}"
-            app:photoImageUrl="@{viewModel.thumbUrl}" />
+    <TextView
+        android:id="@+id/txt_season_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_title"
+        android:layout_marginTop="@dimen/space_4dp"
+        android:layout_toEndOf="@id/img_thumb"
+        android:layout_toRightOf="@id/img_thumb"
+        android:background="@drawable/tag_grey200"
+        android:text="@{viewModel.seasonNameText}"
+        style="@style/TextSub"
+        />
 
-        <View
-            style="@style/ClickCover"
-            android:layout_alignBottom="@+id/img_thumb"
-            android:layout_alignEnd="@+id/img_thumb"
-            android:layout_alignLeft="@+id/img_thumb"
-            android:layout_alignRight="@+id/img_thumb"
-            android:layout_alignStart="@+id/img_thumb"
-            android:layout_alignTop="@+id/img_thumb"
-            android:onClick="@{viewModel.onClickImage}" />
+    <TextView
+        android:id="@+id/txt_media"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_title"
+        android:layout_marginLeft="@dimen/space_4dp"
+        android:layout_marginStart="@dimen/space_4dp"
+        android:layout_marginTop="@dimen/space_4dp"
+        android:layout_toEndOf="@id/txt_season_name"
+        android:layout_toRightOf="@id/txt_season_name"
+        android:background="@drawable/tag_grey200"
+        android:text="@{viewModel.mediaText}"
+        style="@style/TextSub"
+        />
 
-        <TextView
-            android:id="@+id/txt_title"
-            style="@style/TextTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/img_thumb"
-            android:layout_toRightOf="@id/img_thumb"
-            android:text="@{viewModel.title}" />
+    <TextView
+        android:id="@+id/txt_watchers_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_season_name"
+        android:layout_marginTop="@dimen/space_4dp"
+        android:layout_toEndOf="@id/img_thumb"
+        android:layout_toRightOf="@id/img_thumb"
+        android:drawableLeft="@drawable/ic_people_grey_500_14dp_vector"
+        android:drawablePadding="@dimen/icon_space_4dp"
+        android:drawableStart="@drawable/ic_people_grey_500_14dp_vector"
+        android:text="@{viewModel.watchersCount}"
+        android:textSize="@dimen/text_14sp"
+        style="@style/TextSub"
+        />
 
-        <TextView
-            android:id="@+id/txt_season_name"
-            style="@style/TextSub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_title"
-            android:layout_marginTop="@dimen/space_4dp"
-            android:layout_toEndOf="@id/img_thumb"
-            android:layout_toRightOf="@id/img_thumb"
-            android:background="@drawable/tag_grey200"
-            android:text="@{viewModel.seasonNameText}" />
+    <TextView
+        android:id="@+id/txt_episodes_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_season_name"
+        android:layout_marginLeft="@dimen/space_8dp"
+        android:layout_marginStart="@dimen/space_8dp"
+        android:layout_marginTop="@dimen/space_4dp"
+        android:layout_toEndOf="@id/txt_watchers_count"
+        android:layout_toRightOf="@id/txt_watchers_count"
+        android:drawableLeft="@drawable/ic_format_list_numbered_grey_500_18dp_vector"
+        android:drawablePadding="@dimen/icon_space_4dp"
+        android:drawableStart="@drawable/ic_format_list_numbered_grey_500_18dp_vector"
+        android:text="@{viewModel.episodesCount}"
+        android:textSize="@dimen/text_14sp"
+        style="@style/TextSub"
+        />
 
-        <TextView
-            android:id="@+id/txt_media"
-            style="@style/TextSub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_title"
-            android:layout_marginLeft="@dimen/space_4dp"
-            android:layout_marginStart="@dimen/space_4dp"
-            android:layout_marginTop="@dimen/space_4dp"
-            android:layout_toEndOf="@id/txt_season_name"
-            android:layout_toRightOf="@id/txt_season_name"
-            android:background="@drawable/tag_grey200"
-            android:text="@{viewModel.mediaText}" />
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_status_change"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/review_btn_size"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/txt_title"
+        android:layout_marginEnd="-4dp"
+        android:layout_marginLeft="@dimen/space_4dp"
+        android:layout_marginRight="-4dp"
+        android:layout_marginStart="@dimen/space_4dp"
+        android:drawableEnd="@drawable/ic_arrow_drop_down_white_18dp_vector_state"
+        android:drawablePadding="@dimen/icon_space_4dp"
+        android:drawableRight="@drawable/ic_arrow_drop_down_white_18dp_vector_state"
+        android:onClick="@{viewModel.onClickStatusChange}"
+        android:text="@{viewModel.status.stringRes}"
+        app:backgroundTint="@color/accent100"
+        app:srcCompat="@drawable/ic_edit_white_18dp_vector"
+        />
 
-        <TextView
-            android:id="@+id/txt_watchers_count"
-            style="@style/TextSub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_season_name"
-            android:layout_marginTop="@dimen/space_4dp"
-            android:layout_toEndOf="@id/img_thumb"
-            android:layout_toRightOf="@id/img_thumb"
-            android:drawableLeft="@drawable/ic_people_grey_500_14dp_vector"
-            android:drawablePadding="@dimen/icon_space_4dp"
-            android:drawableStart="@drawable/ic_people_grey_500_14dp_vector"
-            android:text="@{viewModel.watchersCount}"
-            android:textSize="@dimen/text_14sp" />
-
-        <TextView
-            android:id="@+id/txt_episodes_count"
-            style="@style/TextSub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_season_name"
-            android:layout_marginLeft="@dimen/space_8dp"
-            android:layout_marginStart="@dimen/space_8dp"
-            android:layout_marginTop="@dimen/space_4dp"
-            android:layout_toEndOf="@id/txt_watchers_count"
-            android:layout_toRightOf="@id/txt_watchers_count"
-            android:drawableLeft="@drawable/ic_format_list_numbered_grey_500_18dp_vector"
-            android:drawablePadding="@dimen/icon_space_4dp"
-            android:drawableStart="@drawable/ic_format_list_numbered_grey_500_18dp_vector"
-            android:text="@{viewModel.episodesCount}"
-            android:textSize="@dimen/text_14sp" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_status_change"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/review_btn_size"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/txt_title"
-            android:layout_marginEnd="-4dp"
-            android:layout_marginLeft="@dimen/space_4dp"
-            android:layout_marginRight="-4dp"
-            android:layout_marginStart="@dimen/space_4dp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down_white_18dp_vector_state"
-            android:drawablePadding="@dimen/icon_space_4dp"
-            android:drawableRight="@drawable/ic_arrow_drop_down_white_18dp_vector_state"
-            android:onClick="@{viewModel.onClickStatusChange}"
-            android:text="@{viewModel.status.stringRes}"
-            app:backgroundTint="@color/accent100"
-            app:srcCompat="@drawable/ic_edit_white_18dp_vector" />
-
-    </RelativeLayout>
+  </RelativeLayout>
 
 </layout>

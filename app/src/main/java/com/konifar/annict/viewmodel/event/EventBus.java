@@ -7,18 +7,17 @@ import rx.subjects.Subject;
 
 public class EventBus {
 
-    private final Subject<Object, Object> bus = new SerializedSubject<>(PublishSubject.create());
+  private final Subject<Object, Object> bus = new SerializedSubject<>(PublishSubject.create());
 
-    public void post(Object o) {
-        bus.onNext(o);
-    }
+  public void post(Object o) {
+    bus.onNext(o);
+  }
 
-    public <T> Observable<T> observe(Class<T> klass) {
-        return observe().ofType(klass);
-    }
+  public <T> Observable<T> observe(Class<T> klass) {
+    return observe().ofType(klass);
+  }
 
-    public Observable<Object> observe() {
-        return bus.asObservable();
-    }
-
+  public Observable<Object> observe() {
+    return bus.asObservable();
+  }
 }
