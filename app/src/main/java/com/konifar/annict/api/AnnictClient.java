@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 
 import com.konifar.annict.BuildConfig;
 import com.konifar.annict.model.Programs;
+import com.konifar.annict.model.Record;
 import com.konifar.annict.model.Token;
 import com.konifar.annict.model.Works;
 
@@ -68,9 +69,11 @@ public class AnnictClient {
          * https://annict.wikihub.io/wiki/api/authentication
          */
         @POST("/oauth/token")
-        Observable<Token> postOauthToken(@Query("client_id") String clientId,
+        Observable<Token> postOauthToken(
+            @Query("client_id") String clientId,
             @Query("client_secret") String clientSecret, @Query("grant_type") String grantType,
-            @Query("redirect_uri") String scope, @Query("code") String code);
+            @Query("redirect_uri") String scope, @Query("code") String code
+        );
 
         /**
          * https://annict.wikihub.io/wiki/api/me-programs
@@ -85,38 +88,57 @@ public class AnnictClient {
             @Query("filter_unwatched") @Nullable Boolean filterUnwatched,
             @Query("filter_rebroadcast") @Nullable Boolean filterRebroadcast, @Query("page") int page,
             @Query("per_page") int perPage, @Query("sort_id") @Nullable String sortId,
-            @Query("sort_started_at") @Nullable String sortStartedAt);
+            @Query("sort_started_at") @Nullable String sortStartedAt
+        );
 
         /**
          * https://annict.wikihub.io/wiki/api/me-works
          */
         @GET("/v1/me/works")
-        Observable<Works> getMeWorks(@Query("fields") @Nullable String fields,
+        Observable<Works> getMeWorks(
+            @Query("fields") @Nullable String fields,
             @Query("filter_ids") @Nullable String filterIds,
             @Query("filter_season") @Nullable String filterSeason,
             @Query("filter_title") @Nullable String filterTitle,
             @Query("filter_status") @Nullable String filterStatus, @Query("page") int page,
             @Query("per_page") int perPage, @Query("sort_id") @Nullable String sortId,
             @Query("sort_reason") @Nullable String sortReason,
-            @Query("sort_watchers_count") @Nullable String sortWatchersCount);
+            @Query("sort_watchers_count") @Nullable String sortWatchersCount
+        );
 
         /**
          * https://annict.wikihub.io/wiki/api/me-statuses
          */
         @POST("/v1/me/statuses")
-        Observable<Void> postMeStatuses(@Query("work_id") long workId,
-            @Query("kind") @NonNull String kind);
+        Observable<Void> postMeStatuses(
+            @Query("work_id") long workId,
+            @Query("kind") @NonNull String kind
+        );
 
         /**
          * https://annict.wikihub.io/wiki/api/works
          */
         @GET("/v1/works")
-        Observable<Works> getWorks(@Query("fields") @Nullable String fields,
+        Observable<Works> getWorks(
+            @Query("fields") @Nullable String fields,
             @Query("filter_ids") @Nullable String filterIds,
             @Query("filter_season") @Nullable String filterSeason,
             @Query("filter_title") @Nullable String filterTitle, @Query("page") int page,
             @Query("per_page") int perPage, @Query("sort_id") @Nullable String sortId,
             @Query("sort_reason") @Nullable String sortReason,
-            @Query("sort_watchers_count") @Nullable String sortWatchersCount);
+            @Query("sort_watchers_count") @Nullable String sortWatchersCount
+        );
+
+        /**
+         * https://annict.wikihub.io/wiki/api/me-records
+         */
+        @POST("/v1/me/records")
+        Observable<Record> postMeRecords(
+            @Query("episode_id") @NonNull Long episodeId,
+            @Query("comment") String comment,
+            @Query("rating") Float rating,
+            @Query("share_twitter") boolean shareTwitter,
+            @Query("share_facebook") boolean shareFacebook
+        );
     }
 }

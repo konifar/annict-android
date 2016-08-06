@@ -3,6 +3,8 @@ package com.konifar.annict.di;
 import com.konifar.annict.api.RequestInterceptor;
 import com.konifar.annict.repository.ProgramRepository;
 import com.konifar.annict.repository.ProgramRepositoryImpl;
+import com.konifar.annict.repository.RecordRepository;
+import com.konifar.annict.repository.RecordRepositoryImpl;
 import com.konifar.annict.repository.StatusRepository;
 import com.konifar.annict.repository.StatusRepositoryImpl;
 import com.konifar.annict.repository.WorkRepository;
@@ -78,19 +80,25 @@ public class AppModule {
 
     @Singleton
     @Provides
-    public StatusRepository provideStatusRepository(StatusRepositoryImpl statusRepository) {
-        return statusRepository;
+    public StatusRepository provideStatusRepository(StatusRepositoryImpl repository) {
+        return repository;
     }
 
     @Singleton
     @Provides
-    public WorkRepository provideWorkRepository(WorkRepositoryImpl workRepository) {
-        return workRepository;
+    public WorkRepository provideWorkRepository(WorkRepositoryImpl repository) {
+        return repository;
     }
 
     @Singleton
     @Provides
-    public ProgramRepository provideProgramRepository(ProgramRepositoryImpl programRepository) {
-        return programRepository;
+    public ProgramRepository provideProgramRepository(ProgramRepositoryImpl repository) {
+        return repository;
+    }
+
+    @Singleton
+    @Provides
+    public RecordRepository provideRecordRepository(RecordRepositoryImpl repository) {
+        return repository;
     }
 }
