@@ -32,7 +32,9 @@ proguard/
 captures/
 
 # IntelliJ
-.idea/**
+.idea/*
+!.idea/codeStyleSettings.xml
+*.iml
 
 # App
 api_keys.gradle
