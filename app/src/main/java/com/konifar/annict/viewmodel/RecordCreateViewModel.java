@@ -80,7 +80,7 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
         if (this.ratingProgress != ratingProgress) {
             this.ratingProgress = ratingProgress;
             notifyPropertyChanged(BR.ratingProgress);
-            this.rating = (float) (ratingProgress) / PROGRESS_BAR_PRECISION;
+            rating = ((float) ratingProgress) / PROGRESS_BAR_PRECISION;
             notifyPropertyChanged(BR.rating);
         }
     }

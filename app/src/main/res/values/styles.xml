@@ -67,12 +67,17 @@
     </style>
 
     <style name="RatingBar">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="borderColor">@color/amber600</item>
-        <item name="fillColor">@color/amber500</item>
-        <item name="numberOfStars">5</item>
-        <item name="stepSize">1</item>
+        <item name="android:isIndicator">false</item>
+        <item name="android:numStars">5</item>
+        <item name="android:stepSize">1</item>
+        <item name="android:theme">@style/RatingBarTheme</item>
+    </style>
+
+    <style name="RatingBarTheme" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/amber500</item>
+        <item name="colorControlActivated">@color/amber600</item>
     </style>
 
 </resources>

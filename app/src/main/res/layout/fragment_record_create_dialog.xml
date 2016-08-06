@@ -11,7 +11,7 @@
             name="viewModel"
             type="com.konifar.annict.viewmodel.RecordCreateViewModel" />
     </data>
-
+    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,28 +26,14 @@
             android:text="@{viewModel.program.work.title}"
             android:textSize="@dimen/text_16sp" />
 
-        <!--<com.konifar.annict.view.widget.CustomRatingBar-->
-        <!--android:id="@+id/rating_bar"-->
-        <!--style="@style/RatingBar"-->
-        <!--android:layout_below="@id/txt_title"-->
-        <!--android:layout_marginTop="@dimen/space_8dp"-->
-        <!--android:layout_toLeftOf="@+id/txt_rating"-->
-        <!--android:layout_toStartOf="@+id/txt_rating"-->
-        <!--app:isIndicator="false"-->
-        <!--app:rating="@={viewModel.rating}" />-->
-
         <RatingBar
             android:id="@+id/rating_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/RatingBar"
             android:layout_below="@id/txt_title"
             android:layout_marginTop="@dimen/space_8dp"
             android:layout_toLeftOf="@+id/txt_rating"
             android:layout_toStartOf="@+id/txt_rating"
-            android:isIndicator="false"
-            android:numStars="5"
-            android:rating="@={viewModel.rating}"
-            android:stepSize="1" />
+            android:rating="@={viewModel.rating}" />
 
         <TextView
             android:id="@+id/txt_rating"
