@@ -14,5 +14,4 @@ public class Works {
 
     @SerializedName("works")
     public List<Work> list;
-
 }

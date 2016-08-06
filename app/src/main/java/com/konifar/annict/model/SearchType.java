@@ -1,8 +1,8 @@
 package com.konifar.annict.model;
 
-import android.support.annotation.StringRes;
-
 import com.konifar.annict.R;
+
+import android.support.annotation.StringRes;
 
 public enum SearchType {
 

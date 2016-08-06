@@ -1,10 +1,10 @@
 package com.konifar.annict.api.builder;
 
-import android.support.annotation.NonNull;
-
 import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.model.Programs;
 import com.konifar.annict.model.Sort;
+
+import android.support.annotation.NonNull;
 
 import rx.Observable;
 
@@ -13,17 +13,29 @@ public class MeProgramsBuilder implements Builder<Programs> {
     private static final int DEFAULT_PER_PAGE = 30;
 
     private final AnnictClient client;
+
     private String fields;
+
     private String filterIds;
+
     private String filterChannelIds;
+
     private String filterWorkIds;
+
     private String filterStartedAtGt;
+
     private String filterStartedAtLt;
+
     private boolean filterUnwatched;
+
     private boolean filterRebroadcast;
+
     private int page;
+
     private int perPage = DEFAULT_PER_PAGE;
+
     private String sortId;
+
     private String sortStartedAt;
 
     public MeProgramsBuilder(AnnictClient client, int page) {
@@ -92,17 +104,8 @@ public class MeProgramsBuilder implements Builder<Programs> {
     }
 
     public Observable<Programs> build() {
-        return client.service.getMeProgarms(fields,
-                filterIds,
-                filterChannelIds,
-                filterWorkIds,
-                filterStartedAtGt,
-                filterStartedAtLt,
-                filterUnwatched,
-                filterRebroadcast,
-                page,
-                perPage,
-                sortId,
-                sortStartedAt);
+        return client.service.getMeProgarms(fields, filterIds, filterChannelIds, filterWorkIds,
+            filterStartedAtGt, filterStartedAtLt, filterUnwatched, filterRebroadcast, page, perPage,
+            sortId, sortStartedAt);
     }
 }

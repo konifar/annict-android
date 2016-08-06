@@ -1,9 +1,9 @@
 package com.konifar.annict.di;
 
+import com.konifar.annict.util.PageNavigator;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-
-import com.konifar.annict.util.PageNavigator;
 
 import dagger.Module;
 import dagger.Provides;
@@ -31,5 +31,4 @@ public class ActivityModule {
     public PageNavigator provideActivityNavigator(AppCompatActivity activity) {
         return new PageNavigator(activity);
     }
-
 }

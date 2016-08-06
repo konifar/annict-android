@@ -9,5 +9,4 @@ public class ViewHelper {
     public static String getTwitterProfileImageUrl(String twitterUserName) {
         return "http://furyu.nazo.cc/twicon/" + twitterUserName + "/bigger";
     }
-
 }

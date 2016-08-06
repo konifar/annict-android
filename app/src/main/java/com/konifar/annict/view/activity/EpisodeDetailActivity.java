@@ -1,11 +1,5 @@
 package com.konifar.annict.view.activity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-
 import com.konifar.annict.R;
 import com.konifar.annict.databinding.ActivityEpisodeDetailBinding;
 import com.konifar.annict.model.Program;
@@ -13,14 +7,20 @@ import com.konifar.annict.viewmodel.EpisodeDetailViewModel;
 
 import org.parceler.Parcels;
 
+import android.content.Context;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import javax.inject.Inject;
 
 public class EpisodeDetailActivity extends BaseActivity {
 
-    private ActivityEpisodeDetailBinding binding;
-
     @Inject
     EpisodeDetailViewModel viewModel;
+
+    private ActivityEpisodeDetailBinding binding;
 
     public static Intent createIntent(Context context, @Nullable Program program) {
         Intent intent = new Intent(context, EpisodeDetailActivity.class);

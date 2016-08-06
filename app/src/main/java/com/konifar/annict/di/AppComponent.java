@@ -13,5 +13,4 @@ public interface AppComponent {
     void inject(StethoWrapper stethoDelegator);
 
     ActivityComponent plus(ActivityModule module);
-
 }

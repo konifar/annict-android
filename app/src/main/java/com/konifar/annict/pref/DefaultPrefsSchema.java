@@ -8,5 +8,4 @@ public interface DefaultPrefsSchema {
 
     @Key(name = "access_token")
     String accessToken = "";
-
 }

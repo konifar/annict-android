@@ -1,13 +1,14 @@
 package com.konifar.annict.model;
 
-import android.support.annotation.Nullable;
+import com.google.gson.annotations.SerializedName;
 
 import com.github.gfx.android.orma.annotation.Column;
 import com.github.gfx.android.orma.annotation.PrimaryKey;
 import com.github.gfx.android.orma.annotation.Table;
-import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
+
+import android.support.annotation.Nullable;
 
 /**
  * https://annict.wikihub.io/wiki/api/episodes
@@ -60,5 +61,4 @@ public class Episode {
     public Episode() {
         //
     }
-
 }

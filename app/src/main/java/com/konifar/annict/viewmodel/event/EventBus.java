@@ -20,5 +20,4 @@ public class EventBus {
     public Observable<Object> observe() {
         return bus.asObservable();
     }
-
 }

@@ -1,11 +1,11 @@
 package com.konifar.annict.api;
 
+import com.konifar.annict.pref.DefaultPrefs;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
-
-import com.konifar.annict.pref.DefaultPrefs;
 
 import java.io.IOException;
 
@@ -20,13 +20,13 @@ import okhttp3.Response;
 public class RequestInterceptor implements Interceptor {
 
     final ConnectivityManager connectivityManager;
+
     final Context context;
 
     @Inject
     public RequestInterceptor(Context context) {
         this.context = context;
-        this.connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        this.connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
     @Override
@@ -54,5 +54,4 @@ public class RequestInterceptor implements Interceptor {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
-
 }

@@ -1,11 +1,11 @@
 package com.konifar.annict.api.builder;
 
-import android.support.annotation.NonNull;
-
 import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.model.Sort;
 import com.konifar.annict.model.Status;
 import com.konifar.annict.model.Works;
+
+import android.support.annotation.NonNull;
 
 import rx.Observable;
 
@@ -14,15 +14,25 @@ public class MeWorksBuilder implements Builder<Works> {
     private static final int DEFAULT_PER_PAGE = 30;
 
     private final AnnictClient client;
+
     private String fields;
+
     private String filterIds;
+
     private String filterSeason;
+
     private String filterTitle;
+
     private String filterStatus;
+
     private int page;
+
     private int perPage = DEFAULT_PER_PAGE;
+
     private String sortId;
+
     private String sortReason;
+
     private String sortWatchersCount;
 
     public MeWorksBuilder(AnnictClient client, int page) {
@@ -81,15 +91,7 @@ public class MeWorksBuilder implements Builder<Works> {
     }
 
     public Observable<Works> build() {
-        return client.service.getMeWorks(fields,
-                filterIds,
-                filterSeason,
-                filterTitle,
-                filterStatus,
-                page,
-                perPage,
-                sortId,
-                sortReason,
-                sortWatchersCount);
+        return client.service.getMeWorks(fields, filterIds, filterSeason, filterTitle, filterStatus,
+            page, perPage, sortId, sortReason, sortWatchersCount);
     }
 }

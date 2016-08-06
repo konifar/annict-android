@@ -9,5 +9,4 @@ public class StethoWrapper {
     public void setup() {
         // Do nothing
     }
-
 }

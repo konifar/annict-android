@@ -1,5 +1,9 @@
 package com.konifar.annict.view.widget;
 
+import com.konifar.annict.R;
+import com.konifar.annict.databinding.ViewSearchToolbarBinding;
+import com.konifar.annict.util.LocaleUtil;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
@@ -12,10 +16,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
-
-import com.konifar.annict.R;
-import com.konifar.annict.databinding.ViewSearchToolbarBinding;
-import com.konifar.annict.util.LocaleUtil;
 
 public class SearchToolbar extends FrameLayout {
 
@@ -33,7 +33,9 @@ public class SearchToolbar extends FrameLayout {
 
     public SearchToolbar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.view_search_toolbar, this, true);
+        binding =
+            DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.view_search_toolbar, this,
+                true);
 
         if (!isInEditMode()) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SearchToolbar);
@@ -55,12 +57,8 @@ public class SearchToolbar extends FrameLayout {
         }
     }
 
-    private Drawable getCloseDrawable() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            return binding.editSearch.getCompoundDrawablesRelative()[DRAWABLE_RIGHT];
-        } else {
-            return binding.editSearch.getCompoundDrawables()[DRAWABLE_RIGHT];
-        }
+    public void setHint(int resId) {
+        binding.editSearch.setHint(resId);
     }
 
     private void toggleCloseButtonVisible(boolean visible) {
@@ -90,10 +88,12 @@ public class SearchToolbar extends FrameLayout {
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 boolean shouldClear = false;
                 if (LocaleUtil.shouldRtl()) {
-                    int rightEdgeOfRightDrawable = binding.editSearch.getLeft() + getCloseDrawable().getBounds().width();
+                    int rightEdgeOfRightDrawable =
+                        binding.editSearch.getLeft() + getCloseDrawable().getBounds().width();
                     shouldClear = event.getRawX() <= rightEdgeOfRightDrawable;
                 } else {
-                    int leftEdgeOfRightDrawable = binding.editSearch.getRight() - getCloseDrawable().getBounds().width();
+                    int leftEdgeOfRightDrawable =
+                        binding.editSearch.getRight() - getCloseDrawable().getBounds().width();
                     shouldClear = event.getRawX() >= leftEdgeOfRightDrawable;
                 }
 
@@ -106,12 +106,16 @@ public class SearchToolbar extends FrameLayout {
         });
     }
 
-    private void clearText() {
-        binding.editSearch.setText("");
+    private Drawable getCloseDrawable() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return binding.editSearch.getCompoundDrawablesRelative()[DRAWABLE_RIGHT];
+        } else {
+            return binding.editSearch.getCompoundDrawables()[DRAWABLE_RIGHT];
+        }
     }
 
-    public void setHint(int resId) {
-        binding.editSearch.setHint(resId);
+    private void clearText() {
+        binding.editSearch.setText("");
     }
 
     public String getText() {
@@ -125,5 +129,4 @@ public class SearchToolbar extends FrameLayout {
     public Toolbar getToolbar() {
         return binding.toolbar;
     }
-
 }

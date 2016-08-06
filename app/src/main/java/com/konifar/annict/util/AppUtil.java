@@ -1,5 +1,9 @@
 package com.konifar.annict.util;
 
+import com.konifar.annict.BuildConfig;
+import com.konifar.annict.R;
+import com.konifar.annict.pref.DefaultPrefs;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -17,10 +21,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
-import com.konifar.annict.BuildConfig;
-import com.konifar.annict.R;
-import com.konifar.annict.pref.DefaultPrefs;
-
 import javax.inject.Singleton;
 
 @Singleton
@@ -28,36 +28,6 @@ public class AppUtil {
 
     public static String getVersionName(Context context) {
         return "v" + BuildConfig.VERSION_NAME;
-    }
-
-    public void linkify(Activity activity, TextView textView, String linkText, String url) {
-        String text = textView.getText().toString();
-
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(text);
-        builder.setSpan(
-                new ClickableSpan() {
-                    @Override
-                    public void onClick(View view) {
-                        showWebPage(activity, url);
-                    }
-                },
-                text.indexOf(linkText),
-                text.indexOf(linkText) + linkText.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-
-        textView.setText(builder);
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
-    }
-
-    public void showWebPage(Activity activity, @NonNull String url) {
-        CustomTabsIntent intent = new CustomTabsIntent.Builder()
-                .setShowTitle(true)
-                .setToolbarColor(ContextCompat.getColor(activity, R.color.theme500))
-                .build();
-
-        intent.launchUrl(activity, Uri.parse(url));
     }
 
     public static void setTaskDescription(Activity activity, String label, int color) {
@@ -76,4 +46,28 @@ public class AppUtil {
         return !TextUtils.isEmpty(DefaultPrefs.get(context).getAccessToken());
     }
 
+    public void linkify(Activity activity, TextView textView, String linkText, String url) {
+        String text = textView.getText().toString();
+
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append(text);
+        builder.setSpan(new ClickableSpan() {
+                            @Override
+                            public void onClick(View view) {
+                                showWebPage(activity, url);
+                            }
+                        }, text.indexOf(linkText), text.indexOf(linkText) + linkText.length(),
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        textView.setText(builder);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    public void showWebPage(Activity activity, @NonNull String url) {
+        CustomTabsIntent intent = new CustomTabsIntent.Builder().setShowTitle(true)
+            .setToolbarColor(ContextCompat.getColor(activity, R.color.theme500))
+            .build();
+
+        intent.launchUrl(activity, Uri.parse(url));
+    }
 }

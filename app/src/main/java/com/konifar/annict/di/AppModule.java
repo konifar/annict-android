@@ -1,9 +1,5 @@
 package com.konifar.annict.di;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import com.konifar.annict.api.RequestInterceptor;
 import com.konifar.annict.repository.ProgramRepository;
 import com.konifar.annict.repository.ProgramRepositoryImpl;
@@ -12,6 +8,10 @@ import com.konifar.annict.repository.StatusRepositoryImpl;
 import com.konifar.annict.repository.WorkRepository;
 import com.konifar.annict.repository.WorkRepositoryImpl;
 import com.konifar.annict.viewmodel.event.EventBus;
+
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import java.io.File;
 
@@ -28,7 +28,9 @@ import rx.subscriptions.CompositeSubscription;
 public class AppModule {
 
     static final String CACHE_FILE_NAME = "okhttp.cache";
+
     static final long MAX_CACHE_SIZE = 4 * 1024 * 1024;
+
     static final String SHARED_PREF_NAME = "preferences";
 
     private Context context;
@@ -48,9 +50,7 @@ public class AppModule {
         File cacheDir = new File(context.getCacheDir(), CACHE_FILE_NAME);
         Cache cache = new Cache(cacheDir, MAX_CACHE_SIZE);
 
-        OkHttpClient.Builder c = new OkHttpClient.Builder()
-                .cache(cache)
-                .addInterceptor(interceptor);
+        OkHttpClient.Builder c = new OkHttpClient.Builder().cache(cache).addInterceptor(interceptor);
 
         return c.build();
     }

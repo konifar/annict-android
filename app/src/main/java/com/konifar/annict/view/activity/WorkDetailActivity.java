@@ -1,11 +1,5 @@
 package com.konifar.annict.view.activity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-
 import com.konifar.annict.R;
 import com.konifar.annict.databinding.ActivityWorkDetailBinding;
 import com.konifar.annict.model.Work;
@@ -13,14 +7,20 @@ import com.konifar.annict.viewmodel.WorkDetailViewModel;
 
 import org.parceler.Parcels;
 
+import android.content.Context;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import javax.inject.Inject;
 
 public class WorkDetailActivity extends BaseActivity {
 
-    private ActivityWorkDetailBinding binding;
-
     @Inject
     WorkDetailViewModel viewModel;
+
+    private ActivityWorkDetailBinding binding;
 
     public static Intent createIntent(Context context, @Nullable Work work) {
         Intent intent = new Intent(context, WorkDetailActivity.class);

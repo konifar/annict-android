@@ -14,5 +14,4 @@ public class Programs {
 
     @SerializedName("programs")
     public List<Program> list;
-
 }

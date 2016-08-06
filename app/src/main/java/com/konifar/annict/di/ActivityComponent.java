@@ -27,5 +27,4 @@ public interface ActivityComponent {
     void inject(SearchActivity activity);
 
     FragmentComponent plus(FragmentModule module);
-
 }

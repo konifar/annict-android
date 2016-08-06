@@ -1,11 +1,11 @@
 package com.konifar.annict.viewmodel;
 
+import com.konifar.annict.util.PageNavigator;
+
 import android.databinding.BaseObservable;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-
-import com.konifar.annict.util.PageNavigator;
 
 import javax.inject.Inject;
 
@@ -18,9 +18,8 @@ public class SearchViewModel extends BaseObservable implements ViewModel {
         this.navigator = navigator;
     }
 
-    public void showData(@Nullable String accessToken,
-                         @Nullable String authCode,
-                         @IdRes int layoutResId) {
+    public void showData(@Nullable String accessToken, @Nullable String authCode,
+        @IdRes int layoutResId) {
         if (!TextUtils.isEmpty(accessToken)) {
             navigator.replaceSearchFragment(layoutResId);
         } else {
@@ -38,5 +37,4 @@ public class SearchViewModel extends BaseObservable implements ViewModel {
     public void destroy() {
         // Do nothing
     }
-
 }

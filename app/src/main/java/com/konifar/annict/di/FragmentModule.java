@@ -19,5 +19,4 @@ public class FragmentModule {
     public FragmentManager provideFragmentManager() {
         return fragment.getFragmentManager();
     }
-
 }

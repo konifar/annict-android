@@ -1,10 +1,10 @@
 package com.konifar.annict.viewmodel;
 
-import android.content.Context;
-
 import com.konifar.annict.model.Program;
 import com.konifar.annict.repository.ProgramRepository;
 import com.konifar.annict.util.PageNavigator;
+
+import android.content.Context;
 
 import java.util.List;
 
@@ -15,13 +15,14 @@ import rx.Observable;
 public class MyProgramsViewModel extends AbstractListViewModel<Program, MyProgramItemViewModel> {
 
     private final Context context;
+
     private final ProgramRepository repository;
+
     private final PageNavigator pageNavigator;
 
     @Inject
-    public MyProgramsViewModel(Context context,
-                               ProgramRepository repository,
-                               PageNavigator pageNavigator) {
+    public MyProgramsViewModel(Context context, ProgramRepository repository,
+        PageNavigator pageNavigator) {
         this.context = context;
         this.repository = repository;
         this.pageNavigator = pageNavigator;
@@ -33,12 +34,12 @@ public class MyProgramsViewModel extends AbstractListViewModel<Program, MyProgra
     }
 
     @Override
-    public Observable<List<Program>> getLoadObservableWithAuth(String authCode, int page) {
-        return repository.getMineOrderByStartedAtDescWithAuth(authCode, page);
+    MyProgramItemViewModel convertToViewModel(Program program) {
+        return new MyProgramItemViewModel(context, program, pageNavigator);
     }
 
     @Override
-    MyProgramItemViewModel convertToViewModel(Program program) {
-        return new MyProgramItemViewModel(context, program, pageNavigator);
+    public Observable<List<Program>> getLoadObservableWithAuth(String authCode, int page) {
+        return repository.getMineOrderByStartedAtDescWithAuth(authCode, page);
     }
 }

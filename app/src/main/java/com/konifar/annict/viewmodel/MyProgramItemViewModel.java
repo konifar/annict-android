@@ -1,10 +1,5 @@
 package com.konifar.annict.viewmodel;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.view.View;
-
 import com.konifar.annict.R;
 import com.konifar.annict.model.Episode;
 import com.konifar.annict.model.Program;
@@ -12,7 +7,16 @@ import com.konifar.annict.util.DateUtil;
 import com.konifar.annict.util.PageNavigator;
 import com.konifar.annict.util.ViewHelper;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.view.View;
+
 public class MyProgramItemViewModel implements ViewModel {
+
+    public final Program program;
+
+    private final PageNavigator pageNavigator;
 
     public String thumbUrl;
 
@@ -24,11 +28,8 @@ public class MyProgramItemViewModel implements ViewModel {
 
     public String channel;
 
-    public final Program program;
-
-    private final PageNavigator pageNavigator;
-
-    public MyProgramItemViewModel(Context context, @NonNull Program program, PageNavigator pageNavigator) {
+    public MyProgramItemViewModel(Context context, @NonNull Program program,
+        PageNavigator pageNavigator) {
         if (program.work != null) {
             workTitle = program.work.title;
             if (program.work.twitterUserName != null) {
@@ -40,11 +41,13 @@ public class MyProgramItemViewModel implements ViewModel {
             if (TextUtils.isEmpty(episode.title)) {
                 episodeTitle = episode.numberText;
             } else {
-                episodeTitle = context.getString(R.string.episode_brackets,
-                        program.episode.numberText, program.episode.title);
+                episodeTitle = context.getString(R.string.episode_brackets, program.episode.numberText,
+                    program.episode.title);
             }
         }
-        if (program.channel != null) channel = program.channel.name;
+        if (program.channel != null) {
+            channel = program.channel.name;
+        }
         displayDate = DateUtil.getProgramStartDate(program.startedAt);
 
         this.program = program;
@@ -67,5 +70,4 @@ public class MyProgramItemViewModel implements ViewModel {
     public void onClickRecordButton(@SuppressWarnings("unused") View view) {
         pageNavigator.showRecordCreateDialog(program);
     }
-
 }

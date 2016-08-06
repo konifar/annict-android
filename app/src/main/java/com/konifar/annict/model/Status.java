@@ -1,8 +1,8 @@
 package com.konifar.annict.model;
 
-import android.support.annotation.StringRes;
-
 import com.konifar.annict.R;
+
+import android.support.annotation.StringRes;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,13 +26,12 @@ public enum Status {
         this.stringRes = stringRes;
     }
 
-    @Override
-    public String toString() {
-        return super.toString().toLowerCase();
-    }
-
     public static List<Status> all() {
         return Arrays.asList(NO_SELECT, WANNA_WATCH, WATCHING, WATCHED, ON_HOLD, STOP_WATCHING);
     }
 
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
 }

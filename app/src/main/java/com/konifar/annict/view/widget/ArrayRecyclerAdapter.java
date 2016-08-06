@@ -10,19 +10,15 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder>
-        extends RecyclerView.Adapter<VH> implements Iterable<T> {
+    extends RecyclerView.Adapter<VH> implements Iterable<T> {
+
+    protected final ArrayList<T> list;
 
     final Context context;
-    protected final ArrayList<T> list;
 
     public ArrayRecyclerAdapter(@NonNull Context context) {
         this.context = context;
         this.list = new ArrayList<>();
-    }
-
-    @Override
-    public int getItemCount() {
-        return list.size();
     }
 
     @UiThread
@@ -32,16 +28,20 @@ public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        list.clear();
+    }
+
+    public void addAll(Collection<T> items) {
+        list.addAll(items);
+    }
+
     public T getItem(int position) {
         return list.get(position);
     }
 
     public void addItem(T item) {
         list.add(item);
-    }
-
-    public void addAll(Collection<T> items) {
-        list.addAll(items);
     }
 
     public void addAll(int position, Collection<T> items) {
@@ -55,8 +55,9 @@ public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder
         notifyItemInserted(position);
     }
 
-    public void clear() {
-        list.clear();
+    @Override
+    public int getItemCount() {
+        return list.size();
     }
 
     public Context getContext() {
@@ -67,5 +68,4 @@ public abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder
     public Iterator<T> iterator() {
         return list.iterator();
     }
-
 }

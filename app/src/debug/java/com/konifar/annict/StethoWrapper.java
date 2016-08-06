@@ -1,8 +1,8 @@
 package com.konifar.annict;
 
-import android.content.Context;
-
 import com.facebook.stetho.Stetho;
+
+import android.content.Context;
 
 import javax.inject.Inject;
 
@@ -18,5 +18,4 @@ public class StethoWrapper {
     public void setup() {
         Stetho.initializeWithDefaults(context);
     }
-
 }

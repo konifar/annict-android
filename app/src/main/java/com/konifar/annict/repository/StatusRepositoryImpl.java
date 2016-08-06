@@ -23,7 +23,7 @@ public class StatusRepositoryImpl implements StatusRepository {
     @Override
     public Observable<Void> edit(long workId, Status status) {
         return client.service.postMeStatuses(workId, status.toString())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
     }
 }

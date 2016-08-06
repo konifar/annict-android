@@ -1,12 +1,12 @@
 package com.konifar.annict.repository;
 
-import android.content.Context;
-
 import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.api.builder.MeProgramsBuilder;
 import com.konifar.annict.model.Program;
 import com.konifar.annict.model.Sort;
 import com.konifar.annict.pref.DefaultPrefs;
+
+import android.content.Context;
 
 import java.util.List;
 
@@ -30,29 +30,29 @@ public class ProgramRepositoryImpl implements ProgramRepository {
         this.context = context;
     }
 
-    private Observable<List<Program>> withAuth(String authCode, Observable<List<Program>> observable) {
-        return client.postOauthToken(authCode)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(token -> {
-                    DefaultPrefs.get(context).putAccessToken(token.accessToken);
-                    return observable;
-                });
-    }
-
     @Override
     public Observable<List<Program>> getMineOrderByStartedAtDescWithAuth(String authCode, int page) {
         return withAuth(authCode, getMineOrderByStartedAtDesc(page));
     }
 
+    private Observable<List<Program>> withAuth(String authCode,
+        Observable<List<Program>> observable) {
+        return client.postOauthToken(authCode)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .flatMap(token -> {
+                DefaultPrefs.get(context).putAccessToken(token.accessToken);
+                return observable;
+            });
+    }
+
     @Override
     public Observable<List<Program>> getMineOrderByStartedAtDesc(int page) {
-        return new MeProgramsBuilder(client, page)
-                .page(page)
-                .sortStartedAt(Sort.DESC)
-                .build()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(programs -> programs.list);
+        return new MeProgramsBuilder(client, page).page(page)
+            .sortStartedAt(Sort.DESC)
+            .build()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map(programs -> programs.list);
     }
 }

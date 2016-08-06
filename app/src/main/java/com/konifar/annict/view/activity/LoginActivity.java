@@ -1,13 +1,13 @@
 package com.konifar.annict.view.activity;
 
+import com.konifar.annict.R;
+import com.konifar.annict.databinding.ActivityLoginBinding;
+import com.konifar.annict.view.fragment.LoginFragment;
+
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-
-import com.konifar.annict.R;
-import com.konifar.annict.databinding.ActivityLoginBinding;
-import com.konifar.annict.view.fragment.LoginFragment;
 
 public class LoginActivity extends BaseActivity {
 
@@ -34,5 +34,4 @@ public class LoginActivity extends BaseActivity {
         super.finish();
         overridePendingTransition(R.anim.activity_fade_enter, R.anim.activity_fade_exit);
     }
-
 }

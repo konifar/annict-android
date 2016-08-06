@@ -1,9 +1,10 @@
 package com.konifar.annict.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import com.github.gfx.android.orma.annotation.Column;
 import com.github.gfx.android.orma.annotation.PrimaryKey;
 import com.github.gfx.android.orma.annotation.Table;
-import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
@@ -46,5 +47,4 @@ public class Program {
     public Program() {
         //
     }
-
 }

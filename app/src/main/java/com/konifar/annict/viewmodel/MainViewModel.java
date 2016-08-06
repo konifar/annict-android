@@ -1,10 +1,10 @@
 package com.konifar.annict.viewmodel;
 
+import com.konifar.annict.util.PageNavigator;
+
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-
-import com.konifar.annict.util.PageNavigator;
 
 import javax.inject.Inject;
 
@@ -17,9 +17,8 @@ public class MainViewModel implements ViewModel {
         this.navigator = navigator;
     }
 
-    public void showData(@Nullable String accessToken,
-                         @Nullable String authCode,
-                         @IdRes int layoutResId) {
+    public void showData(@Nullable String accessToken, @Nullable String authCode,
+        @IdRes int layoutResId) {
         if (!TextUtils.isEmpty(accessToken)) {
             navigator.replaceMainFragment(layoutResId);
         } else {
@@ -45,5 +44,4 @@ public class MainViewModel implements ViewModel {
     public void onClickSettingMenu() {
         navigator.startSettingsActivity();
     }
-
 }

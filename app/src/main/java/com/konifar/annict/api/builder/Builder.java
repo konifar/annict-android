@@ -5,5 +5,4 @@ import rx.Observable;
 public interface Builder<T> {
 
     Observable<T> build();
-
 }

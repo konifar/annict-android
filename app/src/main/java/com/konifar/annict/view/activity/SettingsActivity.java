@@ -1,12 +1,12 @@
 package com.konifar.annict.view.activity;
 
+import com.konifar.annict.R;
+import com.konifar.annict.databinding.ActivitySettingsBinding;
+
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-
-import com.konifar.annict.R;
-import com.konifar.annict.databinding.ActivitySettingsBinding;
 
 public class SettingsActivity extends BaseActivity {
 

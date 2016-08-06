@@ -1,16 +1,16 @@
 package com.konifar.annict.view.activity;
 
+import com.konifar.annict.R;
+import com.konifar.annict.databinding.ActivitySearchBinding;
+import com.konifar.annict.pref.DefaultPrefs;
+import com.konifar.annict.viewmodel.SearchViewModel;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
-
-import com.konifar.annict.R;
-import com.konifar.annict.databinding.ActivitySearchBinding;
-import com.konifar.annict.pref.DefaultPrefs;
-import com.konifar.annict.viewmodel.SearchViewModel;
 
 import javax.inject.Inject;
 
@@ -40,7 +40,8 @@ public class SearchActivity extends BaseActivity {
         initBackToolbar(binding.searchToolbar.getToolbar());
         getComponent().inject(this);
 
-        viewModel.showData(DefaultPrefs.get(this).getAccessToken(), extractAuthCode(), R.id.content_view);
+        viewModel.showData(DefaultPrefs.get(this).getAccessToken(), extractAuthCode(),
+            R.id.content_view);
     }
 
     private String extractAuthCode() {
@@ -54,13 +55,13 @@ public class SearchActivity extends BaseActivity {
     }
 
     @Override
-    public void finish() {
-        overridePendingTransition(0, R.anim.activity_fade_exit);
-        super.finish();
+    public void onBackPressed() {
+        finish();
     }
 
     @Override
-    public void onBackPressed() {
-        finish();
+    public void finish() {
+        overridePendingTransition(0, R.anim.activity_fade_exit);
+        super.finish();
     }
 }

@@ -1,5 +1,9 @@
 package com.konifar.annict.view.fragment;
 
+import com.konifar.annict.databinding.FragmentSearchBinding;
+import com.konifar.annict.model.SearchType;
+import com.konifar.annict.viewmodel.SearchViewModel;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,10 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.konifar.annict.databinding.FragmentSearchBinding;
-import com.konifar.annict.model.SearchType;
-import com.konifar.annict.viewmodel.SearchViewModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +24,15 @@ import javax.inject.Inject;
 
 public class SearchFragment extends BaseFragment {
 
-    private static final String ARG_AUTH_CODE = "auth_code";
-
     public static final String TAG = SearchFragment.class.getSimpleName();
+
+    private static final String ARG_AUTH_CODE = "auth_code";
 
     @Inject
     SearchViewModel viewModel;
 
     private SearchPagerAdapter adapter;
+
     private FragmentSearchBinding binding;
 
     private String authCode;
@@ -48,14 +49,10 @@ public class SearchFragment extends BaseFragment {
         return new SearchFragment();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentSearchBinding.inflate(inflater, container, false);
-
-        initTab();
-
-        return binding.getRoot();
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        getComponent().inject(this);
     }
 
     @Override
@@ -66,10 +63,15 @@ public class SearchFragment extends BaseFragment {
         }
     }
 
+    @Nullable
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        getComponent().inject(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        Bundle savedInstanceState) {
+        binding = FragmentSearchBinding.inflate(inflater, container, false);
+
+        initTab();
+
+        return binding.getRoot();
     }
 
     private void initTab() {
@@ -78,12 +80,14 @@ public class SearchFragment extends BaseFragment {
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.setOffscreenPageLimit(3);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
-        binding.tabLayout.addOnTabSelectedListener(new CustomViewPagerOnTabSelectedListener(binding.viewPager));
+        binding.tabLayout.addOnTabSelectedListener(
+            new CustomViewPagerOnTabSelectedListener(binding.viewPager));
     }
 
     private class SearchPagerAdapter extends FragmentStatePagerAdapter {
 
         private final List<String> titles = new ArrayList<>();
+
         private final List<TabPage> pages = new ArrayList<>();
 
         public SearchPagerAdapter(FragmentManager fm) {
@@ -118,7 +122,8 @@ public class SearchFragment extends BaseFragment {
         }
     }
 
-    private class CustomViewPagerOnTabSelectedListener extends TabLayout.ViewPagerOnTabSelectedListener {
+    private class CustomViewPagerOnTabSelectedListener
+        extends TabLayout.ViewPagerOnTabSelectedListener {
 
         public CustomViewPagerOnTabSelectedListener(ViewPager viewPager) {
             super(viewPager);
@@ -128,8 +133,9 @@ public class SearchFragment extends BaseFragment {
         public void onTabReselected(TabLayout.Tab tab) {
             super.onTabReselected(tab);
             TabPage page = (TabPage) adapter.getItem(tab.getPosition());
-            if (page != null) page.scrollToTop();
+            if (page != null) {
+                page.scrollToTop();
+            }
         }
     }
-
 }

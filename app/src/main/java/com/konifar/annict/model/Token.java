@@ -21,5 +21,4 @@ public class Token {
 
     @SerializedName("created_at")
     public long createdAt;
-
 }

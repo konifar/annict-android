@@ -16,7 +16,9 @@ import java.util.concurrent.TimeUnit;
 public class DateUtil {
 
     private static final String FORMAT_MMDD = "MMMd";
+
     private static final String FORMAT_KKMM = "kk:mm";
+
     private static final String FORMAT_YYYYMMDDKKMM = "yyyyMMMdkkmm";
 
     private static final String FORMAT_PROGRAM_START_DATE = "MM/dd(E) kk:mm";
@@ -44,14 +46,18 @@ public class DateUtil {
 
     @NonNull
     public static String getLongFormatDate(@Nullable Date date) {
-        if (date == null) return "";
+        if (date == null) {
+            return "";
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_YYYYMMDDKKMM);
             return new SimpleDateFormat(pattern, Locale.getDefault()).format(date);
         } else {
-            java.text.DateFormat dayOfWeekFormat = java.text.DateFormat.getDateInstance(java.text.DateFormat.LONG);
-            java.text.DateFormat shortTimeFormat = java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT);
+            java.text.DateFormat dayOfWeekFormat =
+                java.text.DateFormat.getDateInstance(java.text.DateFormat.LONG);
+            java.text.DateFormat shortTimeFormat =
+                java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT);
             dayOfWeekFormat.setTimeZone(TimeZone.getDefault());
             shortTimeFormat.setTimeZone(TimeZone.getDefault());
             return dayOfWeekFormat.format(date) + " " + shortTimeFormat.format(date);
@@ -76,5 +82,4 @@ public class DateUtil {
             return 0;
         }
     }
-
 }

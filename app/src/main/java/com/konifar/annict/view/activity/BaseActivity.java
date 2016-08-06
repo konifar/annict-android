@@ -1,5 +1,9 @@
 package com.konifar.annict.view.activity;
 
+import com.konifar.annict.MainApplication;
+import com.konifar.annict.di.ActivityComponent;
+import com.konifar.annict.di.ActivityModule;
+
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -11,10 +15,6 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.konifar.annict.MainApplication;
-import com.konifar.annict.di.ActivityComponent;
-import com.konifar.annict.di.ActivityModule;
-
 public abstract class BaseActivity extends AppCompatActivity {
 
     static {
@@ -22,7 +22,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private ActivityComponent activityComponent;
-
 
     @NonNull
     public ActivityComponent getComponent() {
@@ -60,5 +59,4 @@ public abstract class BaseActivity extends AppCompatActivity {
             bar.setHomeButtonEnabled(true);
         }
     }
-
 }

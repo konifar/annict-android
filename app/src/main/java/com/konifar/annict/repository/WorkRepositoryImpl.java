@@ -1,7 +1,5 @@
 package com.konifar.annict.repository;
 
-import android.content.Context;
-
 import com.konifar.annict.api.AnnictClient;
 import com.konifar.annict.api.builder.MeWorksBuilder;
 import com.konifar.annict.api.builder.WorksBuilder;
@@ -9,6 +7,8 @@ import com.konifar.annict.model.Sort;
 import com.konifar.annict.model.Status;
 import com.konifar.annict.model.Work;
 import com.konifar.annict.pref.DefaultPrefs;
+
+import android.content.Context;
 
 import java.util.List;
 
@@ -33,28 +33,28 @@ public class WorkRepositoryImpl implements WorkRepository {
     }
 
     @Override
-    public Observable<List<Work>> getMineWhereStatusWithAuth(String authCode, Status status, int page) {
+    public Observable<List<Work>> getMineWhereStatusWithAuth(String authCode, Status status,
+        int page) {
         return withAuth(authCode, getMineWhereStatus(status, page));
     }
 
     private Observable<List<Work>> withAuth(String authCode, Observable<List<Work>> observable) {
         return client.postOauthToken(authCode)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(token -> {
-                    DefaultPrefs.get(context).putAccessToken(token.accessToken);
-                    return observable;
-                });
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .flatMap(token -> {
+                DefaultPrefs.get(context).putAccessToken(token.accessToken);
+                return observable;
+            });
     }
 
     @Override
     public Observable<List<Work>> getMineWhereStatus(Status status, int page) {
-        return new MeWorksBuilder(client, page)
-                .filterStatus(status)
-                .build()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(works -> works.list);
+        return new MeWorksBuilder(client, page).filterStatus(status)
+            .build()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map(works -> works.list);
     }
 
     @Override
@@ -64,12 +64,11 @@ public class WorkRepositoryImpl implements WorkRepository {
 
     @Override
     public Observable<List<Work>> getWhereSeason(String season, int page) {
-        return new WorksBuilder(client, page)
-                .filterSeason(season)
-                .build()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(works -> works.list);
+        return new WorksBuilder(client, page).filterSeason(season)
+            .build()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map(works -> works.list);
     }
 
     @Override
@@ -79,11 +78,10 @@ public class WorkRepositoryImpl implements WorkRepository {
 
     @Override
     public Observable<List<Work>> getOrderWatchersCountDesc(int page) {
-        return new WorksBuilder(client, page)
-                .sortWatchersCount(Sort.DESC)
-                .build()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(works -> works.list);
+        return new WorksBuilder(client, page).sortWatchersCount(Sort.DESC)
+            .build()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map(works -> works.list);
     }
 }

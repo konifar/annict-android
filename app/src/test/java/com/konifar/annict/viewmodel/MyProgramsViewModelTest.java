@@ -1,8 +1,5 @@
 package com.konifar.annict.viewmodel;
 
-import android.content.Context;
-import android.view.View;
-
 import com.konifar.annict.BuildConfig;
 import com.konifar.annict.helper.MockHelper;
 import com.konifar.annict.helper.RxHelper;
@@ -19,6 +16,9 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import android.content.Context;
+import android.view.View;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +26,7 @@ import rx.Observable;
 import rx.android.plugins.RxAndroidPlugins;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
@@ -38,8 +36,10 @@ public class MyProgramsViewModelTest {
 
     @Mock
     private Context context;
+
     @Mock
     private ProgramRepositoryImpl repository;
+
     @Mock
     private PageNavigator pageNavigator;
 
@@ -85,5 +85,4 @@ public class MyProgramsViewModelTest {
         verify(repository, times(1)).getMineOrderByStartedAtDesc(1);
         assertEquals(View.GONE, viewModel.progressBarVisibility.get());
     }
-
 }

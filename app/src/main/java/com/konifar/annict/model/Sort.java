@@ -1,7 +1,9 @@
 package com.konifar.annict.model;
 
 public enum Sort {
-    ASC, DESC;
+
+    ASC,
+    DESC;
 
     @Override
     public String toString() {

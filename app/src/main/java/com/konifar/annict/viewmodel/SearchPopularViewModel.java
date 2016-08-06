@@ -1,10 +1,10 @@
 package com.konifar.annict.viewmodel;
 
-import android.content.Context;
-
 import com.konifar.annict.model.Work;
 import com.konifar.annict.repository.WorkRepository;
 import com.konifar.annict.util.PageNavigator;
+
+import android.content.Context;
 
 import java.util.List;
 
@@ -15,13 +15,14 @@ import rx.Observable;
 public class SearchPopularViewModel extends AbstractListViewModel<Work, SearchItemViewModel> {
 
     private final Context context;
+
     private final WorkRepository repository;
+
     private final PageNavigator navigator;
 
     @Inject
-    public SearchPopularViewModel(Context context,
-                                  WorkRepository repository,
-                                  PageNavigator navigator) {
+    public SearchPopularViewModel(Context context, WorkRepository repository,
+        PageNavigator navigator) {
         this.context = context;
         this.repository = repository;
         this.navigator = navigator;
@@ -33,12 +34,12 @@ public class SearchPopularViewModel extends AbstractListViewModel<Work, SearchIt
     }
 
     @Override
-    public Observable<List<Work>> getLoadObservableWithAuth(String authCode, int page) {
-        return repository.getOrderWatchersCountDescWithAuth(authCode, page);
+    SearchItemViewModel convertToViewModel(Work work) {
+        return new SearchItemViewModel(context, work, navigator);
     }
 
     @Override
-    SearchItemViewModel convertToViewModel(Work work) {
-        return new SearchItemViewModel(context, work, navigator);
+    public Observable<List<Work>> getLoadObservableWithAuth(String authCode, int page) {
+        return repository.getOrderWatchersCountDescWithAuth(authCode, page);
     }
 }

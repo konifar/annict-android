@@ -8,7 +8,7 @@ import java.util.Locale;
 public class LocaleUtil {
 
     public static boolean shouldRtl() {
-        return TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_RTL;
+        return TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault())
+            == ViewCompat.LAYOUT_DIRECTION_RTL;
     }
-
 }
