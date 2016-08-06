@@ -108,7 +108,7 @@ public class MainFragment extends BaseFragment {
     private class MainPagerAdapter extends FragmentStatePagerAdapter {
 
         private final List<String> titles = new ArrayList<>();
-        private final List<MainTabPage> pages = new ArrayList<>();
+        private final List<TabPage> pages = new ArrayList<>();
 
         public MainPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -155,7 +155,7 @@ public class MainFragment extends BaseFragment {
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
             super.onTabReselected(tab);
-            MainTabPage page = (MainTabPage) adapter.getItem(tab.getPosition());
+            TabPage page = (TabPage) adapter.getItem(tab.getPosition());
             if (page != null) page.scrollToTop();
         }
     }

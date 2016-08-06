@@ -13,8 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.annimon.stream.Stream;
-import com.konifar.annict.R;
 import com.konifar.annict.databinding.FragmentSearchBinding;
 import com.konifar.annict.model.SearchType;
 import com.konifar.annict.viewmodel.SearchViewModel;
@@ -86,7 +84,7 @@ public class SearchFragment extends BaseFragment {
     private class SearchPagerAdapter extends FragmentStatePagerAdapter {
 
         private final List<String> titles = new ArrayList<>();
-        private final List<MainTabPage> pages = new ArrayList<>();
+        private final List<TabPage> pages = new ArrayList<>();
 
         public SearchPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -94,11 +92,10 @@ public class SearchFragment extends BaseFragment {
         }
 
         private void createPages() {
-            Stream.of(SearchType.SEASON, SearchType.POPULAR)
-                    .forEach(type -> {
-                        titles.add(getString(type.nameResId));
-                        pages.add(SearchTabFragment.newInstance(authCode, type));
-                    });
+            titles.add(getString(SearchType.SEASON.nameResId));
+            pages.add(SearchSeasonFragment.newInstance(authCode));
+            titles.add(getString(SearchType.POPULAR.nameResId));
+            pages.add(SearchPopularFragment.newInstance(authCode));
         }
 
         @Override
@@ -130,7 +127,7 @@ public class SearchFragment extends BaseFragment {
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
             super.onTabReselected(tab);
-            MainTabPage page = (MainTabPage) adapter.getItem(tab.getPosition());
+            TabPage page = (TabPage) adapter.getItem(tab.getPosition());
             if (page != null) page.scrollToTop();
         }
     }

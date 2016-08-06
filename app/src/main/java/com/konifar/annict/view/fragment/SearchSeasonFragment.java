@@ -13,38 +13,36 @@ import android.view.ViewGroup;
 
 import com.annimon.stream.Stream;
 import com.konifar.annict.R;
-import com.konifar.annict.databinding.FragmentSearchTabBinding;
+import com.konifar.annict.databinding.FragmentSearchSeasonBinding;
 import com.konifar.annict.databinding.ItemSearchBinding;
-import com.konifar.annict.model.SearchType;
 import com.konifar.annict.pref.DefaultPrefs;
 import com.konifar.annict.view.widget.ArrayRecyclerAdapter;
 import com.konifar.annict.view.widget.BindingHolder;
 import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
 import com.konifar.annict.viewmodel.SearchItemViewModel;
-import com.konifar.annict.viewmodel.SearchTabViewModel;
+import com.konifar.annict.viewmodel.SearchSeasonViewModel;
 
 import javax.inject.Inject;
 
 
-public class SearchTabFragment extends BaseFragment implements MainTabPage {
+public class SearchSeasonFragment extends BaseFragment implements TabPage {
 
-    private static final String TAG = SearchTabFragment.class.getSimpleName();
+    private static final String TAG = SearchSeasonFragment.class.getSimpleName();
 
     @Inject
-    SearchTabViewModel viewModel;
+    SearchSeasonViewModel viewModel;
 
     private String authCode;
 
-    private FragmentSearchTabBinding binding;
+    private FragmentSearchSeasonBinding binding;
 
     private SearchItemsAdapter adapter;
 
-    public static SearchTabFragment newInstance(@NonNull String authCode, SearchType type) {
-        SearchTabFragment fragment = new SearchTabFragment();
+    public static SearchSeasonFragment newInstance(@NonNull String authCode) {
+        SearchSeasonFragment fragment = new SearchSeasonFragment();
         Bundle bundle = new Bundle();
         bundle.putString(ARG_AUTH_CODE, authCode);
-        bundle.putSerializable(SearchType.class.getSimpleName(), type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -60,8 +58,6 @@ public class SearchTabFragment extends BaseFragment implements MainTabPage {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             authCode = getArguments().getString(ARG_AUTH_CODE);
-            SearchType type = (SearchType) getArguments().getSerializable(SearchType.class.getSimpleName());
-            if (type != null) viewModel.setType(type);
         }
     }
 
@@ -70,11 +66,11 @@ public class SearchTabFragment extends BaseFragment implements MainTabPage {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentSearchTabBinding.inflate(inflater, container, false);
+        binding = FragmentSearchSeasonBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
 
         initRecyclerView();
-        viewModel.showWorks(DefaultPrefs.get(getContext()).getAccessToken(), authCode)
+        viewModel.showWithAuth(DefaultPrefs.get(getContext()).getAccessToken(), authCode)
                 .subscribe(
                         workViewModels -> {
                             viewModel.recyclerViewVisibility.set(View.VISIBLE);
@@ -109,7 +105,7 @@ public class SearchTabFragment extends BaseFragment implements MainTabPage {
                 new InfiniteOnScrollChangeListener(binding.recyclerView, linearLayoutManager) {
                     @Override
                     public void onLoadMore() {
-                        viewModel.showNextWorks()
+                        viewModel.showNext()
                                 .subscribe(
                                         workViewModels -> {
                                             viewModel.incremantePage();

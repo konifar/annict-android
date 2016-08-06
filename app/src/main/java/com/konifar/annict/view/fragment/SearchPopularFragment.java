@@ -13,38 +13,36 @@ import android.view.ViewGroup;
 
 import com.annimon.stream.Stream;
 import com.konifar.annict.R;
-import com.konifar.annict.databinding.FragmentMyWorksBinding;
-import com.konifar.annict.databinding.ItemWorkBinding;
-import com.konifar.annict.model.Status;
+import com.konifar.annict.databinding.FragmentSearchPopularBinding;
+import com.konifar.annict.databinding.ItemSearchBinding;
 import com.konifar.annict.pref.DefaultPrefs;
 import com.konifar.annict.view.widget.ArrayRecyclerAdapter;
 import com.konifar.annict.view.widget.BindingHolder;
 import com.konifar.annict.view.widget.InfiniteOnScrollChangeListener;
 import com.konifar.annict.view.widget.itemdecoration.DividerItemDecoration;
-import com.konifar.annict.viewmodel.MyWorksViewModel;
-import com.konifar.annict.viewmodel.WorkItemViewModel;
+import com.konifar.annict.viewmodel.SearchItemViewModel;
+import com.konifar.annict.viewmodel.SearchPopularViewModel;
 
 import javax.inject.Inject;
 
 
-public class MyWorksFragment extends BaseFragment implements TabPage {
+public class SearchPopularFragment extends BaseFragment implements TabPage {
 
-    private static final String TAG = MyWorksFragment.class.getSimpleName();
+    private static final String TAG = SearchPopularFragment.class.getSimpleName();
 
     @Inject
-    MyWorksViewModel viewModel;
+    SearchPopularViewModel viewModel;
 
     private String authCode;
 
-    private FragmentMyWorksBinding binding;
+    private FragmentSearchPopularBinding binding;
 
-    private MyWorksAdapter adapter;
+    private SearchItemsAdapter adapter;
 
-    public static MyWorksFragment newInstance(@NonNull String authCode, Status status) {
-        MyWorksFragment fragment = new MyWorksFragment();
+    public static SearchPopularFragment newInstance(@NonNull String authCode) {
+        SearchPopularFragment fragment = new SearchPopularFragment();
         Bundle bundle = new Bundle();
         bundle.putString(ARG_AUTH_CODE, authCode);
-        bundle.putSerializable(Status.class.getSimpleName(), status);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -60,8 +58,6 @@ public class MyWorksFragment extends BaseFragment implements TabPage {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             authCode = getArguments().getString(ARG_AUTH_CODE);
-            Status status = (Status) getArguments().getSerializable(Status.class.getSimpleName());
-            if (status != null) viewModel.setStatus(status);
         }
     }
 
@@ -70,7 +66,7 @@ public class MyWorksFragment extends BaseFragment implements TabPage {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentMyWorksBinding.inflate(inflater, container, false);
+        binding = FragmentSearchPopularBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
 
         initRecyclerView();
@@ -99,7 +95,7 @@ public class MyWorksFragment extends BaseFragment implements TabPage {
 
     private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        adapter = new MyWorksAdapter(getContext());
+        adapter = new SearchItemsAdapter(getContext());
 
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
@@ -134,25 +130,25 @@ public class MyWorksFragment extends BaseFragment implements TabPage {
         return this;
     }
 
-    public class MyWorksAdapter extends ArrayRecyclerAdapter<WorkItemViewModel, BindingHolder<ItemWorkBinding>> {
+    public class SearchItemsAdapter extends ArrayRecyclerAdapter<SearchItemViewModel, BindingHolder<ItemSearchBinding>> {
 
-        public MyWorksAdapter(@NonNull Context context) {
+        public SearchItemsAdapter(@NonNull Context context) {
             super(context);
         }
 
         @Override
-        public BindingHolder<ItemWorkBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new BindingHolder<>(getContext(), parent, R.layout.item_work);
+        public BindingHolder<ItemSearchBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new BindingHolder<>(getContext(), parent, R.layout.item_search);
         }
 
         @Override
-        public void onBindViewHolder(BindingHolder<ItemWorkBinding> holder, int position) {
-            WorkItemViewModel viewModel = getItem(position);
+        public void onBindViewHolder(BindingHolder<ItemSearchBinding> holder, int position) {
+            SearchItemViewModel viewModel = getItem(position);
             holder.binding.setViewModel(viewModel);
         }
 
         public void destroy() {
-            Stream.of(list).forEach(WorkItemViewModel::destroy);
+            Stream.of(list).forEach(SearchItemViewModel::destroy);
         }
     }
 

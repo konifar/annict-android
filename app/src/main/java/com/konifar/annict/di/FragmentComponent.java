@@ -7,7 +7,8 @@ import com.konifar.annict.view.fragment.MyProgramsFragment;
 import com.konifar.annict.view.fragment.MyWorksFragment;
 import com.konifar.annict.view.fragment.RecordCreateDialogFragment;
 import com.konifar.annict.view.fragment.SearchFragment;
-import com.konifar.annict.view.fragment.SearchTabFragment;
+import com.konifar.annict.view.fragment.SearchPopularFragment;
+import com.konifar.annict.view.fragment.SearchSeasonFragment;
 
 import dagger.Subcomponent;
 
@@ -27,5 +28,7 @@ public interface FragmentComponent {
 
     void inject(SearchFragment fragment);
 
-    void inject(SearchTabFragment fragment);
+    void inject(SearchSeasonFragment fragment);
+
+    void inject(SearchPopularFragment fragment);
 }

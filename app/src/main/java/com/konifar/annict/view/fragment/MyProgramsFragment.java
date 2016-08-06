@@ -30,7 +30,7 @@ import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 
-public class MyProgramsFragment extends BaseFragment implements MainTabPage {
+public class MyProgramsFragment extends BaseFragment implements TabPage {
 
     @Inject
     MyProgramsViewModel viewModel;
