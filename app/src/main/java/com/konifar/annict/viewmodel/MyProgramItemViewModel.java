@@ -1,7 +1,5 @@
 package com.konifar.annict.viewmodel;
 
-import com.konifar.annict.R;
-import com.konifar.annict.model.Episode;
 import com.konifar.annict.model.Program;
 import com.konifar.annict.util.DateUtil;
 import com.konifar.annict.util.PageNavigator;
@@ -9,14 +7,13 @@ import com.konifar.annict.util.ViewHelper;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.View;
 
 public class MyProgramItemViewModel implements ViewModel {
 
     public final Program program;
 
-    private final PageNavigator pageNavigator;
+    private final PageNavigator navigator;
 
     public String thumbUrl;
 
@@ -28,30 +25,23 @@ public class MyProgramItemViewModel implements ViewModel {
 
     public String channel;
 
-    public MyProgramItemViewModel(Context context, @NonNull Program program,
-        PageNavigator pageNavigator) {
+    public MyProgramItemViewModel(Context context, @NonNull Program program, PageNavigator navigator) {
         if (program.work != null) {
             workTitle = program.work.title;
             if (program.work.twitterUserName != null) {
                 thumbUrl = ViewHelper.getTwitterProfileImageUrl(program.work.twitterUserName);
             }
         }
-        if (program.episode != null) {
-            Episode episode = program.episode;
-            if (TextUtils.isEmpty(episode.title)) {
-                episodeTitle = episode.numberText;
-            } else {
-                episodeTitle = context.getString(R.string.episode_brackets, program.episode.numberText,
-                    program.episode.title);
-            }
-        }
+        episodeTitle = ViewHelper.getEpisodeTitle(program.episode, context);
+
         if (program.channel != null) {
             channel = program.channel.name;
         }
+
         displayDate = DateUtil.getProgramStartDate(program.startedAt);
 
         this.program = program;
-        this.pageNavigator = pageNavigator;
+        this.navigator = navigator;
     }
 
     @Override
@@ -60,14 +50,14 @@ public class MyProgramItemViewModel implements ViewModel {
     }
 
     public void onClickRoot(@SuppressWarnings("unused") View view) {
-        pageNavigator.startEpisodeDetailActivity(program);
+        navigator.startEpisodeDetailActivity(program);
     }
 
     public void onClickImage(@SuppressWarnings("unused") View view) {
-        pageNavigator.startWorkDetailActivity(program.work);
+        navigator.startWorkDetailActivity(program.work);
     }
 
     public void onClickRecordButton(@SuppressWarnings("unused") View view) {
-        pageNavigator.showRecordCreateDialog(program);
+        navigator.showRecordCreateDialog(program);
     }
 }

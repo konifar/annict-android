@@ -68,7 +68,7 @@ public abstract class AbstractListViewModel<MODEL, ITEM_VIEW_MODEL> implements V
                 isLoading = false;
                 progressBarVisibility.set(View.GONE);
             })
-            .doOnError((throwable) -> {
+            .doOnError(throwable -> {
                 isLoading = false;
                 progressBarVisibility.set(View.GONE);
             })

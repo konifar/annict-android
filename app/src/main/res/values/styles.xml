@@ -23,6 +23,21 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <!-- Button -->
+    <style name="Button" parent="Widget.AppCompat.Button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="Button.Accent">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/space_8dp</item>
+        <item name="android:textSize">@dimen/text_16sp</item>
+        <item name="backgroundTint">@color/accent100</item>
+    </style>
+
     <!-- Component -->
     <style name="BaseRecyclerView">
         <item name="android:clipToPadding">false</item>
@@ -64,6 +79,20 @@
         <item name="elevation">@dimen/elevation</item>
         <item name="tabIndicatorColor">@color/accent100</item>
         <item name="tabTextColor">@color/white_alpha_40</item>
+    </style>
+
+    <style name="RatingBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:isIndicator">false</item>
+        <item name="android:numStars">5</item>
+        <item name="android:stepSize">1</item>
+        <item name="android:theme">@style/RatingBarTheme</item>
+    </style>
+
+    <style name="RatingBarTheme" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/amber500</item>
+        <item name="colorControlActivated">@color/amber600</item>
     </style>
 
 </resources>

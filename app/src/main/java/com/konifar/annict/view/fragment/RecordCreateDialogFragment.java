@@ -5,8 +5,10 @@ import com.konifar.annict.databinding.FragmentRecordCreateDialogBinding;
 import com.konifar.annict.di.FragmentComponent;
 import com.konifar.annict.di.FragmentModule;
 import com.konifar.annict.model.Program;
+import com.konifar.annict.model.Record;
 import com.konifar.annict.view.activity.BaseActivity;
 import com.konifar.annict.viewmodel.RecordCreateViewModel;
+import com.konifar.annict.viewmodel.TopSnackbarViewModel;
 
 import org.parceler.Parcels;
 
@@ -26,9 +28,12 @@ import android.view.WindowManager;
 
 import javax.inject.Inject;
 
-public class RecordCreateDialogFragment extends DialogFragment {
+public class RecordCreateDialogFragment extends DialogFragment
+    implements RecordCreateViewModel.OnUpdateListener, RecordCreateViewModel.OnClickDismissListener {
 
     public static final String TAG = RecordCreateDialogFragment.class.getSimpleName();
+
+    public static final long MESSAGE_VISIBLE_MILLS = 4000L;
 
     @Inject
     RecordCreateViewModel viewModel;
@@ -56,7 +61,8 @@ public class RecordCreateDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Program program = Parcels.unwrap(getArguments().getParcelable(Program.TAG));
-            viewModel.setProgram(program);
+            viewModel.bindProgram(program);
+            viewModel.setOnUpdateListener(this, this);
         }
     }
 
@@ -94,5 +100,16 @@ public class RecordCreateDialogFragment extends DialogFragment {
             throw new IllegalStateException(
                 "The activity of this fragment is not an instance of BaseActivity");
         }
+    }
+
+    @Override
+    public void onRecordUpdated(Record record, TopSnackbarViewModel viewModel) {
+        binding.topSnackbar.setViewModel(viewModel);
+        binding.topSnackbar.show(MESSAGE_VISIBLE_MILLS);
+    }
+
+    @Override
+    public void onClickDismiss() {
+        dismiss();
     }
 }

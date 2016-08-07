@@ -12,23 +12,19 @@ import android.widget.ImageView;
 
 public class DataBindingHelper {
 
-    @BindingAdapter({"photoImageUrl", "photoImageSize"})
-    public static void setPhotoImageUrlWithSize(ImageView imageView, @Nullable String imageUrl,
-        float sizeInDimen) {
-        setImageUrlWithSize(imageView, imageUrl, sizeInDimen, R.color.grey200);
+    @BindingAdapter("photoImageUrl")
+    public static void setPhotoImageUrl(ImageView imageView, @Nullable String imageUrl) {
+        setImageUrl(imageView, imageUrl, R.color.grey200);
     }
 
-    public static void setImageUrlWithSize(ImageView imageView, @Nullable String imageUrl,
-        float sizeInDimen, @DrawableRes int placeholderResId) {
+    private static void setImageUrl(ImageView imageView, @Nullable String imageUrl,
+        @DrawableRes int placeholderResId) {
         if (TextUtils.isEmpty(imageUrl)) {
             imageView.setImageDrawable(
                 ContextCompat.getDrawable(imageView.getContext(), placeholderResId));
         } else {
-            final int size = Math.round(sizeInDimen);
             Picasso.with(imageView.getContext())
                 .load(imageUrl)
-                .resize(size, size)
-                .centerInside()
                 .placeholder(placeholderResId)
                 .error(placeholderResId)
                 .into(imageView);

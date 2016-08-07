@@ -3,5 +3,6 @@
 
     <integer name="activity_transition_mills">200</integer>
     <integer name="dialog_transition_mills">200</integer>
+    <integer name="snackbar_mills">500</integer>
 
 </resources>
