@@ -22,6 +22,8 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -135,6 +137,18 @@ public class AnnictClient {
         @POST("/v1/me/records")
         Observable<Record> postMeRecords(
             @Query("episode_id") @NonNull Long episodeId,
+            @Query("comment") String comment,
+            @Query("rating") Float rating,
+            @Query("share_twitter") boolean shareTwitter,
+            @Query("share_facebook") boolean shareFacebook
+        );
+
+        /**
+         * https://annict.wikihub.io/wiki/api/me-records
+         */
+        @PUT("/v1/me/records/{record_id}")
+        Observable<Record> putMeRecords(
+            @Path("record_id") @NonNull Long recordId,
             @Query("comment") String comment,
             @Query("rating") Float rating,
             @Query("share_twitter") boolean shareTwitter,

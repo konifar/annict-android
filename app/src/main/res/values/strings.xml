@@ -12,6 +12,7 @@
     <string name="yes">はい</string>
     <string name="no">いいえ</string>
     <string name="sending">送信中</string>
+    <string name="retry">リトライ</string>
 
     <!-- Login -->
     <string name="login">ログイン</string>
@@ -60,5 +61,6 @@
         <item quantity="one">%1$d人が記録</item>
         <item quantity="other">%1$d人が記録</item>
     </plurals>
+    <string name="record_create_failed">記録できませんでした</string>
 
 </resources>

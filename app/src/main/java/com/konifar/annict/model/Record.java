@@ -26,7 +26,7 @@ public class Record {
 
     @Column
     @SerializedName("comment")
-    public long comment;
+    public String comment;
 
     @Nullable
     @Column

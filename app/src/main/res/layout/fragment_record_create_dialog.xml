@@ -19,6 +19,7 @@
         android:scrollbars="none">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/root_card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/space_16dp"
@@ -100,6 +101,17 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_14sp"
                         tools:ignore="RelativeOverlap" />
+
+                    <com.konifar.annict.view.widget.TopSnackbarView
+                        android:id="@+id/top_snackbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/space_minus_16dp"
+                        android:layout_marginLeft="@dimen/space_minus_16dp"
+                        android:layout_marginRight="@dimen/space_minus_16dp"
+                        android:layout_marginStart="@dimen/space_minus_16dp"
+                        android:layout_marginTop="@dimen/space_minus_16dp"
+                        android:visibility="gone" />
 
                     <RatingBar
                         android:id="@+id/rating_bar"

@@ -3,8 +3,8 @@ package com.konifar.annict.viewmodel;
 import com.konifar.annict.BR;
 import com.konifar.annict.R;
 import com.konifar.annict.model.Program;
+import com.konifar.annict.model.Record;
 import com.konifar.annict.repository.RecordRepository;
-import com.konifar.annict.util.DateUtil;
 import com.konifar.annict.util.PageNavigator;
 import com.konifar.annict.util.ViewHelper;
 
@@ -12,10 +12,14 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableInt;
+import android.support.annotation.StringRes;
+import android.util.Log;
 import android.view.View;
 
 import javax.inject.Inject;
 
+import rx.Observable;
+import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 public class RecordCreateViewModel extends BaseObservable implements ViewModel {
@@ -44,9 +48,6 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
     public String episodeTitle;
 
     @Bindable
-    public String displayDate;
-
-    @Bindable
     public String recordsCount;
 
     @Bindable
@@ -68,6 +69,12 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
 
     public Program program;
 
+    public Record record;
+
+    private OnUpdateListener onUpdateListener;
+
+    private OnClickDismissListener onClickDismissListener;
+
     @Inject
     public RecordCreateViewModel(Context context, RecordRepository repository, PageNavigator navigator) {
         this.context = context;
@@ -75,8 +82,9 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
         this.navigator = navigator;
     }
 
-    public Program getProgram() {
-        return program;
+    public void setOnUpdateListener(OnUpdateListener onUpdateListener, OnClickDismissListener onClickDismissListener) {
+        this.onUpdateListener = onUpdateListener;
+        this.onClickDismissListener = onClickDismissListener;
     }
 
     public void bindProgram(Program program) {
@@ -90,15 +98,12 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
         }
         episodeTitle = ViewHelper.getEpisodeTitle(program.episode, context);
 
-        displayDate = DateUtil.getProgramStartDate(program.startedAt);
-
         recordsCount = context.getResources().getQuantityString(
             R.plurals.records_count, program.episode.recordsCount, program.episode.recordsCount);
 
         notifyPropertyChanged(BR.workTitle);
         notifyPropertyChanged(BR.thumbUrl);
         notifyPropertyChanged(BR.episodeTitle);
-        notifyPropertyChanged(BR.displayDate);
         notifyPropertyChanged(BR.recordsCount);
     }
 
@@ -137,12 +142,94 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
         notifyPropertyChanged(BR.comment);
     }
 
-    public void onclickSubmitButton(@SuppressWarnings("unused") View view) {
-        loadingVisibility.set(View.VISIBLE);
+    public void onclickSubmitButton(@SuppressWarnings("unused") View button) {
+        Subscription sub = getObservable()
+            .doOnSubscribe(() -> loadingVisibility.set(View.VISIBLE))
+            .doOnError(throwable -> loadingVisibility.set(View.GONE))
+            .doOnCompleted(() -> loadingVisibility.set(View.GONE))
+            .subscribe(
+                this::onSuccess,
+                this::onFailure
+            );
+
+        compositeSubscription.add(sub);
+    }
+
+    private void onFailure(Throwable throwable) {
+        loadingVisibility.set(View.GONE);
+        Log.e(TAG, "Record create failed.", throwable);
+        TopSnackbarViewModel viewModel =
+            ResultType.UPDATE_ERROR.createViewModel(context,
+                view -> onclickSubmitButton(null)
+            );
+        onUpdateListener.onRecordUpdated(record, viewModel);
+    }
+
+    private void onSuccess(Record record) {
+        this.record = record;
+        TopSnackbarViewModel viewModel =
+            ResultType.SUCCESS.createViewModel(context,
+                view -> onClickDismissListener.onClickDismiss()
+            );
+        onUpdateListener.onRecordUpdated(record, viewModel);
+    }
+
+    private Observable<Record> getObservable() {
+        if (record != null) {
+            // Update
+            return repository.update(
+                record.id,
+                comment,
+                rating,
+                shouldTwitterShare,
+                shouldFacebookShare
+            );
+        } else {
+            // Create
+            return repository.create(
+                program.episode.id,
+                comment,
+                rating,
+                shouldTwitterShare,
+                shouldFacebookShare
+            );
+        }
     }
 
     @Override
     public void destroy() {
         compositeSubscription.unsubscribe();
     }
+
+    public interface OnUpdateListener {
+
+        void onRecordUpdated(Record record, TopSnackbarViewModel viewModel);
+    }
+
+    public interface OnClickDismissListener {
+
+        void onClickDismiss();
+    }
+
+    private enum ResultType {
+
+        SUCCESS(R.string.record_create_completed, R.string.close),
+        UPDATE_ERROR(R.string.record_create_failed, R.string.retry);
+
+        private int textResId;
+
+        private int buttonResId;
+
+        ResultType(@StringRes int textResId, @StringRes int buttonResId) {
+            this.textResId = textResId;
+            this.buttonResId = buttonResId;
+        }
+
+        public TopSnackbarViewModel createViewModel(Context context,
+            TopSnackbarViewModel.OnClickButtonListener listener) {
+            return new TopSnackbarViewModel(context.getString(textResId), context.getString(buttonResId), listener);
+        }
+    }
+
 }
+
