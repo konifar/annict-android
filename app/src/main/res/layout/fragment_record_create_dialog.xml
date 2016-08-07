@@ -13,74 +13,183 @@
             type="com.konifar.annict.viewmodel.RecordCreateViewModel" />
     </data>
 
-    <android.support.v7.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        app:cardBackgroundColor="@color/white">
+        android:scrollbars="none">
 
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
             android:clipToPadding="false"
-            android:padding="@dimen/space_16dp">
+            android:fitsSystemWindows="true"
+            app:cardBackgroundColor="@color/white">
 
-            <ImageView
-                android:id="@+id/img_thumb"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/image_cover_height"
-                android:layout_marginEnd="-20dp"
-                android:layout_marginLeft="-20dp"
-                android:layout_marginRight="-20dp"
-                android:layout_marginStart="-20dp"
-                android:layout_marginTop="@dimen/space_minus_16dp"
-                android:background="@drawable/rectangle_border_grey200"
-                android:contentDescription="@string/photo"
-                android:scaleType="centerCrop"
-                app:photoImageUrl="@{viewModel.thumbUrl}" />
-
-            <TextView
-                android:id="@+id/txt_title"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.workTitle}"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_20sp" />
+                android:clipToPadding="false">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:padding="@dimen/space_16dp">
 
-            <RatingBar
-                android:id="@+id/rating_bar"
-                style="@style/RatingBar"
-                android:layout_below="@id/txt_title"
-                android:layout_marginTop="@dimen/space_8dp"
-                android:layout_toLeftOf="@+id/txt_rating"
-                android:layout_toStartOf="@+id/txt_rating"
-                android:rating="@={viewModel.rating}" />
+                    <ImageView
+                        android:id="@+id/img_cover"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/image_cover_height"
+                        android:layout_marginEnd="@dimen/space_minus_16dp"
+                        android:layout_marginLeft="@dimen/space_minus_16dp"
+                        android:layout_marginRight="@dimen/space_minus_16dp"
+                        android:layout_marginStart="@dimen/space_minus_16dp"
+                        android:layout_marginTop="@dimen/space_minus_16dp"
+                        android:background="@drawable/rectangle_border_grey200"
+                        android:contentDescription="@string/photo"
+                        android:scaleType="centerCrop"
+                        app:photoImageUrl="@{viewModel.thumbUrl}" />
 
-            <TextView
-                android:id="@+id/txt_rating"
-                style="@style/TextSub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/txt_title"
-                android:layout_marginTop="@dimen/space_8dp"
-                android:text="@{String.valueOf(viewModel.rating)}" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/img_cover"
+                        android:layout_alignEnd="@id/img_cover"
+                        android:layout_alignLeft="@id/img_cover"
+                        android:layout_alignRight="@id/img_cover"
+                        android:layout_alignStart="@id/img_cover"
+                        android:layout_alignTop="@id/img_cover"
+                        android:background="@color/black_alpha_54"
+                        android:padding="@dimen/space_16dp">
 
-            <SeekBar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rating_bar"
-                android:layout_marginTop="@dimen/space_8dp"
-                android:max="50"
-                android:progress="@={viewModel.ratingProgress}" />
+                        <TextView
+                            android:id="@+id/txt_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@+id/txt_episode_title"
+                            android:text="@{viewModel.workTitle}"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_20sp" />
 
-        </RelativeLayout>
+                        <TextView
+                            android:id="@+id/txt_episode_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="@dimen/space_4dp"
+                            android:text="@{viewModel.episodeTitle}"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_14sp" />
 
-    </android.support.v7.widget.CardView>
+                        <requestFocus />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:drawableLeft="@drawable/ic_people_white_14dp_vector"
+                        android:drawablePadding="@dimen/icon_space_4dp"
+                        android:drawableStart="@drawable/ic_people_white_14dp_vector"
+                        android:text="@{viewModel.recordsCount}"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_14sp"
+                        tools:ignore="RelativeOverlap" />
+
+                    <RatingBar
+                        android:id="@+id/rating_bar"
+                        style="@style/RatingBar"
+                        android:layout_below="@id/img_cover"
+                        android:layout_marginTop="@dimen/space_8dp"
+                        android:rating="@={viewModel.rating}" />
+
+                    <SeekBar
+                        android:id="@+id/seek_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rating_bar"
+                        android:layout_marginLeft="@dimen/space_minus_8dp"
+                        android:layout_marginStart="@dimen/space_minus_8dp"
+                        android:layout_toLeftOf="@+id/txt_rating"
+                        android:layout_toStartOf="@+id/txt_rating"
+                        android:max="50"
+                        android:progress="@={viewModel.ratingProgress}" />
+
+                    <TextView
+                        android:id="@+id/txt_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/seek_bar"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@id/seek_bar"
+                        android:layout_below="@id/img_cover"
+                        android:layout_marginLeft="@dimen/space_8dp"
+                        android:layout_marginStart="@dimen/space_8dp"
+                        android:gravity="center_vertical"
+                        android:text="@{String.valueOf(viewModel.rating)}"
+                        android:textSize="@dimen/text_24sp"
+                        android:textStyle="bold" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_input_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/seek_bar"
+                        android:layout_marginTop="@dimen/space_8dp">
+
+                        <EditText
+                            android:id="@+id/edit_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="top"
+                            android:hint="@string/record_create_hint"
+                            android:inputType="textMultiLine"
+                            android:minLines="2"
+                            android:text="@={viewModel.comment}"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey500"
+                            android:textSize="@dimen/text_14sp" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btn_submit"
+                        style="@style/Button.Accent"
+                        android:layout_below="@id/text_input_message"
+                        android:layout_marginTop="@dimen/space_8dp"
+                        android:onClick="@{viewModel.onclickSubmitButton}"
+                        android:text="@string/record_create" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/loading_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/container"
+                    android:layout_alignEnd="@+id/container"
+                    android:layout_alignLeft="@+id/container"
+                    android:layout_alignRight="@+id/container"
+                    android:layout_alignStart="@+id/container"
+                    android:layout_alignTop="@+id/container"
+                    android:background="@color/white_alpha_40"
+                    android:gravity="center"
+                    android:visibility="@{viewModel.loadingVisibility}">
+
+                    <include layout="@layout/view_loading" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </ScrollView>
 
 </layout>

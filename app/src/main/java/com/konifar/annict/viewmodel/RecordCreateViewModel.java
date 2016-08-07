@@ -1,6 +1,7 @@
 package com.konifar.annict.viewmodel;
 
 import com.konifar.annict.BR;
+import com.konifar.annict.R;
 import com.konifar.annict.model.Program;
 import com.konifar.annict.repository.RecordRepository;
 import com.konifar.annict.util.DateUtil;
@@ -10,6 +11,8 @@ import com.konifar.annict.util.ViewHelper;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.ObservableInt;
+import android.view.View;
 
 import javax.inject.Inject;
 
@@ -20,6 +23,8 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
     private static final String TAG = RecordCreateViewModel.class.getSimpleName();
 
     private static final int PROGRESS_BAR_PRECISION = 10;
+
+    private static final float DEFAULT_RATING = 3.0f;
 
     private final Context context;
 
@@ -42,10 +47,13 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
     public String displayDate;
 
     @Bindable
-    public float rating;
+    public String recordsCount;
 
     @Bindable
-    public int ratingProgress; // For SeekBar
+    public float rating = DEFAULT_RATING;
+
+    @Bindable
+    public int ratingProgress = (int) DEFAULT_RATING * PROGRESS_BAR_PRECISION; // For SeekBar
 
     @Bindable
     public String comment;
@@ -55,6 +63,8 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
 
     @Bindable
     public boolean shouldFacebookShare;
+
+    public ObservableInt loadingVisibility = new ObservableInt(View.GONE);
 
     public Program program;
 
@@ -82,10 +92,14 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
 
         displayDate = DateUtil.getProgramStartDate(program.startedAt);
 
+        recordsCount = context.getResources().getQuantityString(
+            R.plurals.records_count, program.episode.recordsCount, program.episode.recordsCount);
+
         notifyPropertyChanged(BR.workTitle);
         notifyPropertyChanged(BR.thumbUrl);
         notifyPropertyChanged(BR.episodeTitle);
         notifyPropertyChanged(BR.displayDate);
+        notifyPropertyChanged(BR.recordsCount);
     }
 
     public float getRating() {
@@ -112,6 +126,19 @@ public class RecordCreateViewModel extends BaseObservable implements ViewModel {
             rating = ((float) ratingProgress) / PROGRESS_BAR_PRECISION;
             notifyPropertyChanged(BR.rating);
         }
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+        notifyPropertyChanged(BR.comment);
+    }
+
+    public void onclickSubmitButton(@SuppressWarnings("unused") View view) {
+        loadingVisibility.set(View.VISIBLE);
     }
 
     @Override

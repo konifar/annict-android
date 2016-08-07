@@ -13,11 +13,11 @@ import android.widget.ImageView;
 public class DataBindingHelper {
 
     @BindingAdapter("photoImageUrl")
-    public static void setPhotoImageUrlWithSize(ImageView imageView, @Nullable String imageUrl) {
-        setImageUrlWithSize(imageView, imageUrl, R.color.grey200);
+    public static void setPhotoImageUrl(ImageView imageView, @Nullable String imageUrl) {
+        setImageUrl(imageView, imageUrl, R.color.grey200);
     }
 
-    private static void setImageUrlWithSize(ImageView imageView, @Nullable String imageUrl,
+    private static void setImageUrl(ImageView imageView, @Nullable String imageUrl,
         @DrawableRes int placeholderResId) {
         if (TextUtils.isEmpty(imageUrl)) {
             imageView.setImageDrawable(
